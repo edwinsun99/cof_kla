@@ -20,35 +20,38 @@
         {{-- Table muncul disini persis dibawah tombol --}}
         <table border="1" cellpadding="8" cellspacing="0" style="width:100%; border-collapse:collapse;">
             <thead>
-                <tr style="background:#f2f2f2; text-align:left;">
-                    <th>COF-ID</th>
-                    <th>Contact</th>
-                    <th>Cust Name</th>
-                    <th>Address</th>
-                    <th>Phone Number</th>
-                    <th>Product Number</th>
-                    <th>Serial Number</th>
-                    <th>Product Type</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse($cases as $case)
-                    <tr>
-                        <td>{{ $case->id }}</td>
-                        <td>{{ $case->contact_person }}</td>
-                        <td>{{ $case->customer_name }}</td>
-                        <td>{{ $case->address }}</td>
-                        <td>{{ $case->phone_number }}</td>
-                        <td>{{ $case->product_number }}</td>
-                        <td>{{ $case->serial_number }}</td>
-                        <td>{{ $case->product_type }}</td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="8" style="text-align:center; color:gray;">Belum ada data case.</td>
-                    </tr>
-                @endforelse
-            </tbody>
+    <tr style="background:#f2f2f2; text-align:left;">
+        <th>COF-ID</th>
+        <th>Contact</th>
+        <th>Cust Name</th>
+        <th>Address</th>
+        <th>Phone Number</th>
+        <th>Brand</th>
+        <th>Product Number</th>
+        <th>Serial Number</th>
+        <th>Product Type</th>
+    </tr>
+</thead>
+<tbody>
+    @forelse($services ?? [] as $service)
+        <tr>
+            <td>{{ $service->id }}</td>
+            <td>{{ $service->contact }}</td>
+            <td>{{ $service->customer_name }}</td>
+            <td>{{ $service->address }}</td>
+            <td>{{ $service->phone_number }}</td>
+            <td>{{ $service->brand }}</td>
+            <td>{{ $service->product_number }}</td>
+            <td>{{ $service->serial_number }}</td>
+            <td>{{ $service->product_type }}</td>
+        </tr>
+    @empty
+        <tr>
+            <td colspan="9" style="text-align:center; color:gray;">Belum ada data case.</td>
+        </tr>
+    @endforelse
+</tbody>
+
         </table>
     </div>
 @endsection

@@ -24,7 +24,7 @@ class CaseController extends Controller
     {
         $data = $request->validate([
             'customer_name' => 'nullable|string|max:255',
-            'contact_person' => 'nullable|string|max:255',
+            'contact' => 'nullable|string|max:255',
             'address' => 'nullable|string|max:500',
             'phone_number' => 'nullable|string|max:50',
             'received_date' => 'nullable|date',
@@ -42,6 +42,6 @@ class CaseController extends Controller
 
         Service::create($data);
 
-        return redirect()->route('case.index')->with('success', 'Case berhasil disimpan.');
+        return redirect()->route('services.index')->with('success', 'Case berhasil disimpan.');
     }
 }

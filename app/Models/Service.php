@@ -16,6 +16,7 @@ class Service extends Model
         'phone_number',
         'address',
         'nama_type',
+         'brand',
         'product_number',
         'serial_number',
         'fault_description',

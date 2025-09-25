@@ -59,7 +59,7 @@
 
         <div class="menu">
             <a href="{{ route('home') }}">🏠 Home</a>
-            <a href="{{ route('case.index') }}">📂 View Case</a>
+            <a href="{{ route('services.index') }}">📂 View Case</a>
             <a href="#">🔑 Logout</a>
         </div>
     </div>
