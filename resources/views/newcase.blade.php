@@ -84,11 +84,21 @@
                         <label class="form-label fw-semibold">Serial Number</label>
                         <input type="text" class="form-control shadow-sm" name="serial_number">
                     </div>
+
                     <div class="col-md-3 mb-3">
-                        <label class="form-label fw-semibold">Product Type</label>
-                        <input type="text" class="form-control shadow-sm" name="product_type" placeholder="Laptop, Printer, etc.">
+                        <label class="form-label fw-semibold">Nama Type</label>
+                        <input type="text" class="form-control shadow-sm" name="nama_type">
                     </div>
+
+                      <div class="mb-3">
+                    <label class="form-label fw-semibold">Fault Description</label>
+                    <textarea class="form-control shadow-sm" name="fault_description" rows="2"></textarea>
                 </div>
+
+                    {{-- Service Unit --}}
+                <h5 class="mt-4 text-primary fw-bold">
+                    <i class="bi bi-laptop"></i> ACCESSORIES
+                </h5>
 
                 <div class="row mb-3">
                     <div class="col-md-6 mb-3">
@@ -97,14 +107,11 @@
                     </div>
                 </div>
 
-                <div class="mb-3">
-                    <label class="form-label fw-semibold">Fault Description</label>
-                    <textarea class="form-control shadow-sm" name="fault_description" rows="2"></textarea>
-                </div>
+              
 
                 <div class="mb-3">
                     <label class="form-label fw-semibold">Unit Condition</label>
-                    <textarea class="form-control shadow-sm" name="unit_condition" rows="2"></textarea>
+                    <textarea class="form-control shadow-sm" name="kondisi_unit" rows="2"></textarea>
                 </div>
 
                 <div class="mb-3">

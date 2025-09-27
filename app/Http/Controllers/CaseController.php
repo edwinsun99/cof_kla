@@ -13,6 +13,13 @@ class CaseController extends Controller
         return view('case', compact('cases')); // case.blade.php
     }
 
+    public function show($id)
+{
+    $service = Service::findOrFail($id); // pakai modelmu
+    return view('case.show', compact('service'));
+}
+
+
     // Menampilkan form New Case
     public function create()
     {
@@ -33,7 +40,7 @@ class CaseController extends Controller
             'brand' => 'nullable|string|max:255',
             'product_number' => 'nullable|string|max:255',
             'serial_number' => 'nullable|string|max:255',
-            'product_type' => 'nullable|string|max:255',
+            'nama_type' => 'nullable|string|max:255',
             'accessories' => 'nullable|string|max:255',
             'fault_description' => 'nullable|string',
             'unit_condition' => 'nullable|string',

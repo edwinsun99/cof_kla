@@ -17,6 +17,17 @@
             </a>
         </div>
 
+        <script>
+document.addEventListener("DOMContentLoaded", function() {
+    document.querySelectorAll(".clickable-row").forEach(function(row) {
+        row.addEventListener("click", function() {
+            window.location = this.dataset.href;
+        });
+    });
+});
+</script>
+
+
         {{-- Table muncul disini persis dibawah tombol --}}
         <table border="1" cellpadding="8" cellspacing="0" style="width:100%; border-collapse:collapse;">
             <thead>
@@ -29,12 +40,14 @@
         <th>Brand</th>
         <th>Product Number</th>
         <th>Serial Number</th>
-        <th>Product Type</th>
+        <th>Nama Type</th>
+        <th>Received Date</th>
     </tr>
 </thead>
 <tbody>
     @forelse($services ?? [] as $service)
-        <tr>
+        <tr <tr class="clickable-row" data-href="{{ route('case.show', $service->id) }}">
+
             <td>{{ $service->id }}</td>
             <td>{{ $service->contact }}</td>
             <td>{{ $service->customer_name }}</td>
@@ -43,7 +56,8 @@
             <td>{{ $service->brand }}</td>
             <td>{{ $service->product_number }}</td>
             <td>{{ $service->serial_number }}</td>
-            <td>{{ $service->product_type }}</td>
+            <td>{{ $service->nama_type }}</td>
+            <td>{{ $service->received_date }}</td>
         </tr>
     @empty
         <tr>
