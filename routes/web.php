@@ -22,4 +22,4 @@ Route::post('/services', [ServiceController::class, 'store'])->name('services.st
 // Routing untuk Case
 Route::get('/case', [CaseController::class, 'index'])->name('case.index');
 Route::get('/newcase', [CaseController::class, 'create'])->name('newcase');
-Route::get('/case/{id}', [CaseController::class, 'show'])->name('case.show');
+Route::get('/case/{id}', [DetailController::class, 'show'])->name('case.show');

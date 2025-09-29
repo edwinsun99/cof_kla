@@ -27,7 +27,6 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 </script>
 
-
         {{-- Table muncul disini persis dibawah tombol --}}
         <table border="1" cellpadding="8" cellspacing="0" style="width:100%; border-collapse:collapse;">
             <thead>
