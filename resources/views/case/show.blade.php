@@ -68,9 +68,14 @@
                 <!-- Tab Content with enhanced layout -->
                 <div class="card-body p-4">
                     <div class="tab-content" id="caseTabContent">
-                        <div class="tab-pane fade show active" id="case" role="tabpanel">
+                        <div class="tab-pane fade show active" id="case" role="tabpanel" aria-labelledby="case-tab">
                             @include('partials.detailcase', ['case' => $case])
                         </div>
+
+                           <!-- Customer Partial -->
+    <div class="tab-pane fade" id="customer" role="tabpanel" aria-labelledby="customer-tab" aria-labelledby="case-tab">
+        @include('partials.detailcust', ['customer' => $case->customer])
+    </div>              
                    
                                 </div>
                             </div>
