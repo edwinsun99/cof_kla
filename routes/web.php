@@ -23,3 +23,8 @@ Route::post('/services', [ServiceController::class, 'store'])->name('services.st
 Route::get('/case', [CaseController::class, 'index'])->name('case.index');
 Route::get('/newcase', [CaseController::class, 'create'])->name('newcase');
 Route::get('/case/{id}', [DetailController::class, 'show'])->name('case.show');
+
+// Routing untuk PDF (untuk library DOMPDF sudah diinstall)
+Route::get('/case/{id}/pdf', [DetailController::class, 'downloadPdf'])->name('case.downloadPdf');
+
+

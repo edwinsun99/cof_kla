@@ -26,12 +26,15 @@
                                 <span class="fw-semibold">Ekspor ke Excel</span>
                                 <i class="bi bi-download ms-2"></i>
                             </a>
-                            <a href="#" class="btn btn-danger btn-lg shadow-sm position-relative overflow-hidden" style="min-width: 170px;">
-                                <span class="btn-shine"></span>
-                                <i class="bi bi-file-earmark-pdf-fill me-2"></i>
-                                <span class="fw-semibold">Unduh PDF</span>
-                                <i class="bi bi-download ms-2"></i>
-                            </a>
+                          <a href="{{ route('case.downloadPdf', $case->id) }}" 
+   class="btn btn-danger btn-lg shadow-sm position-relative overflow-hidden" 
+   style="min-width: 170px;">
+    <span class="btn-shine"></span>
+    <i class="bi bi-file-earmark-pdf-fill me-2"></i>
+    <span class="fw-semibold">Unduh PDF</span>
+    <i class="bi bi-download ms-2"></i>d
+</a>
+
                         </div>
                     </div>
                 </div>
