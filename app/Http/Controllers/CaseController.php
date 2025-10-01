@@ -51,4 +51,21 @@ class CaseController extends Controller
 
         return redirect()->route('services.index')->with('success', 'Case berhasil disimpan.');
     }
+
+public function search(Request $request)
+{
+    $search = $request->input('search');
+
+    $cases = Service::query()
+        ->when($search, function ($query, $search) {
+            $query->where('id', 'like', "%{$search}%") // COF-ID
+                  ->orWhere('serial_number', 'like', "%{$search}%") // SN
+                  ->orWhere('phone_number', 'like', "%{$search}%"); // Phone
+        })
+        ->get();
+
+    return view('case', compact('cases', 'search')); // ✅ pakai case.blade.php
+}
+
+
 }

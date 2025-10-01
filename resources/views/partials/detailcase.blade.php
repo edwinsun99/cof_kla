@@ -19,7 +19,19 @@
                 <th>Received Date</th>
                 <td>{{ $case->received_date }}</td>
             </tr>
-        </table>
+               <tr>
+                <th>Started Date</th>
+                <td>{{ $case->started_date }}</td>
+            </tr>
+             <tr>
+                <th>Finished Date</th>
+                <td>{{ $case->finished_date }}</td>
+            </tr>
+              <tr>
+                <th>Repair Summary</th>
+                <td>{{ $case->repair_summary }}</td>
+            </tr>
+</table>
     </div>
 
     {{-- Kolom kanan: info produk --}}

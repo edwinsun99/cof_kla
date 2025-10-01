@@ -26,5 +26,10 @@ Route::get('/case/{id}', [DetailController::class, 'show'])->name('case.show');
 
 // Routing untuk PDF (untuk library DOMPDF sudah diinstall)
 Route::get('/case/{id}/pdf', [DetailController::class, 'downloadPdf'])->name('case.downloadPdf');
+Route::get('/case/{id}/pdf/preview', [DetailController::class, 'previewPdf'])->name('case.previewPdf');
+
+// routes/web.php
+Route::get('/cases/search', [CaseController::class, 'search'])->name('case.search');
+
 
 

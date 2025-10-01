@@ -50,18 +50,43 @@
             margin-left: 240px;
             padding: 20px;
         }
+        .input-group .form-control:focus {
+            box-shadow: none;
+            border-color: #dc3545; /* warna merah bootstrap danger */
+        }
+
+        .input-group .btn {
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
     </style>
 </head>
 <body>
     <div class="header">
         Customer Order Form 2025
     </div>
+      {{-- Hasil pencarian --}}
+    @if(isset($search) && $search)
+        <p class="text-muted mt-2">Hasil pencarian untuk: <b>{{ $search }}</b></p>
+    @endif
 
-    <div class="sidebar">
-        <form action="" method="GET">
-            <input type="text" placeholder="Search Case">
-            <button type="submit">GO!</button>
-        </form>
+</div>
+                <div class="sidebar">
+    <form action="{{ route('case.search') }}" method="GET" class="d-flex">
+        <div class="input-group shadow-sm rounded-pill">
+            <input type="text" 
+                   name="search" 
+                   value="{{ request('search') }}" 
+                   class="form-control border-0 rounded-start-pill ps-4" 
+                   placeholder="🔍 Search by COF-ID, SN, or Phone...">
+            <button type="submit" class="btn btn-danger rounded-end-pill px-4">
+                GO
+            </button>
+        </div>
+    </form>
+
+          
 
         <div class="menu">
             <a href="{{ route('home') }}">🏠 Home</a>

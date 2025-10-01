@@ -41,6 +41,8 @@ document.addEventListener("DOMContentLoaded", function() {
         <th>Serial Number</th>
         <th>Nama Type</th>
         <th>Received Date</th>
+        <th>accessories</th>
+
     </tr>
 </thead>
 <tbody>
@@ -57,6 +59,8 @@ document.addEventListener("DOMContentLoaded", function() {
             <td>{{ $service->serial_number }}</td>
             <td>{{ $service->nama_type }}</td>
             <td>{{ $service->received_date }}</td>
+            <td>{{ $service->accessories}}</td>
+
         </tr>
     @empty
         <tr>

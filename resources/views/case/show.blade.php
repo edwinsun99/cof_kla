@@ -25,15 +25,16 @@
                                 <i class="bi bi-file-earmark-excel-fill me-2"></i>
                                 <span class="fw-semibold">Ekspor ke Excel</span>
                                 <i class="bi bi-download ms-2"></i>
-                            </a>
-                          <a href="{{ route('case.downloadPdf', $case->id) }}" 
-   class="btn btn-danger btn-lg shadow-sm position-relative overflow-hidden" 
-   style="min-width: 170px;">
-    <span class="btn-shine"></span>
-    <i class="bi bi-file-earmark-pdf-fill me-2"></i>
-    <span class="fw-semibold">Unduh PDF</span>
-    <i class="bi bi-download ms-2"></i>d
+                            </a>w
 </a>
+<a href="{{ route('case.previewPdf', $case->id) }}" target="_blank"
+   class="btn btn-warning btn-lg shadow-sm position-relative overflow-hidden" style="min-width: 170px;">
+    <span class="btn-shine"></span>
+    <i class="bi bi-eye me-2"></i>
+    <span class="fw-semibold">Preview PDF</span>
+</a>
+
+
 
                         </div>
                     </div>
@@ -100,7 +101,7 @@
 .nav-pills .nav-link.active {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
     color: white !important;
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    box-shadow: 0 4px 15px rgba(102, 234, 122, 0.3);
 }
 
 .nav-pills .nav-link:hover:not(.active) {
