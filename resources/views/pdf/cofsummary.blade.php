@@ -74,6 +74,7 @@
     <table>
         <tr><td>Contact</td><td>{{ $case->contact }}</td></tr>
         <tr><td>Customer Name</td><td>{{ $case->customer_name }}</td></tr>
+        <tr><td>Email</td><td>{{ $case->email }}</td></tr>
         <tr><td>Phone Number</td><td>{{ $case->phone_number }}</td></tr>
         <tr><td>Address</td><td>{{ $case->address }}</td></tr>
     </table>

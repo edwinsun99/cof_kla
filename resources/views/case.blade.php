@@ -34,6 +34,7 @@ document.addEventListener("DOMContentLoaded", function() {
         <th>COF-ID</th>
         <th>Contact</th>
         <th>Cust Name</th>
+        <th>Email</th>
         <th>Address</th>
         <th>Phone Number</th>
         <th>Brand</th>
@@ -52,6 +53,7 @@ document.addEventListener("DOMContentLoaded", function() {
             <td>{{ $service->id }}</td>
             <td>{{ $service->contact }}</td>
             <td>{{ $service->customer_name }}</td>
+            <td>{{ $service->email }}</td>
             <td>{{ $service->address }}</td>
             <td>{{ $service->phone_number }}</td>
             <td>{{ $service->brand }}</td>

@@ -28,21 +28,25 @@
                         <label class="form-label fw-semibold">Customer Name</label>
                         <input type="text" class="form-control shadow-sm" name="customer_name" placeholder="nama customer">
                     </div>
+
+                      <div class="col-md-6 mb-3">
+                        <label class="form-label fw-semibold">Email</label>
+                        <input type="text" class="form-control shadow-sm" name="email" placeholder="email">
+                    </div>
+
                     <div class="col-md-6 mb-3">
                         <label class="form-label fw-semibold">Contact Person</label>
                         <input type="text" class="form-control shadow-sm" name="contact" placeholder="nama">
                     </div>
-                </div>
 
-                <div class="row mb-3">
-                    <div class="col-md-9 mb-3">
-                        <label class="form-label fw-semibold">Address</label>
-                        <input type="text" class="form-control shadow-sm" name="address" placeholder="Street, City, Country">
-                    </div>
-                    <div class="col-md-3 mb-3">
+                 <div class="col-md-3 mb-3">
                         <label class="form-label fw-semibold">Phone Number</label>
                         <input type="text" class="form-control shadow-sm" name="phone_number" placeholder="+62...">
                     </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Address</label>
+                    <textarea class="form-control shadow-sm" name="address" rows="2"></textarea>
                 </div>
 
                 {{-- Service Information --}}

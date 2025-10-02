@@ -16,6 +16,10 @@
                 <td>{{ $case->customer_name }}</td>
             </tr>
             <tr>
+                <th>Email</th>
+                <td>{{ $case->email }}</td>
+            </tr>
+            <tr>
                 <th>Phone Number</th>
                 <td>{{ $case->phone_number }}</td>
             </tr>

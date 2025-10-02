@@ -13,6 +13,7 @@ class Service extends Model
         'finished_date',
         'contact', 
         'customer_name',
+        'email', 
         'phone_number',
         'address',
         'nama_type',
