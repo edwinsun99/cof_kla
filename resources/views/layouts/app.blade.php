@@ -66,11 +66,6 @@
     <div class="header">
         Customer Order Form 2025
     </div>
-      {{-- Hasil pencarian --}}
-    @if(isset($search) && $search)
-        <p class="text-muted mt-2">Hasil pencarian untuk: <b>{{ $search }}</b></p>
-    @endif
-
 </div>
                 <div class="sidebar">
     <form action="{{ route('case.search') }}" method="GET" class="d-flex">
@@ -85,8 +80,6 @@
             </button>
         </div>
     </form>
-
-          
 
         <div class="menu">
             <a href="{{ route('home') }}">🏠 Home</a>

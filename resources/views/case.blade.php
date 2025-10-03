@@ -7,9 +7,12 @@
         <h2 style="color: purple; margin-bottom: 20px;">📂 View Case</h2>
 
         <div style="margin-bottom: 20px;">
-            <button style="background:#27ae60; color:white; border:none; padding:8px 14px; border-radius:6px; cursor:pointer;">
+            <a href="{{ route('excel.cofdata') }}" class="btn btn-success">
+<button style="background:#27ae60; color:white; border:none; padding:8px 14px; border-radius:6px; cursor:pointer;">
                 📊 Export to Excel
             </button>
+</a>
+
             <a href="{{ route('cases.new') }}">
                 <button style="background:#e67e22; color:white; border:none; padding:8px 14px; border-radius:6px; cursor:pointer;">
                     ➕ Create New Case
@@ -32,45 +35,39 @@ document.addEventListener("DOMContentLoaded", function() {
             <thead>
     <tr style="background:#f2f2f2; text-align:left;">
         <th>COF-ID</th>
-        <th>Contact</th>
         <th>Cust Name</th>
-        <th>Email</th>
-        <th>Address</th>
-        <th>Phone Number</th>
         <th>Brand</th>
         <th>Product Number</th>
         <th>Serial Number</th>
         <th>Nama Type</th>
         <th>Received Date</th>
-        <th>accessories</th>
-
     </tr>
 </thead>
 <tbody>
-    @forelse($services ?? [] as $service)
-        <tr <tr class="clickable-row" data-href="{{ route('case.show', $service->id) }}">
+    @if(isset($search))
+        <tr>
+            <td colspan="12" style="text-align:center; font-weight:bold;">
+                🔍 Hasil pencarian untuk: <span style="color:blue;">{{ $search }}</span>
+            </td>
+        </tr>
+    @endif
 
-            <td>{{ $service->id }}</td>
-            <td>{{ $service->contact }}</td>
+    @forelse($services ?? [] as $service)
+        <tr class="clickable-row" data-href="{{ route('case.show', $service->id) }}">
+            <td>{{ $service->id }}</td> <!-- COF-ID -->
             <td>{{ $service->customer_name }}</td>
-            <td>{{ $service->email }}</td>
-            <td>{{ $service->address }}</td>
-            <td>{{ $service->phone_number }}</td>
             <td>{{ $service->brand }}</td>
             <td>{{ $service->product_number }}</td>
-            <td>{{ $service->serial_number }}</td>
+            <td>{{ $service->serial_number }}</td> <!-- SN -->
             <td>{{ $service->nama_type }}</td>
             <td>{{ $service->received_date }}</td>
-            <td>{{ $service->accessories}}</td>
-
         </tr>
     @empty
         <tr>
-            <td colspan="9" style="text-align:center; color:gray;">Belum ada data case.</td>
+            <td colspan="12" style="text-align:center; color:gray;">Data tidak ditemukan.</td>
         </tr>
     @endforelse
 </tbody>
-
         </table>
     </div>
 @endsection

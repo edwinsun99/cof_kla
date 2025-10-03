@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Service;
+use App\Excel\cofdata;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CaseController extends Controller
 {
@@ -41,7 +43,6 @@ class CaseController extends Controller
             'product_number' => 'nullable|string|max:255',
             'serial_number' => 'nullable|string|max:255',
             'nama_type' => 'nullable|string|max:255',
-            'accessories' => 'nullable|string|max:255',
             'fault_description' => 'nullable|string',
             'unit_condition' => 'nullable|string',
             'repair_summary' => 'nullable|string',
@@ -56,16 +57,19 @@ public function search(Request $request)
 {
     $search = $request->input('search');
 
-    $cases = Service::query()
+    $case = Service::query()
         ->when($search, function ($query, $search) {
-            $query->where('id', 'like', "%{$search}%") // COF-ID
+            $query->orWhere('id', 'like', "%{$search}%") // COF-ID
                   ->orWhere('serial_number', 'like', "%{$search}%") // SN
                   ->orWhere('phone_number', 'like', "%{$search}%"); // Phone
         })
         ->get();
 
-    return view('case', compact('cases', 'search')); // ✅ pakai case.blade.php
+    return view('case', compact('case', 'search')); // ✅ pakai case.blade.php
 }
 
-
+public function excel()
+{
+    return Excel::download(new CofData, 'Cof Data.xlsx');
+}
 }
