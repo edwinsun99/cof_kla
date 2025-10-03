@@ -94,6 +94,28 @@
                         <input type="text" class="form-control shadow-sm" name="nama_type">
                     </div>
 
+            <script>
+document.getElementById("product_number").addEventListener("blur", function() {
+    let pn = this.value;
+
+    if (pn !== "") {
+        fetch(`/get-nama-type/${pn}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.nama_type) {
+                    document.getElementById("nama_type").value = data.nama_type;
+                } else {
+                    document.getElementById("nama_type").value = "Tidak ditemukan";
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
+    }
+});
+</script>
+
+
                       <div class="mb-3">
                     <label class="form-label fw-semibold">Fault Description</label>
                     <textarea class="form-control shadow-sm" name="fault_description" rows="2"></textarea>

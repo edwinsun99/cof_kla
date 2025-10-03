@@ -35,7 +35,8 @@ document.addEventListener("DOMContentLoaded", function() {
             <thead>
     <tr style="background:#f2f2f2; text-align:left;">
         <th>COF-ID</th>
-        <th>Cust Name</th>
+        <th>Customer Name</th>
+        <th>Phone Number</th>
         <th>Brand</th>
         <th>Product Number</th>
         <th>Serial Number</th>
@@ -56,6 +57,7 @@ document.addEventListener("DOMContentLoaded", function() {
         <tr class="clickable-row" data-href="{{ route('case.show', $service->id) }}">
             <td>{{ $service->id }}</td> <!-- COF-ID -->
             <td>{{ $service->customer_name }}</td>
+            <td>{{ $service->phone_number }}</td>
             <td>{{ $service->brand }}</td>
             <td>{{ $service->product_number }}</td>
             <td>{{ $service->serial_number }}</td> <!-- SN -->

@@ -31,5 +31,7 @@ Route::get('/case/{id}/pdf/preview', [DetailController::class, 'previewPdf'])->n
 // routes/web.php
 Route::get('/cases/search', [CaseController::class, 'search'])->name('case.search');
 Route::get('/excel/cofdata', [CaseController::class, 'excel'])->name('excel.cofdata');
+Route::get('/get-nama-type/{[pn}', [NewCaseController::class, 'getNamaType'])->name('get.namaType');
+
 
 

@@ -59,7 +59,7 @@ public function search(Request $request)
 
     $case = Service::query()
         ->when($search, function ($query, $search) {
-            $query->orWhere('id', 'like', "%{$search}%") // COF-ID
+            $query->Where('id', $search)  // cari exact ID (COF-ID)
                   ->orWhere('serial_number', 'like', "%{$search}%") // SN
                   ->orWhere('phone_number', 'like', "%{$search}%"); // Phone
         })
