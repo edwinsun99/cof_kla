@@ -59,14 +59,16 @@ public function search(Request $request)
 
     $case = Service::query()
         ->when($search, function ($query, $search) {
-            $query->Where('id', $search)  // cari exact ID (COF-ID)
-                  ->orWhere('serial_number', 'like', "%{$search}%") // SN
-                  ->orWhere('phone_number', 'like', "%{$search}%"); // Phone
+            $query->where('id', $search)
+                    ->orWhere('customer_name', 'like', "%{$search}%")
+                  ->orWhere('serial_number', 'like', "%{$search}%")
+                  ->orWhere('phone_number', 'like', "%{$search}%");
         })
         ->get();
 
-    return view('case', compact('case', 'search')); // ✅ pakai case.blade.php
+    return view('case', ['services' => $case, 'search' => $search]);
 }
+
 
 public function excel()
 {

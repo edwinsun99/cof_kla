@@ -5,7 +5,7 @@
     <title>Customer Order Form</title>
     <style>
         @page {
-            margin: 8px 12px;
+            margin: 15px 20px;
         }
         body { 
             font-family: DejaVu Sans, sans-serif; 
@@ -103,9 +103,9 @@
             <td style="width: 34%;"><b>Finished Date</b></td>
         </tr>
         <tr>
-            <td style="height: 15px;">{{ $case->received_date }}</td>
-            <td style="height: 15px;"> {{ $case->started_date }}</td>
-            <td style="height: 15px;"> {{ $case->finished_date }}</td>
+            <td style="height: 15px;">{{ \Carbon\Carbon::now()->format('d/m/Y') }}</td>
+            <td style="height: 15px;"></td>
+            <td style="height: 15px;"></td>
         </tr>
     </table>
 
@@ -113,7 +113,7 @@
     <div class="section-title">CUSTOMER</div>
     <table style="margin-bottom: 4px;">
         <tr>
-            <td style="width:28%;"><b>Contact</b> (Company/Personal)</td>
+            <td style="width:28%;"><b>Contact</b> (Consign/Private)</td>
             <td>{{ $case->contact }}</td>
         </tr>
         <tr>
@@ -133,10 +133,6 @@
     <!-- SERVICE UNIT -->
     <div class="section-title">SERVICE UNIT</div>
     <table style="margin-bottom: 4px;">
-        <tr>
-            <td><b>Brand</b></td>
-            <td>{{ $case->brand }}</td>
-        </tr>
         <tr>
             <td style="width:28%;"><b>Product Number</b></td>
             <td>{{ $case->product_number }}</td>
@@ -164,6 +160,7 @@
     <!-- KONDISI UNIT -->
     <div class="section-title">KONDISI UNIT</div>
     <div style="border: 1px solid #000; padding: 3px; margin-bottom: 4px; min-height: 25px;">
+        <p class="small" style="font-style: italic;">(kosong, ada baret & casing back cover yg keren tidak)</p>
         {{ $case->kondisi_unit }}
     </div>
 

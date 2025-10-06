@@ -81,6 +81,20 @@
         </div>
     </form>
 
+       {{-- Menampilkan hasil pencarian --}}
+    @if(request('search'))
+        <div class="mt-3 text-center fw-bold">
+            search for
+            <span class="text-primary">{{ request('search') }}</span>
+            @if(isset($services) && $services->count() > 0)
+                : <span class="text-success">{{ $services->count() }}</span> result
+            @else
+                — <span class="text-danger">tidak ditemukan</span>
+            @endif
+        </div>
+    @endif
+
+
         <div class="menu">
             <a href="{{ route('home') }}">🏠 Home</a>
             <a href="{{ route('services.index') }}">📂 View Case</a>
