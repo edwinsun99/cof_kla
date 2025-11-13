@@ -4,7 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
     "content-hash": "0ce8b8b4f9a5047ecdafa59e0f207dd2",
+=======
+    "content-hash": "081d5da149ebec75a83fc53f40468a8b",
+>>>>>>> 1ceaeb5f97112d2834eed21cc13180f9d2e49f31
     "packages": [
         {
             "name": "barryvdh/laravel-dompdf",
@@ -6817,6 +6821,7 @@
             "time": "2025-04-30T06:54:44+00:00"
         },
         {
+<<<<<<< HEAD
             "name": "laravel/breeze",
             "version": "v1.29.1",
             "source": {
@@ -6879,6 +6884,8 @@
             "time": "2024-03-04T14:35:21+00:00"
         },
         {
+=======
+>>>>>>> 1ceaeb5f97112d2834eed21cc13180f9d2e49f31
             "name": "laravel/pint",
             "version": "v1.20.0",
             "source": {

@@ -2,11 +2,15 @@
 
 namespace App\Models;
 
+<<<<<<< HEAD
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+=======
+>>>>>>> 1ceaeb5f97112d2834eed21cc13180f9d2e49f31
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
+<<<<<<< HEAD
     use HasFactory; // penting kalau nanti kamu pakai seeder/factory
 
     /**
@@ -34,3 +38,11 @@ class Product extends Model
      */
 }
 
+=======
+    protected $table = 'product'; // pakai tabel manual
+    protected $fillable = [
+       'pn',
+       'nm_type'
+    ];
+}
+>>>>>>> 1ceaeb5f97112d2834eed21cc13180f9d2e49f31
