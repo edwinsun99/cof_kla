@@ -101,8 +101,10 @@
         <a href="javascript:void(0)" class="btn btn-light w-100 mb-2">💎 Quotation Approved/Cancelled</a>            
             <a href="javascript:void(0)" class="btn btn-light w-100 mb-2">🧑‍🔧 Engineer   </a>            
           <a href="javascript:void(0)" class="btn btn-light w-100 mb-2">🛬 Finish Repair</a>
-             <a href="{{ route('cases.new') }}" class="btn btn-light w-100 mb-2">🪄 New Case</a>
-           <a href="javascript:void(0)" class="btn btn-light w-100 mb-2">📚 Upload ERF</a>
+             <a href="{{ route('cases.new') }}" class="btn btn-light w-100 mb-2">🪄 New Case</a>         
+<a href="{{ route('erf.select') }}">🗃 Upload ERF</a>
+
+
             <a href="{{ route('ce.services.index') }}">📂 View Case</a>
             <a href="#" onclick="confirmLogout(event)">🔑 Logout</a>
 

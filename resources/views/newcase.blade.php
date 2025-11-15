@@ -80,10 +80,15 @@
                         <input type="text" class="form-control shadow-sm" name="brand">
                         </select>
                     </div>
-                    <div class="col-md-3 mb-3">
-                        <label class="form-label fw-semibold">Product Number</label>
-                        <input type="text" class="form-control shadow-sm" name="product_number">
-                    </div>
+                      <div class="col-md-3 mb-3">
+        <label for="product_number" class="form-label fw-semibold">Product Number</label>
+        <input 
+            type="text" 
+            id="product_number" 
+            name="product_number" 
+            class="form-control shadow-sm" 
+            placeholder="Masukkan Product Number">
+    </div>
                     <div class="col-md-3 mb-3">
                         <label class="form-label fw-semibold">Serial Number</label>
                         <input type="text" class="form-control shadow-sm" name="serial_number">

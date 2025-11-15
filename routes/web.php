@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 c<?php
 
 use Illuminate\Support\Facades\Route;
@@ -33,6 +32,8 @@ use App\Http\Controllers\ce\CaseController as CeCaseController;
 use App\Http\Controllers\ce\DetailController as CeDetailController;
 use App\Http\Controllers\ce\EngineerController;
 use App\Http\Controllers\ce\QuotAppCancController;
+use App\Http\Controllers\ce\ErfController;
+
 
 // OTHER CONTROLLERS
 use App\Http\Controllers\MasterController;
@@ -139,10 +140,32 @@ Route::group([], function () {
 
     Route::get('/cases/search', [CeCaseController::class, 'search'])->name('case.search');
     Route::get('/excel/cofdata', [CeCaseController::class, 'excel'])->name('excel.cofdata');
+Route::prefix('ce')->middleware(['auth'])->group(function () {
+
+    // SELECT CASE UNTUK UPLOAD ERF
+    Route::get('/select-case-for-erf', [ErfController::class, 'selectCase'])
+        ->name('erf.select');
+
+    // FORM UPLOAD ERF
+    Route::get('/case/{id}/upload-erf', [ErfController::class, 'form'])
+        ->name('erf.form');
+
+    // PROSES UPLOAD ERF
+    Route::post('/case/{id}/upload-erf', [ErfController::class, 'upload'])
+        ->name('erf.upload');
+
+        Route::get('/case/{id}/erf-preview', [ErfController::class, 'preview'])
+    ->name('erf.preview');
+
+Route::get('/case/{id}/erf-download', [ErfController::class, 'download'])
+    ->name('erf.download');
+
+});
 });
 
+
 // ===========================
-// ⚡️ ALIAS: CS ROUTES → ARAHKAN KE CE
+// ⚡ ALIAS: CS ROUTES → ARAHKAN KE CE
 // (agar semua endpoint lama CS tetap bisa dipakai)
 // ===========================
 Route::prefix('cs')->group(function () {
@@ -165,42 +188,3 @@ Route::middleware(['web', 'check.session'])->prefix('ce')->group(function () {
     Route::get('/home', [CeHomeController::class, 'index'])->name('ce.home');
     Route::post('/services', [CeServiceController::class, 'store'])->name('ce.services.store');
 });
-=======
-<?php
-
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ServiceController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\CaseController;
-use App\Http\Controllers\NewCaseController;
-use App\Http\Controllers\DetailController;
-
-Route::get('/', function () {
-    return view('home');
-})->name('home');
-
-Route::get('/cases/new', function () {
-    return view('newcase'); 
-})->name('cases.new');
-
-// Routing untuk Service
-Route::get('/services', [ServiceController::class, 'index'])->name('services.index');
-Route::post('/services', [ServiceController::class, 'store'])->name('services.store');
-
-// Routing untuk Case
-Route::get('/case', [CaseController::class, 'index'])->name('case.index');
-Route::get('/newcase', [CaseController::class, 'create'])->name('newcase');
-Route::get('/case/{id}', [DetailController::class, 'show'])->name('case.show');
-
-// Routing untuk PDF (untuk library DOMPDF sudah diinstall)
-Route::get('/case/{id}/pdf', [DetailController::class, 'downloadPdf'])->name('case.downloadPdf');
-Route::get('/case/{id}/pdf/preview', [DetailController::class, 'previewPdf'])->name('case.previewPdf');
-
-// routes/web.php
-Route::get('/cases/search', [CaseController::class, 'search'])->name('case.search');
-Route::get('/excel/cofdata', [CaseController::class, 'excel'])->name('excel.cofdata');
-Route::get('/get-nama-type/{[pn}', [NewCaseController::class, 'getNamaType'])->name('get.namaType');
-
->>>>>>> 1ceaeb5f97112d2834eed21cc13180f9d2e49f31
-
-

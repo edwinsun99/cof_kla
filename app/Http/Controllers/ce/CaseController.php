@@ -94,10 +94,10 @@ public function logdate(Request $request)
      * Detail case berdasarkan ID.
      */
     public function show($id)
-    {
-        $service = Service::findOrFail($id);
-        return view('ce.case_show', compact('service'));
-    }
+{
+    $service = Service::findOrFail($id);
+    return view('ce.case_show', compact('service'));
+}
 
     /**
      * Form untuk create new case.

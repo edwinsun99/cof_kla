@@ -74,6 +74,7 @@ Jumlah data: {{ count($cases) }}
         <th>Product Number</th>
         <th>Serial Number</th>
         <th>Nama Type</th>
+        <th>ERF</th>
         <th>Received Date</th>
     </tr>
 </thead>
@@ -95,6 +96,19 @@ Jumlah data: {{ count($cases) }}
             <td>{{ $service->product_number }}</td>
             <td>{{ $service->serial_number }}</td> <!-- SN -->
             <td>{{ $service->nama_type }}</td>
+
+<td>
+    @if($service->erf_file)
+        <a href="{{ asset('storage/' . $service->erf_file) }}" target="_blank" rel="noopener noreferrer">
+            📄 PDF
+        </a>
+    @else
+        —
+    @endif
+</td>
+
+
+
             <td>{{ $service->received_date }}</td>
         </tr>
     @empty
