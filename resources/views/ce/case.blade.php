@@ -73,6 +73,7 @@ Jumlah data: {{ count($cases) }}
         <th>Brand</th>
         <th>Product Number</th>
         <th>Serial Number</th>
+        <th>Status</th>
         <th>Nama Type</th>
         <th>ERF</th>
         <th>Received Date</th>
@@ -95,6 +96,7 @@ Jumlah data: {{ count($cases) }}
             <td>{{ $service->brand }}</td>
             <td>{{ $service->product_number }}</td>
             <td>{{ $service->serial_number }}</td> <!-- SN -->
+            <td>{{ $service->status }}</td>
             <td>{{ $service->nama_type }}</td>
 
 <td>

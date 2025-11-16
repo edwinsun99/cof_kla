@@ -140,27 +140,54 @@ Route::group([], function () {
 
     Route::get('/cases/search', [CeCaseController::class, 'search'])->name('case.search');
     Route::get('/excel/cofdata', [CeCaseController::class, 'excel'])->name('excel.cofdata');
-Route::prefix('ce')->middleware(['auth'])->group(function () {
+// CE - ERF ROUTES
+Route::prefix('ce')->group(function () {
 
-    // SELECT CASE UNTUK UPLOAD ERF
     Route::get('/select-case-for-erf', [ErfController::class, 'selectCase'])
         ->name('erf.select');
 
-    // FORM UPLOAD ERF
     Route::get('/case/{id}/upload-erf', [ErfController::class, 'form'])
         ->name('erf.form');
 
-    // PROSES UPLOAD ERF
     Route::post('/case/{id}/upload-erf', [ErfController::class, 'upload'])
         ->name('erf.upload');
 
-        Route::get('/case/{id}/erf-preview', [ErfController::class, 'preview'])
-    ->name('erf.preview');
+    Route::get('/case/{id}/erf-preview', [ErfController::class, 'preview'])
+        ->name('erf.preview');
 
-Route::get('/case/{id}/erf-download', [ErfController::class, 'download'])
-    ->name('erf.download');
+    Route::get('/case/{id}/erf-download', [ErfController::class, 'download'])
+        ->name('erf.download');
+});
+
+   Route::prefix('ce')->name('ce.')->group(function () {
+
+    // Halaman Engineer
+    Route::get('/engineer', [EngineerController::class, 'index'])
+        ->name('engineer.index');
+
+    // Update status ke Progress
+    Route::post('/engineer/{id}/progress', [EngineerController::class, 'setProgress'])
+        ->name('engineer.progress');
+
+    // Update status ke Finished
+    Route::post('/engineer/{id}/finish', [EngineerController::class, 'setFinished'])
+        ->name('engineer.finish');
+
+Route::post('/engineer/{id}/status', [EngineerController::class, 'updateStatus'])
+    ->name('engineer.updateStatus');
 
 });
+Route::prefix('ce')->name('ce.')->group(function () {
+
+    // Menampilkan daftar case finished
+    Route::get('/finished', [EngineerController::class, 'finishedIndex'])
+        ->name('finished.index');
+
+    // Close case (mengubah status : FINISHED → CLOSED)
+    Route::post('/finished/{id}/close', [EngineerController::class, 'setClosed'])
+        ->name('finished.close');
+});
+
 });
 
 

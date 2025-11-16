@@ -97,15 +97,25 @@
     @endif 
 
         <div class="menu">
-            <a href="{{ route('home') }}">🏠 Home</a>
+           <a href="{{ route('home') }}">🏠 Home</a>
         <a href="javascript:void(0)" class="btn btn-light w-100 mb-2">💎 Quotation Approved/Cancelled</a>            
-            <a href="javascript:void(0)" class="btn btn-light w-100 mb-2">🧑‍🔧 Engineer   </a>            
-          <a href="javascript:void(0)" class="btn btn-light w-100 mb-2">🛬 Finish Repair</a>
-             <a href="{{ route('cases.new') }}" class="btn btn-light w-100 mb-2">🪄 New Case</a>         
-<a href="{{ route('erf.select') }}">🗃 Upload ERF</a>
+            <li class="nav-item">
+    <a href="{{ route('ce.engineer.index') }}"
+       class="nav-link {{ request()->routeIs('ce.engineer.*') ? 'active' : '' }}">
+        <i class="bi bi-wrench-adjustable"></i> Engineer
+    </a>
+</li>
 
-
+<li class="nav-item">e
+    <a href="{{ route('ce.finished.index') }}"
+       class="nav-link {{ request()->routeIs('ce.finished.*') ? 'active' : '' }}">
+        <i class="bi bi-check2-circle"></i> Finished
+    </a>
+</li>
+             <a href="{{ route('cases.new') }}" class="btn btn-light w-100 mb-2">🪄 New Case</a>
+           <a href="{{ route('erf.select') }}" class="btn btn-light w-100 mb-2">📚 Upload ERF</a>
             <a href="{{ route('ce.services.index') }}">📂 View Case</a>
+
             <a href="#" onclick="confirmLogout(event)">🔑 Logout</a>
 
 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

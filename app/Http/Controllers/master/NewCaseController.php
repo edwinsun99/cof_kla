@@ -7,6 +7,14 @@ use App\Http\Controllers\Controller; // WAJIB ada ini
 
 class NewCaseController extends Controller
 {
+
+    public function create()
+{
+    $branches = Branch::all();   // <-- ambil data cabang
+
+    return view('master.newcase', compact('branches'));  // <-- kirim ke view
+}
+
     public function index()
     {
         return view('master.newcase'); // file: resources/views/newcase.blade.php

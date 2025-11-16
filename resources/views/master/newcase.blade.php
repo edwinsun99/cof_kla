@@ -85,7 +85,20 @@ $(document).ready(function () {
                 <h5 class="mt-4 text-primary fw-bold"><i class="bi bi-wrench-adjustable"></i> Service Information</h5>
                 <hr class="mt-1">
 
-                <div class="row mb-3">
+<div class="row mb-3">
+    <div class="col-md-4 mb-3">
+        <label class="form-label fw-semibold">Branch</label>
+        <select name="branch_id" class="form-select shadow-sm" required>
+            <option value="">-- Select Branch --</option>
+            @foreach ($branches as $branch)
+                <option value="{{ $branches->id }}">
+                    {{ $branch->prefix }} - {{ $branch->name }}
+                </option>
+            @endforeach
+        </select>
+    </div>
+</div>
+                
                     <div class="col-md-4 mb-3">
                         <label class="form-label fw-semibold">Received Date</label>
                         <input type="date" class="form-control shadow-sm" name="received_date">
