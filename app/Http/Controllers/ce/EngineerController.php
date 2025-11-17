@@ -11,15 +11,16 @@ class EngineerController extends Controller
     // =======================
     // Halaman Engineer
     // =======================
-   public function index()
+public function index()
 {
-    // ambil case terbaru yang statusnya NEW
-    $cases = Service::where('status', 'NEW')
+    $cases = Service::whereIn('status', ['NEW', 'repair progress'])
                     ->orderBy('created_at', 'DESC')
                     ->get();
 
     return view('ce.engineer', compact('cases'));
 }
+
+
 public function updateStatus(Request $request, $id)
 {
     $case = Service::findOrFail($id);

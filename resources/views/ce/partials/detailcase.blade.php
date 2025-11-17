@@ -60,4 +60,58 @@ d<div class="row">
             </tr>
         </table>
     </div>
+
+@php
+    // fallback kalau controller belum mengirim; mencegah undefined variable
+    $service = $service ?? ($case ?? null);
+    $statusOptions = $statusOptions ?? [];
+@endphp
+
+@if(!$service)
+    <div class="alert alert-warning">Service not found.</div>
+@else
+    <form action="{{ route('ce.case.updateStatus', $service->id) }}" method="POST">
+        @csrf
+
+        <label>Status</label>
+        
+{{-- CURRENT STATUS --}}
+<div class="mb-3">
+    <label class="form-label"><strong>Current Status:</strong></label>
+    <div class="p-2 border rounded bg-light">
+        {{ ucfirst($service->status) }}
+    </div>
+</div>
+
+{{-- CHANGE STATUS --}}
+<div class="mb-3">
+    <label class="form-label"><strong>Change Status *</strong></label>
+    
+    <select name="status" class="form-control">
+        @php
+            $opsi = [
+                'new',
+                'repair progress',
+                'quotation request',
+                'cancel repair',
+                'finish repair'
+            ];
+        @endphp
+
+        @foreach ($opsi as $st)
+            <option value="{{ $st }}" {{ $service->status == $st ? 'selected' : '' }}>
+                {{ ucwords($st) }}
+            </option>
+        @endforeach
+    </select>
+</div>
+
+
+
+
+        <button type="submit" class="btn btn-primary mt-2">Save</button>
+    </form>
+@endif
+
+
 </div>

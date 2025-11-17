@@ -1,10 +1,12 @@
 <?php
+
 namespace App\Http\Controllers\ce;
 
 use App\Models\Service;
-use App\Http\Controllers\Controller; // WAJIB ada ini
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\DB;
 
 class DetailController extends Controller
 {
@@ -14,31 +16,46 @@ class DetailController extends Controller
         return view('ce.show', compact('case'));
     }
 
+    public function updateStatus(Request $request, $id)
+    {
+        $request->validate([
+            'status' => 'required|string'
+        ]);
 
-   public function previewPdf($id)
+        $service = Service::findOrFail($id);
+
+        $service->status = $request->status;
+        $service->save();
+
+        return redirect()
+            ->route('ce.case.show', $id)
+            ->with('success', 'Status berhasil diperbarui!');
+    }
+
+public function status($id)
 {
-    // Ambil data service + relasi branch
-    $case = \App\Models\Service::with('branch')->findOrFail($id);
-
-    // Pastikan branch tersedia
-    $branch = $case->branch;
-    $branchName = $branch->name ?? 'Unknown Branch';
-    $prefix = $branch->prefix ?? '';
-
-    // Data alamat dan telp dari tabel branches
-    $alamat = [
-        'line1' => $branch->address ?? 'Alamat tidak tersedia',
-        'telp'  => $branch->phone ?? '-',
-    ];
-
-    // Load Blade PDF dengan variabel tambahan
-    $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('ce.pdf.cofsummary', compact('case', 'alamat'));
-
-    // Buat nama file dinamis berdasarkan prefix dan branch
-    $fileName = 'COF_' . $case->cof_id . '_' . str_replace(' ', '_', $branchName) . '.pdf';
-
-    // Preview PDF langsung di browser (bukan download)
-    return $pdf->stream($fileName);
+    $service = Service::findOrFail($id);
+    return view('ce.partials.detailcase', compact('service'));
 }
 
+
+
+    public function previewPdf($id)
+    {
+        $case = Service::with('branch')->findOrFail($id);
+
+        $branch = $case->branch;
+        $branchName = $branch->name ?? 'Unknown Branch';
+
+        $alamat = [
+            'line1' => $branch->address ?? 'Alamat tidak tersedia',
+            'telp'  => $branch->phone ?? '-',
+        ];
+
+        $pdf = Pdf::loadView('ce.pdf.cofsummary', compact('case', 'alamat'));
+
+        $fileName = 'COF_' . $case->cof_id . '_' . str_replace(' ', '_', $branchName) . '.pdf';
+
+        return $pdf->stream($fileName);
+    }
 }

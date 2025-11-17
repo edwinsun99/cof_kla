@@ -2,15 +2,15 @@
 namespace App\Http\Controllers\master;
 
 use Illuminate\Http\Request;
+use App\Models\Branches;
 use App\Http\Controllers\Controller; // WAJIB ada ini
-
 
 class NewCaseController extends Controller
 {
 
     public function create()
 {
-    $branches = Branch::all();   // <-- ambil data cabang
+    $branches = Branches::all();   // <-- ambil data cabang
 
     return view('master.newcase', compact('branches'));  // <-- kirim ke view
 }

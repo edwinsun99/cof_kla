@@ -13,7 +13,7 @@
             </button>
 </a>
 
-              <a href="{{ route('cases.new') }}">
+              <a href="{{ route('master.newcase') }}">
                 <button style="background:#e67e22; color:white; border:none; padding:8px 14px; border-radius:6px; cursor:pointer;">
                     ➕ Create New Case
                 </button>

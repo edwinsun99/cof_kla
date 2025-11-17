@@ -57,12 +57,6 @@ document.addEventListener("DOMContentLoaded", function() {
                     <td>{{ $case->nama_type }}</td>
                     <td>{{ $case->received_date }}</td>
 
-
-
-
-
-
-
                     <td>
                         <span class="badge bg-warning">{{ $case->status }}</span>
                     </td>

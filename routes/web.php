@@ -165,18 +165,18 @@ Route::prefix('ce')->group(function () {
     Route::get('/engineer', [EngineerController::class, 'index'])
         ->name('engineer.index');
 
-    // Update status ke Progress
-    Route::post('/engineer/{id}/progress', [EngineerController::class, 'setProgress'])
-        ->name('engineer.progress');
-
     // Update status ke Finished
     Route::post('/engineer/{id}/finish', [EngineerController::class, 'setFinished'])
         ->name('engineer.finish');
 
-Route::post('/engineer/{id}/status', [EngineerController::class, 'updateStatus'])
-    ->name('engineer.updateStatus');
+Route::get('/case/{id}', 'App\Http\Controllers\ce\DetailController@status')
+    ->name('ce.case.show');
+
+Route::post('/case/{id}/status', 'App\Http\Controllers\ce\DetailController@updateStatus')
+    ->name('case.updateStatus');
 
 });
+
 Route::prefix('ce')->name('ce.')->group(function () {
 
     // Menampilkan daftar case finished

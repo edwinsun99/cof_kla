@@ -29,12 +29,36 @@ class CaseController extends Controller
      * Tampilkan semua case untuk CE sesuai cabangnya.
      */
     public function index()
-    {
-        $user = Auth::user();
-        $cases = Service::where('branch_id', $user->branch_id)->latest()->get();
+{
+    $user = Auth::user();
 
-        return view('ce.case', compact('cases'));
+    // tampilkan semua case milik cabang CE login (tanpa filter status)
+    $cases = Service::where('branch_id', $user->branch_id)
+                    ->orderBy('created_at', 'DESC')
+                    ->get();
+
+    return view('ce.case', compact('cases'));
+}
+
+
+   private function getEnumValues(string $table, string $column): array
+{
+    $row = DB::select(DB::raw("SHOW COLUMNS FROM `{$table}` WHERE Field = '{$column}'"));
+
+    if (!isset($row[0])) {
+        return [];
     }
+
+    $type = $row[0]->Type; // contoh: enum('new','repair progress',...)
+    preg_match("/^enum\((.*)\)$/", $type, $matches);
+
+    if (!isset($matches[1])) {
+        return [];
+    }
+
+    $vals = array_map(function($v){ return trim($v, "'"); }, explode(',', $matches[1]));
+    return $vals;
+}
     
 public function logdate(Request $request)
 {
