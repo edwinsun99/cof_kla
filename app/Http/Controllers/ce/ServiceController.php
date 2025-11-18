@@ -107,6 +107,8 @@ public function previewPdf($id)
         // Simpan service
         Service::create([
             'cof_id' => $cofId,
+            'status' => 'new', // default awal
+            'erf_file' => $request->erf_file, // jika dari input text
             'branch_id' => $user->branch_id,
             'ce_id' => $user->id,
             'customer_name' => $request->customer_name,

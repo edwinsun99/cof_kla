@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     <td>{{ $case->cof_id }}</td>
 <td>
     <a href="{{ route('ce.case.show', $case->id) }}" style="text-decoration:none;">
-        {{ $case->customer_name }}
+        {{ $case->customer_name }} 
     </a>
 </td>
                     <td>{{ $case->phone_number }}</td>

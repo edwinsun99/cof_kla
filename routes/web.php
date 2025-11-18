@@ -93,6 +93,7 @@ Route::group([], function () {
 // 🔹 CM ROUTES
 // ===========================
 Route::prefix('cm')->name('cm.')->group(function () {
+
     Route::get('/home', function () {
         if (!Session::get('login') || Session::get('role') !== 'CM') {
             return redirect()->route('login')->with('error', 'Akses ditolak.');
@@ -100,11 +101,27 @@ Route::prefix('cm')->name('cm.')->group(function () {
         return app(CmHomeController::class)->index();
     })->name('home');
 
+    // SERVICES
     Route::get('/services', [CmServiceController::class, 'index'])->name('services.index');
     Route::post('/services', [CmServiceController::class, 'store'])->name('services.store');
 
+    // CASE
     Route::get('/case', [CmCaseController::class, 'index'])->name('case.index');
     Route::get('/case/{id}', [CmDetailController::class, 'show'])->name('case.show');
+
+    Route::get('/case/logdate', [CeCaseController::class, 'logdate'])->name('case.logdate');
+
+    Route::get('/case/{id}/pdf', [CeDetailController::class, 'downloadPdf'])->name('case.downloadPdf');
+    Route::get('/case/{id}/pdf/preview', [CeDetailController::class, 'previewPdf'])->name('case.previewPdf');
+
+    Route::get('/cases/search', [CeCaseController::class, 'search'])->name('case.search');
+
+    // EXCEL
+    Route::get('/excel/cofdata', [CeCaseController::class, 'excel'])->name('excel.cofdata');
+
+    // CM: menu Quotation Request (tampilkan list yang status == 'Quotation Request')
+    Route::get('/quotation-request', [QuotReqController::class, 'index'])
+         ->name('quotation.index');
 });
 
 // ===========================
@@ -126,12 +143,12 @@ Route::group([], function () {
     })->name('home');
 
     Route::get('/ce/services', [CeServiceController::class, 'index'])->name('ce.services.index');
-    Route::post('/ce/services', [CeServiceContrcoller::class, 'store'])->name('ce.services.store');
+    Route::post('/ce/services', [CeServiceControlller::class, 'store'])->name('ce.services.store');
 
     Route::get('/ce/case', [CeCaseController::class, 'index'])->name('ce.case.index');
     Route::get('/ce/case/logdate', [CeCaseController::class, 'logdate'])->name('ce.case.logdate');
-    Route::get('ce/cases/new', fn() => view('ce.newcase'))->name('cases.new');
-    Route::get('ce/newcase', [CeCaseController::class, 'create'])->name('newcase');
+    Route::get('/ce/cases/new', fn() => view('ce.newcase'))->name('cases.new');
+    Route::get('/ce/newcase', [CeCaseController::class, 'create'])->name('newcase');
     Route::post('/ce/newcase', [CeCaseController::class, 'store'])->name('ce.case.store');
 
     Route::get('/case/{id}', [CeDetailController::class, 'show'])->name('ce.case.show');

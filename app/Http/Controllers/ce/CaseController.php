@@ -153,6 +153,8 @@ public function store(Request $request)
         'fault_description' => 'nullable|string',
         'kondisi_unit' => 'nullable|string',
         'repair_summary' => 'nullable|string',
+        'status' => 'required|string',
+        'erf_file' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
     ]);
 
     // ✅ Ambil user login berdasarkan session

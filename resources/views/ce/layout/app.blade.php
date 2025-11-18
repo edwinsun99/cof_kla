@@ -106,7 +106,7 @@
     </a>
 </li>
 
-<li class="nav-item">e
+<li class="nav-item">
     <a href="{{ route('ce.finished.index') }}"
        class="nav-link {{ request()->routeIs('ce.finished.*') ? 'active' : '' }}">
         <i class="bi bi-check2-circle"></i> Finished

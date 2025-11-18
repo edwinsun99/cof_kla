@@ -1,10 +1,15 @@
-@extends('layouts.app')
+@extends('cm.layout.app')
 
 @section('title', 'Case')
 
 @section('content')
+
+@php
+    $cases = $cases ?? collect(); // kalau null, ubah jadi collection kosong
+@endphp
+
     <div style="padding: 20px;">
-        <h2 style="color: purple; margin-bottom: 20px;">📂 View Case</h2>
+        <h2 style="color: purple; margin-bottom: 20px;">✌️ Quotation Request</h2>
 
         <div style="margin-bottom: 20px;">
             <a href="{{ route('excel.cofdata') }}" class="btn btn-success">
@@ -13,12 +18,34 @@
             </button>
 </a>
 
-            <a href="{{ route('cases.new') }}">
+              <a href="{{ route('cases.new') }}">
                 <button style="background:#e67e22; color:white; border:none; padding:8px 14px; border-radius:6px; cursor:pointer;">
                     ➕ Create New Case
                 </button>
             </a>
         </div>
+
+        <form action="{{ route('cm.case.logdate') }}" method="GET" class="mb-3 d-flex align-items-end gap-3">
+    <div>
+        <label for="start_date" class="form-label">Start Date:</label>
+        <input type="date" name="start_date" id="start_date"
+            class="form-control" value="{{ request('start_date') }}">
+    </div>
+
+    <div>
+        <label for="end_date" class="form-label">End Date:</label>
+        <input type="date" name="end_date" id="end_date"
+            class="form-control" value="{{ request('end_date') }}">
+    </div>
+
+    <div>
+        <button type="submit" class="btn btn-success">Filter</button>
+        @if(request('start_date') || request('end_date'))
+            <a href="{{ route('cm.case.index') }}" class="btn btn-secondary">Reset</a>
+        @endif
+    </div>
+</form>
+
 
         <script>
 document.addEventListener("DOMContentLoaded", function() {
@@ -30,6 +57,12 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 </script>
 
+<pre>
+Start: {{ request('start_date') }}
+End: {{ request('end_date') }}
+Jumlah data: {{ count($cases) }}
+</pre>
+
         {{-- Table muncul disini persis dibawah tombol --}}
         <table border="1" cellpadding="8" cellspacing="0" style="width:100%; border-collapse:collapse;">
             <thead>
@@ -40,7 +73,9 @@ document.addEventListener("DOMContentLoaded", function() {
         <th>Brand</th>
         <th>Product Number</th>
         <th>Serial Number</th>
+        <th>Status</th>
         <th>Nama Type</th>
+        <th>ERF</th>
         <th>Received Date</th>
     </tr>
 </thead>
@@ -53,15 +88,29 @@ document.addEventListener("DOMContentLoaded", function() {
         </tr>
     @endif
 
-    @forelse($services ?? [] as $service)
-        <tr class="clickable-row" data-href="{{ route('case.show', $service->id) }}">
-            <td>{{ $service->id }}</td> <!-- COF-ID -->
+@forelse($cases ?? [] as $service)
+        <tr class="clickable-row" data-href="{{ route('cm.case.show', $service->id) }}">
+            <td>{{ $service->cof_id }}</td> <!-- COF-ID -->
             <td>{{ $service->customer_name }}</td>
             <td>{{ $service->phone_number }}</td>
             <td>{{ $service->brand }}</td>
-            <td>{{ $service->product_number }}</td>
+            <td>{{ $service->product_number }}</td> 
             <td>{{ $service->serial_number }}</td> <!-- SN -->
+            <td>{{ $service->status }}</td>
             <td>{{ $service->nama_type }}</td>
+
+<td>
+    @if($service->erf_file)
+        <a href="{{ asset('storage/' . $service->erf_file) }}" target="_blank" rel="noopener noreferrer">
+            📄 PDF
+        </a>
+    @else
+        —
+    @endif
+</td>
+
+
+
             <td>{{ $service->received_date }}</td>
         </tr>
     @empty

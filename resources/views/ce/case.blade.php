@@ -94,7 +94,7 @@ Jumlah data: {{ count($cases) }}
             <td>{{ $service->customer_name }}</td>
             <td>{{ $service->phone_number }}</td>
             <td>{{ $service->brand }}</td>
-            <td>{{ $service->product_number }}</td>
+            <td>{{ $service->product_number }}</td> 
             <td>{{ $service->serial_number }}</td> <!-- SN -->
             <td>{{ $service->status }}</td>
             <td>{{ $service->nama_type }}</td>
