@@ -33,6 +33,7 @@ use App\Http\Controllers\ce\DetailController as CeDetailController;
 use App\Http\Controllers\ce\EngineerController;
 use App\Http\Controllers\ce\QuotAppCancController;
 use App\Http\Controllers\ce\ErfController;
+use App\Http\Controllers\ce\FinishController;
 
 
 // OTHER CONTROLLERS
@@ -211,6 +212,10 @@ Route::prefix('ce')->name('ce.')->group(function () {
             // CM: menu Quotation Request (tampilkan list yang status == 'Quotation Request')
     Route::get('/quotation-appcancl', [QuotAppCancController::class, 'index'])
          ->name('quotation.appcancl');
+
+             Route::get('/finish-repair', [FinishController::class, 'index'])
+         ->name('finish.repair');
+         
 });
 
 });

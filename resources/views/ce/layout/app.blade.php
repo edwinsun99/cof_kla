@@ -106,13 +106,9 @@
     </a>
 </li>
 
-<li class="nav-item">
-    <a href="{{ route('ce.finished.index') }}"
-       class="nav-link {{ request()->routeIs('ce.finished.*') ? 'active' : '' }}">
-        <i class="bi bi-check2-circle"></i> Finished
-    </a>
-</li>
-             <a href="{{ route('cases.new') }}" class="btn btn-light w-100 mb-2">🪄 New Case</a>
+            <a href="{{ route('ce.finish.repair') }}">📂 Finish Repair</a>
+
+     <a href="{{ route('cases.new') }}" class="btn btn-light w-100 mb-2">🪄 New Case</a>
            <a href="{{ route('erf.select') }}" class="btn btn-light w-100 mb-2">📚 Upload ERF</a>
             <a href="{{ route('ce.services.index') }}">📂 View Case</a>
 

@@ -90,7 +90,6 @@ d<div class="row">
     <select name="status" class="form-control">
         @php
             $opsi = [
-                'new',
                 'repair progress',
                 'quotation request',
                 'cancel repair',
