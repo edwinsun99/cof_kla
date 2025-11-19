@@ -1,10 +1,12 @@
 <?php
+
 namespace App\Http\Controllers\cm;
 
 use App\Models\Service;
-use App\Http\Controllers\Controller; // WAJIB ada ini
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\DB;
 
 class DetailController extends Controller
 {
@@ -14,24 +16,46 @@ class DetailController extends Controller
         return view('cm.show', compact('case'));
     }
 
-    public function downloadPdf($id)
+    public function updateStatus(Request $request, $id)
     {
-        $case = Service::findOrFail($id);
+        $request->validate([
+            'status' => 'required|string'
+        ]);
 
-        $pdf = Pdf::loadView('cm.pdf.cofsummary', compact('case'))
-                  ->setPaper('a4', 'portrait');
+        $service = Service::findOrFail($id);
 
-        return $pdf->download('COF-'.$case->id.'.pdf');
+        $service->status = $request->status;
+        $service->save();
+
+        return redirect()
+            ->route('cm.case.show', $id)
+            ->with('success', 'Status berhasil diperbarui!');
     }
+
+public function status($id)
+{
+    $service = Service::findOrFail($id);
+    return view('cm.partials.detailcase', compact('service'));
+}
+
+
 
     public function previewPdf($id)
     {
-        $case = Service::findOrFail($id);
+        $case = Service::with('branch')->findOrFail($id);
 
-        $pdf = Pdf::loadView('cm.pdf.cofsummary', compact('case'))
-                  ->setPaper('a4', 'portrait');
+        $branch = $case->branch;
+        $branchName = $branch->name ?? 'Unknown Branch';
 
-        // pakai stream biar tampil di browser
-        return $pdf->stream('COF-'.$case->id.'.pdf');
+        $alamat = [
+            'line1' => $branch->address ?? 'Alamat tidak tersedia',
+            'telp'  => $branch->phone ?? '-',
+        ];
+
+        $pdf = Pdf::loadView('cm.pdf.cofsummary', compact('case', 'alamat'));
+
+        $fileName = 'COF_' . $case->cof_id . '_' . str_replace(' ', '_', $branchName) . '.pdf';
+
+        return $pdf->stream($fileName);
     }
 }

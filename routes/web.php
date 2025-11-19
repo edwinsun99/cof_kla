@@ -122,6 +122,10 @@ Route::prefix('cm')->name('cm.')->group(function () {
     // CM: menu Quotation Request (tampilkan list yang status == 'Quotation Request')
     Route::get('/quotation-request', [QuotReqController::class, 'index'])
          ->name('quotation.index');
+
+    Route::post('/case/{id}/status', 'App\Http\Controllers\cm\DetailController@updateStatus')
+    ->name('case.updateStatus');
+
 });
 
 // ===========================
@@ -203,6 +207,10 @@ Route::prefix('ce')->name('ce.')->group(function () {
     // Close case (mengubah status : FINISHED → CLOSED)
     Route::post('/finished/{id}/close', [EngineerController::class, 'setClosed'])
         ->name('finished.close');
+
+            // CM: menu Quotation Request (tampilkan list yang status == 'Quotation Request')
+    Route::get('/quotation-appcancl', [QuotAppCancController::class, 'index'])
+         ->name('quotation.appcancl');
 });
 
 });

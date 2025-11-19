@@ -17,12 +17,6 @@
                 📊 Export to Excel
             </button>
 </a>
-
-              <a href="{{ route('cases.new') }}">
-                <button style="background:#e67e22; color:white; border:none; padding:8px 14px; border-radius:6px; cursor:pointer;">
-                    ➕ Create New Case
-                </button>
-            </a>
         </div>
 
         <form action="{{ route('cm.case.logdate') }}" method="GET" class="mb-3 d-flex align-items-end gap-3">
