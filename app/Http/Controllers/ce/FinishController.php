@@ -29,14 +29,24 @@ class FinishController extends Controller
     /**
      * Tampilkan semua case untuk CE sesuai cabangnya.
      */
-public function index()
+public function Index()
 {
-    $cases = Service::where('status', 'finish repair')
+    $username = Session::get('username');
+    $user = \App\Models\User::where('un', $username)->first();
+
+    if (!$user) {
+        return redirect()->route('login')->with('error', 'User tidak ditemukan.');
+    }
+
+    // TERIMA SEMUA BENTUK STATUS FINISH (baru & lama)
+    $cases = Service::where('branch_id', $user->branch_id)
+                    ->whereIn('status', ['FINISHED', 'finish repair'])
                     ->orderBy('created_at', 'DESC')
                     ->get();
 
     return view('ce.finish', compact('cases'));
 }
+
 
    private function getEnumValues(string $table, string $column): array
 {

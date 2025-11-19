@@ -4,7 +4,9 @@ namespace App\Http\Controllers\ce;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use App\Models\Service;
+
 
 class EngineerController extends Controller
 {
@@ -13,7 +15,17 @@ class EngineerController extends Controller
     // =======================
 public function index()
 {
-    $cases = Service::whereIn('status', ['NEW', 'repair progress'])
+    // Ambil user login
+    $username = Session::get('username');
+    $user = \App\Models\User::where('un', $username)->first();
+
+    if (!$user) {
+        return redirect()->route('login')->with('error', 'User tidak ditemukan.');
+    }
+
+    // Ambil case milik branch yang sama + status untuk engineer
+    $cases = Service::where('branch_id', $user->branch_id)
+                    ->whereIn('status', ['NEW', 'repair progress'])
                     ->orderBy('created_at', 'DESC')
                     ->get();
 
