@@ -96,11 +96,12 @@ public function logdate(Request $request)
     $services = $query->orderByDesc('received_date')->paginate(10);
 
     // Kirim ke view
-    return view('ce.case', [
-        'services' => $services,
-        'start_date' => $startDate,
-        'end_date' => $endDate,
-    ]);
+   return view('ce.case', [
+    'cases' => $services,
+    'start_date' => $startDate,
+    'end_date' => $endDate,
+]);
+
 }
 
 

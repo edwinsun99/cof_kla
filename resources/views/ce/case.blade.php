@@ -5,7 +5,7 @@
 @section('content')
 
 @php
-    $cases = $cases ?? collect(); // kalau null, ubah jadi collection kosong
+$services = $services ?? collect();
 @endphp
 
     <div style="padding: 20px;">
@@ -88,7 +88,7 @@ Jumlah data: {{ count($cases) }}
         </tr>
     @endif
 
-@forelse($services ?? [] as $service)
+@forelse($cases as $service)
         <tr class="clickable-row" data-href="{{ route('ce.case.show', $service->id) }}">
             <td>{{ $service->cof_id }}</td> <!-- COF-ID -->
             <td>{{ $service->customer_name }}</td>

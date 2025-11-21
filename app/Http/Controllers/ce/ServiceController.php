@@ -8,9 +8,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Branches;
 use App\Models\CofCounter;
+use App\Models\Lognote;
 use App\Models\Service;
 use Barryvdh\DomPDF\Facade\Pdf; // pastikan ada ini di atas
-
 
 class ServiceController extends Controller
 {
@@ -31,7 +31,7 @@ class ServiceController extends Controller
 
 
 
-    return view('ce.case', compact('services'));
+return view('ce.case', ['cases' => $services]);
 }
 
 // app/Models/Service.php
@@ -131,4 +131,5 @@ public function previewPdf($id)
 
         return redirect()->route('ce.services.index')->with('success', 'Case berhasil ditambahkan!');
     }
+
 }

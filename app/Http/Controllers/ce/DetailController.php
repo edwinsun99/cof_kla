@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
+use App\Models\Lognote; // ← ini yang harus ditambahkan
 
 class DetailController extends Controller
 {
@@ -15,6 +16,7 @@ class DetailController extends Controller
         $case = Service::findOrFail($id);
         return view('ce.show', compact('case'));
     }
+
 
     public function updateStatus(Request $request, $id)
     {
@@ -58,4 +60,39 @@ public function status($id)
 
         return $pdf->stream($fileName);
     }
+
+    public function lognote($id)
+{
+    $service = Service::with('notes.user')->findOrFail($id);
+
+    $notes = $service->notes()->latest()->get(); // ambil lognote urut terbaru
+
+    return view('ce.partials.detailcase', compact('service', 'notes'));
+}
+
+ public function addNote(Request $request, $id)
+{
+    $request->validate([
+        'note' => 'required|max:500'
+    ]);
+
+    $user = \Auth::user(); // pakai Auth, jangan Session
+    
+    if (!$user) {
+        return redirect()->route('login')->with('error', 'Login dulu!');
+    }
+
+    Lognote::create([
+        'cof_id' => $id,
+        'un' => $user->un, // gunakan kolom 'un'
+        'logdesc' => $request->note,
+        'created_at' => now(),
+        'updated_at' => now()
+    ]);
+
+    return back()->with('success', 'Note berhasil ditambahkan!');
+}
+
+
+
 }

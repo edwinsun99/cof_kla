@@ -32,4 +32,4 @@ class Product extends Model
      * (Opsional) Jika primary key bukan 'id', bisa diatur manual:
      * protected $primaryKey = 'id_produk';
      */
-}
+}   

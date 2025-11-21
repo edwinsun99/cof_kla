@@ -105,12 +105,53 @@ d<div class="row">
     </select>
 </div>
 
-
-
-
         <button type="submit" class="btn btn-primary mt-2">Save</button>
     </form>
 @endif
 
+<h4>Lognote</h4>
+
+@php
+    // Ambil data lognote berdasarkan service_id dari $service
+    $notes = \DB::table('lognote')
+        ->where('cof_id', $service->id)
+        ->orderBy('created_at', 'desc')
+        ->get();
+@endphp
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th style="width: 150px;">Date</th>
+            <th style="width: 200px;">User</th>
+            <th>Log Description</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @forelse($notes as $note)
+        <tr>
+            <td>{{ $note->created_at ? \Carbon\Carbon::parse($note->created_at)->format('Y-m-d H:i') : '-' }}</td>
+            <td>{{ $note->un }}</td>
+            <td>{{ $note->logdesc }}</td>
+        </tr>
+        @empty
+        <tr>
+            <td colspan="3" class="text-center text-muted">Belum ada lognote.</td>
+        </tr>
+        @endforelse
+    </tbody>
+</table>
+
+<!-- Form Input Lognote -->
+<form action="{{ route('ce.case.note', $service->id) }}" method="POST" class="mt-3">
+    @csrf
+
+    <div class="mb-2">
+        <textarea name="note" class="form-control" rows="3" placeholder="Tulis note kamu di sini..." required></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Kirim Note</button>
+</form>
 
 </div>

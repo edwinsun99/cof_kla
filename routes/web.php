@@ -218,6 +218,11 @@ Route::prefix('ce')->name('ce.')->group(function () {
          
 });
 
+
+Route::post('/ce/case/{id}/note', 
+    [CeDetailController::class, 'addNote'])
+    ->name('ce.case.note');
+
 });
 
 
