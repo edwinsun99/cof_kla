@@ -98,7 +98,6 @@
 
         <div class="menu">
             <a href="{{ route('home') }}">🏠 Home</a>
-         <a href="javascript:void(0)" class="btn btn-light w-100 mb-2">🧩 Quotation Part Request (D)</a>
            <a href="{{ route('cm.quotation.index') }}" class="btn btn-light w-100 mb-2">🚥 Quotation Request</a>
             <a href="{{ route('cm.services.index') }}">📂 View Case</a> 
             <a href="#" onclick="confirmLogout(event)">🔑 Logout</a>

@@ -14,6 +14,7 @@ class Service extends Model
         'started_date', 
         'finished_date',
         'contact', 
+        'branch_id',
         'customer_name',    
         'email', 
         'phone_number',

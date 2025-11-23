@@ -157,7 +157,6 @@ Route::group([], function () {
     Route::get('/ce/case/logdate', [CeCaseController::class, 'logdate'])->name('ce.case.logdate');
     Route::get('/ce/cases/new', fn() => view('ce.newcase'))->name('cases.new');
     Route::get('/ce/newcase', [CeCaseController::class, 'create'])->name('newcase');
-    Route::post('/ce/newcase', [CeCaseController::class, 'store'])->name('ce.case.store');
 
     Route::get('/case/{id}', [CeDetailController::class, 'show'])->name('ce.case.show');
     Route::get('/case/{id}/pdf', [CeDetailController::class, 'downloadPdf'])->name('case.downloadPdf');

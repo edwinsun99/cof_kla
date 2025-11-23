@@ -134,84 +134,85 @@ public function logdate(Request $request)
     /**
      * Simpan data new case ke database.
      */
-public function store(Request $request)
-{
-    // ✅ Validasi input
-    $validated = $request->validate([
-        'customer_name' => 'required|string|max:100',
-        'contact' => 'required|string|max:100',
-        'address' => 'nullable|string|max:500',
-        'email' => 'required|email|max:255',
-        'phone_number' => 'nullable|string|max:20',
-        'received_date' => 'nullable|date',
-        'started_date' => 'nullable|date',
-        'finished_date' => 'nullable|date',
-        'brand' => 'nullable|string|max:255',
-        'product_number' => 'nullable|string|max:100',
-        'serial_number' => 'nullable|string|max:100',
-        'nama_type' => 'nullable|string|max:100',
-        'fault_description' => 'nullable|string',
-        'kondisi_unit' => 'nullable|string',
-        'repair_summary' => 'nullable|string',
-        'status' => 'required|string',
-        'erf_file' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
-    ]);
+// public function store(Request $request)
+// {
+//     // ✅ Validasi input
+//     $validated = $request->validate([
+//         'customer_name' => 'required|string|max:100',
+//         'contact' => 'required|string|max:100',
+//         'address' => 'nullable|string|max:500',
+//         'email' => 'required|email|max:255',
+//         'phone_number' => 'nullable|string|max:20',
+//         'received_date' => 'nullable|date',
+//         'started_date' => 'nullable|date',
+//         'finished_date' => 'nullable|date',
+//         'brand' => 'nullable|string|max:255',
+//         'product_number' => 'nullable|string|max:100',
+//         'serial_number' => 'nullable|string|max:100',
+//         'nama_type' => 'nullable|string|max:100',
+//         'fault_description' => 'nullable|string',
+//         'kondisi_unit' => 'nullable|string',
+//         'repair_summary' => 'nullable|string',
+//         'status' => 'required|string',
+//         'erf_file' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
+//     ]);
 
-    // ✅ Ambil user login berdasarkan session
-    $username = Session::get('username');
-    $user = \App\Models\User::where('un', $username)->first();
+//     // ✅ Ambil user login berdasarkan session
+//     $username = Session::get('username');
+//     $user = \App\Models\User::where('un', $username)->first();
 
-    if (!$user) {
-        return redirect()->route('login')->with('error', 'User tidak ditemukan atau belum login.');
-    }
+//     if (!$user) {
+//         return redirect()->route('login')->with('error', 'User tidak ditemukan atau belum login.');
+//     }
 
-    $branchId = $user->branch_id;
-    if (!$branchId) {
-        return back()->with('error', 'Akun CE belum terhubung ke cabang manapun.');
-    }
+//     $branchId = $user->branch_id;
+//     if (!$branchId) {
+//         return back()->with('error', 'Akun CE belum terhubung ke cabang manapun.');
+//     }
 
-    // ✅ Ambil branch & prefix
-    $branch = \App\Models\Branches::find($branchId);
-    $prefix = $branch->prefix ?? 'X'; // fallback prefix kalau null
+//     // ✅ Ambil branch & prefix
+//     $branch = \App\Models\Branches::find($branchId);
+//     $prefix = $branch->prefix ?? 'X'; // fallback prefix kalau null
 
-    // ✅ Ambil tanggal received (default: hari ini)
-    $receivedDate = $request->received_date
-        ? Carbon::parse($request->received_date)
-        : Carbon::now();
+//     // ✅ Ambil tanggal received (default: hari ini)
+//     $receivedDate = $request->received_date
+//         ? Carbon::parse($request->received_date)
+//         : Carbon::now();
 
-    $yearMonth = $receivedDate->format('Ym'); // Contoh: 202511
+//     $yearMonth = $receivedDate->format('Ym'); // Contoh: 202511
 
-    // ✅ Cari service terakhir pada bulan & branch yang sama
-    $lastService = \App\Models\Service::where('branch_id', $branchId)
-        ->whereYear('received_date', $receivedDate->year)
-        ->whereMonth('received_date', $receivedDate->month)
-        ->orderBy('id', 'desc')
-        ->first();
+//     // ✅ Cari service terakhir pada bulan & branch yang sama
+//     $lastService = \App\Models\Service::where('branch_id', $branchId)
+//         ->whereYear('received_date', $receivedDate->year)
+//         ->whereMonth('received_date', $receivedDate->month)
+//         ->orderBy('id', 'desc')
+//         ->first();
 
-    // ✅ Tentukan nomor urut terakhir (5 digit di akhir COF ID)
-    if ($lastService && preg_match('/\d{5}$/', $lastService->cof_id, $matches)) {
-        $lastNumber = (int) $matches[0];
-    } else {
-        $lastNumber = 0;
-    }
+//     // ✅ Tentukan nomor urut terakhir (5 digit di akhir COF ID)
+//     if ($lastService && preg_match('/\d{5}$/', $lastService->cof_id, $matches)) {
+//         $lastNumber = (int) $matches[0];
+//     } else {
+//         $lastNumber = 0;
+//     }
 
-    $newNumber = $lastNumber + 1;
+//     $newNumber = $lastNumber + 1;
 
-    // ✅ Bentuk COF ID baru: PREFIX + YYYYMM + 5 digit urut
-    $cofId = sprintf("%s%s%05d", $prefix, $yearMonth, $newNumber);
+//     // ✅ Bentuk COF ID baru: PREFIX + YYYYMM + 5 digit urut
+//     $cofId = sprintf("%s%s%05d", $prefix, $yearMonth, $newNumber);
 
-    // ✅ Simpan data case baru
-    $validated['cof_id'] = $cofId;
-    $validated['branch_id'] = $branchId;
-    $validated['ce_id'] = $user->id;
-    $validated['received_date'] = $receivedDate;
+//     // ✅ Simpan data case baru
+//     $validated['cof_id'] = $cofId;
+//     $validated['branch_id'] = $user->branch_id;
+//     $validated['ce_id'] = $user->id;
+//     $validated['status'] = 'new';
+//     $validated['received_date'] = $receivedDate;
 
-    \App\Models\Service::create($validated);
+//     \App\Models\Service::create($validated);
 
-    // ✅ Redirect dengan notifikasi sukses
-    return redirect()->route('cm.case.index')
-        ->with('success', 'Case berhasil disimpan dengan COF ID: ' . $cofId);
-}
+//     // ✅ Redirect dengan notifikasi sukses
+//     return redirect()->route('cm.case.index')
+//         ->with('success', 'Case berhasil disimpan dengan COF ID: ' . $cofId);
+// }
 
     public function search(Request $request)
     {

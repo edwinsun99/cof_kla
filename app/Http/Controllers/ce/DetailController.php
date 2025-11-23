@@ -82,8 +82,10 @@ public function status($id)
         return redirect()->route('login')->with('error', 'Login dulu!');
     }
 
+    $service = Service::findOrFail($id);
+
     Lognote::create([
-        'cof_id' => $id,
+        'cof_id' => $service->cof_id, // ini yang benar
         'un' => $user->un, // gunakan kolom 'un'
         'logdesc' => $request->note,
         'created_at' => now(),
@@ -92,6 +94,7 @@ public function status($id)
 
     return back()->with('success', 'Note berhasil ditambahkan!');
 }
+
 
 
 

@@ -25,7 +25,7 @@ public function index()
 
     // Ambil case milik branch yang sama + status untuk engineer
     $cases = Service::where('branch_id', $user->branch_id)
-                    ->whereIn('status', ['NEW', 'repair progress'])
+                    ->whereIn('status', ['new', 'repair progress'])
                     ->orderBy('created_at', 'DESC')
                     ->get();
 

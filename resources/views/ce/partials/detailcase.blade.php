@@ -114,7 +114,7 @@ d<div class="row">
 @php
     // Ambil data lognote berdasarkan service_id dari $service
     $notes = \DB::table('lognote')
-        ->where('cof_id', $service->id)
+        ->where('cof_id', $service->cof_id)
         ->orderBy('created_at', 'desc')
         ->get();
 @endphp
@@ -131,7 +131,7 @@ d<div class="row">
     <tbody>
         @forelse($notes as $note)
         <tr>
-            <td>{{ $note->created_at ? \Carbon\Carbon::parse($note->created_at)->format('Y-m-d H:i') : '-' }}</td>
+            <td>{{ $note->created_at ? \Carbon\Carbon::parse($note->created_at)->timezone('Asia/Jakarta')->format('Y-m-d H:i') : '-' }}</td>
             <td>{{ $note->un }}</td>
             <td>{{ $note->logdesc }}</td>
         </tr>

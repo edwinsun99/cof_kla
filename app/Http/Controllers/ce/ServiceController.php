@@ -73,63 +73,72 @@ public function previewPdf($id)
 }
 
 
-
-    // ✅ 2. Method untuk menyimpan data baru
-    public function store(Request $request)
-    {
-        // Pastikan user login
-        $user = Auth::user();
-        if (!$user) {
-            return redirect()->route('login')->with('error', 'User tidak ditemukan atau belum login.');
-        }
-
-        // Ambil branch & prefix
-        $branch = Branches::find($user->branch_id);
-        $prefix = $branch->prefix ?? 'X'; // fallback biar tidak null
-
-        // Ambil counter terakhir
-        $counter = CofCounter::where('branch_id', $user->branch_id)->first();
-        if (!$counter) {
-            $counter = CofCounter::create([
-                'branch_id' => $user->branch_id,
-                'current_number' => 0
-            ]);
-        }
-
-        $nextNumber = $counter->current_number + 1;
-
-        // Bentuk COF-ID
-        $cofId = $prefix . str_pad($nextNumber, 6, '0', STR_PAD_LEFT);
-
-        // Update counter
-        $counter->update(['current_number' => $nextNumber]);
-
-        // Simpan service
-        Service::create([
-            'cof_id' => $cofId,
-            'status' => 'new', // default awal
-            'erf_file' => $request->erf_file, // jika dari input text
-            'branch_id' => $user->branch_id,
-            'ce_id' => $user->id,
-            'customer_name' => $request->customer_name,
-            'email' => $request->email,
-            'contact' => $request->contact,
-            'phone_number' => $request->phone_number,
-            'address' => $request->address,
-            'received_date' => $request->received_date,
-            'started_date' => $request->started_date,
-            'finished_date' => $request->finished_date,
-            'brand' => $request->brand,
-            'product_number' => $request->product_number,
-            'serial_number' => $request->serial_number,
-            'nama_type' => $request->nama_type,
-            'fault_description' => $request->fault_description,
-            'accessories' => $request->accessories,
-            'kondisi_unit' => $request->kondisi_unit,
-            'repair_summary' => $request->repair_summary,
-        ]);
-
-        return redirect()->route('ce.services.index')->with('success', 'Case berhasil ditambahkan!');
+// ✅ 2. Method untuk menyimpan data baru
+public function store(Request $request)
+{
+    // Pastikan user login
+    $user = Auth::user();
+    if (!$user) {
+        return redirect()->route('login')->with('error', 'User belum login.');
     }
+
+    // Hanya CE yang boleh create case
+    if ($user->role !== 'CE') {
+        return back()->with('error', 'Akses ditolak, hanya CE yang bisa membuat case!');
+    }
+
+    // Ambil branch ID — NO NULL ALLOWED 🔥
+    $branchId = $user->branch_id;
+    if (!$branchId) {
+        return back()->with('error', 'Akun CE tidak memiliki cabang, hubungi Admin!');
+    }
+
+    // Ambil prefix branch
+    $branch = Branches::find($branchId);
+    $prefix = $branch->prefix ?? 'X';
+
+    // Counter COF aman (ga bakal bikin NULL)
+    $counter = CofCounter::firstOrCreate(
+        ['branch_id' => $branchId],
+        ['current_number' => 0]
+    );
+
+    // Naikkan angka
+    $nextNumber = $counter->current_number + 1;
+    $counter->update(['current_number' => $nextNumber]);
+
+// Generate COF-ID BARU 🔥🔥🔥
+$year = now()->format('Y');
+$month = now()->format('m');
+$cofId = $prefix . $year . $month . str_pad($nextNumber, 6, '0', STR_PAD_LEFT);
+
+    // Create new case
+    Service::create([
+        'cof_id' => $cofId,
+        'status' => 'new',
+        'erf_file' => $request->erf_file,
+        'branch_id' => $branchId,
+        'ce_id' => $user->id,
+        'customer_name' => $request->customer_name,
+        'email' => $request->email,
+        'contact' => $request->contact,
+        'phone_number' => $request->phone_number,
+        'address' => $request->address,
+        'received_date' => $request->received_date,
+        'started_date' => $request->started_date,
+        'finished_date' => $request->finished_date,
+        'brand' => $request->brand,
+        'product_number' => $request->product_number,
+        'serial_number' => $request->serial_number,
+        'nama_type' => $request->nama_type,
+        'accessories' => $request->accessories,
+        'fault_description' => $request->fault_description,
+        'kondisi_unit' => $request->kondisi_unit,
+        'repair_summary' => $request->repair_summary,
+    ]);
+
+    return redirect()->route('ce.services.index')
+        ->with('success', "Case berhasil ditambahkan! COF-ID: $cofId");
+}
 
 }

@@ -194,7 +194,7 @@ $(document).ready(function () {
 
                 {{-- BUTTONS --}}
                 <div class="d-flex justify-content-end mt-4">
-                    <a href="{{ route('ce.case.store') }}" class="btn btn-outline-secondary me-2 rounded-pill px-4">
+                    <a href="{{ route('ce.services.store') }}" class="btn btn-outline-secondary me-2 rounded-pill px-4">
                         <i class="bi bi-arrow-left-circle"></i> Cancel
                     </a>
                     <button type="submit" class="btn rounded-pill px-4 text-white fw-semibold"
