@@ -100,16 +100,19 @@ Jumlah data: {{ count($cases) }}
             <td>{{ $service->nama_type }}</td>
 
 <td>
-    @if($service->erf_file)
-        <a href="{{ asset('storage/' . $service->erf_file) }}" target="_blank" rel="noopener noreferrer">
-            📄 PDF
-        </a>
-    @else
-        —
-    @endif
+    
+@if ($service->erf_file)
+    <a href="{{ route('erf.preview', $service->cof_id) }}"
+       target="_blank"
+       class="btn btn-primary mt-2">
+       Lihat / Download ERF
+    </a>
+@else
+    <span class="badge bg-warning">ERF belum diupload</span>
+@endif
+
+
 </td>
-
-
 
             <td>{{ $service->received_date }}</td>
         </tr>

@@ -110,7 +110,7 @@ public function store(Request $request)
 // Generate COF-ID BARU 🔥🔥🔥
 $year = now()->format('Y');
 $month = now()->format('m');
-$cofId = $prefix . $year . $month . str_pad($nextNumber, 6, '0', STR_PAD_LEFT);
+$cofId = $prefix . $year . $month . str_pad($nextNumber, 5, '0', STR_PAD_LEFT);
 
     // Create new case
     Service::create([
