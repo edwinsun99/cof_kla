@@ -36,4 +36,13 @@ class Service extends Model
     {
         return $this->hasMany(Lognote::class, 'cof_id');
     }
+    public function scopeForCurrentBranch($query)
+{
+    $user = Auth::user();
+    if ($user) {
+        $query->where('branch_id', $user->branch_id);
+    }
+    return $query;
+}
+
 }

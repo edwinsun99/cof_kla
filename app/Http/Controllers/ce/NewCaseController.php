@@ -3,7 +3,8 @@ namespace App\Http\Controllers\ce;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller; // WAJIB ada ini
-
+use App\Models\Product;
+use App\Models\Service;
 
 class NewCaseController extends Controller
 {
@@ -21,4 +22,5 @@ class NewCaseController extends Controller
     }
     return response()->json(['nama_type' => null]);
 }
+
 }

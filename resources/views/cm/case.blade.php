@@ -4,22 +4,20 @@
 
 @section('content')
 
-@php
-    $cases = $cases ?? collect(); // kalau null, ubah jadi collection kosong
-@endphp
-
     <div style="padding: 20px;">
-        <h2 style="color: purple; margin-bottom: 20px;">📂 View Case</h2>
+        <h2 style="color: purple; margin-bottom: c20px;">📂 View Case</h2>
 
         <div style="margin-bottom: 20px;">
-            <a href="{{ route('excel.cofdata') }}" class="btn btn-success">
+<a href="{{ route('cm.excel.cofdata') }}" class="btn btn-success">
 <button style="background:#27ae60; color:white; border:none; padding:8px 14px; border-radius:6px; cursor:pointer;">
                 📊 Export to Excel
             </button>
 </a>
+
+        
         </div>
 
-        <form action="{{ route('cm.case.logdate') }}" method="GET" class="mb-3 d-flex align-items-end gap-3">
+<form action="{{ route('cm.case.logdate') }}" method="GET" class="mb-3 d-flex align-items-end gap-3">
     <div>
         <label for="start_date" class="form-label">Start Date:</label>
         <input type="date" name="start_date" id="start_date"
@@ -51,11 +49,6 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 </script>
 
-<pre>
-Start: {{ request('start_date') }}
-End: {{ request('end_date') }}
-Jumlah data: {{ count($cases) }}
-</pre>
 
         {{-- Table muncul disini persis dibawah tombol --}}
         <table border="1" cellpadding="8" cellspacing="0" style="width:100%; border-collapse:collapse;">
@@ -82,8 +75,8 @@ Jumlah data: {{ count($cases) }}
         </tr>
     @endif
 
-@forelse($services ?? [] as $service)
-        <tr class="clickable-row" data-href="{{ route('cm.case.show', $service->id) }}">
+@forelse($case ?? [] as $service)
+<tr class="clickable-row" data-href="{{ route('case.show', $service->id) }}">
             <td>{{ $service->cof_id }}</td> <!-- COF-ID -->
             <td>{{ $service->customer_name }}</td>
             <td>{{ $service->phone_number }}</td>
@@ -94,16 +87,19 @@ Jumlah data: {{ count($cases) }}
             <td>{{ $service->nama_type }}</td>
 
 <td>
-    @if($service->erf_file)
-        <a href="{{ asset('storage/' . $service->erf_file) }}" target="_blank" rel="noopener noreferrer">
-            📄 PDF
-        </a>
-    @else
-        —
-    @endif
+    
+@if ($service->erf_file)
+    <a href="{{ route('erf.preview', $service->id) }}"
+       target="_blank"
+       class="btn btn-primary mt-2">
+       Lihat / Download ERF
+    </a>
+@else
+    <span class="badge bg-warning">ERF belum diupload</span>
+@endif
+
+
 </td>
-
-
 
             <td>{{ $service->received_date }}</td>
         </tr>

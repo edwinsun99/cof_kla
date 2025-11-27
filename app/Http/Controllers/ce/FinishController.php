@@ -40,7 +40,7 @@ public function Index()
 
     // TERIMA SEMUA BENTUK STATUS FINISH (baru & lama)
     $cases = Service::where('branch_id', $user->branch_id)
-                    ->whereIn('status', ['FINISHED', 'finish repair'])
+                    ->where('status', 'finish repair')
                     ->orderBy('created_at', 'DESC')
                     ->get();
 

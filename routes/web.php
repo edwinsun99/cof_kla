@@ -1,4 +1,4 @@
-c<?php
+<?php
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
@@ -15,7 +15,7 @@ use App\Http\Controllers\master\NewCaseController as MasterNewCaseController;
 use App\Http\Controllers\master\DetailController as MasterDetailController;
 use App\Http\Controllers\master\UserController;
 use App\Http\Controllers\master\RoleController;
-use App\Http\Controllers\master\ProductController;
+use App\Http\Controllers\master\ProductController as MasterProductController;
 
 // CM CONTROLLERS
 use App\Http\Controllers\cm\ServiceController as CmServiceController;
@@ -32,6 +32,7 @@ use App\Http\Controllers\ce\CaseController as CeCaseController;
 use App\Http\Controllers\ce\DetailController as CeDetailController;
 use App\Http\Controllers\ce\EngineerController;
 use App\Http\Controllers\ce\QuotAppCancController;
+use App\Http\Controllers\ce\ProductController as CeProductController;
 use App\Http\Controllers\ce\ErfController;
 use App\Http\Controllers\ce\FinishController;
 
@@ -89,20 +90,15 @@ Route::group([], function () {
         Route::get('/get-product-type', [ProductController::class, 'getProductType'])->name('getProductType');
     });
 });
-
 // ===========================
-// 🔹 CM ROUTES
+// 🔹 CM ROUTES (FINAL & FIXED)
 // ===========================
 Route::prefix('cm')->name('cm.')->group(function () {
 
-    Route::get('/home', function () {
-        if (!Session::get('login') || Session::get('role') !== 'CM') {
-            return redirect()->route('login')->with('error', 'Akses ditolak.');
-        }
-        return app(CmHomeController::class)->index();
-    })->name('home');
+    // HOME
+    Route::get('/home', [CmHomeController::class, 'index'])->name('home');
 
-    // SERVICES
+    // SERVICE
     Route::get('/services', [CmServiceController::class, 'index'])->name('services.index');
     Route::post('/services', [CmServiceController::class, 'store'])->name('services.store');
 
@@ -110,15 +106,14 @@ Route::prefix('cm')->name('cm.')->group(function () {
     Route::get('/case', [CmCaseController::class, 'index'])->name('case.index');
     Route::get('/case/{id}', [CmDetailController::class, 'show'])->name('case.show');
 
-    Route::get('/case/logdate', [CeCaseController::class, 'logdate'])->name('case.logdate');
+    // SEARCH
+    Route::get('/case/search', [CmCaseController::class, 'search'])->name('case.search');
 
-    Route::get('/case/{id}/pdf', [CeDetailController::class, 'downloadPdf'])->name('case.downloadPdf');
-    Route::get('/case/{id}/pdf/preview', [CeDetailController::class, 'previewPdf'])->name('case.previewPdf');
-
-    Route::get('/cases/search', [CeCaseController::class, 'search'])->name('case.search');
+    // LOGDATE
+    Route::get('/case/logdate', [CmCaseController::class, 'logdate'])->name('case.logdate');
 
     // EXCEL
-    Route::get('/excel/cofdata', [CeCaseController::class, 'excel'])->name('excel.cofdata');
+    Route::get('/excel/cofdata', [CmCaseController::class, 'excel'])->name('excel.cofdata');
 
     // CM: menu Quotation Request (tampilkan list yang status == 'Quotation Request')
     Route::get('/quotation-request', [QuotReqController::class, 'index'])
@@ -198,6 +193,8 @@ Route::get('/case/{id}', 'App\Http\Controllers\ce\DetailController@status')
 
 Route::post('/case/{id}/status', 'App\Http\Controllers\ce\DetailController@updateStatus')
     ->name('case.updateStatus');
+  
+
 
 });
 
@@ -218,12 +215,17 @@ Route::prefix('ce')->name('ce.')->group(function () {
              Route::get('/finish-repair', [FinishController::class, 'index'])
          ->name('finish.repair');
          
+    Route::get('/get-product-type', [App\Http\Controllers\ce\ProductController::class, 'getProductType'])
+        ->name('getProductType');
+
+
 });
 
 
 Route::post('/ce/case/{id}/note', 
     [CeDetailController::class, 'addNote'])
     ->name('ce.case.note');
+
 
 });
 

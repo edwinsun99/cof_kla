@@ -43,6 +43,15 @@ public function scopeForCurrentBranch($query)
     }
     return $query;
 }
+public function getProductType(Request $request)
+{
+    $product = Product::where('pn', $request->pn)->first();
+
+    return response()->json([
+        'nama_type' => $product ? $product->nt : null
+    ]);
+}
+
 public function previewPdf($id)
 {
     $service = Service::with('branch')->findOrFail($id);
@@ -113,7 +122,7 @@ $month = now()->format('m');
 $cofId = $prefix . $year . $month . str_pad($nextNumber, 5, '0', STR_PAD_LEFT);
 
     // Create new case
-    Service::create([
+$service = Service::create([
         'cof_id' => $cofId,
         'status' => 'new',
         'erf_file' => $request->erf_file,
@@ -136,6 +145,15 @@ $cofId = $prefix . $year . $month . str_pad($nextNumber, 5, '0', STR_PAD_LEFT);
         'kondisi_unit' => $request->kondisi_unit,
         'repair_summary' => $request->repair_summary,
     ]);
+    // INSERT lognote pertama jika diisi saat New Case
+if ($request->filled('repair_summary')) {
+    Lognote::create([
+        'cof_id' => $service->cof_id,
+        'un' => Auth::user()->un, // ← FIX DISINI
+        'logdesc' => $request->repair_summary,
+    ]);
+}
+
 
     return redirect()->route('ce.services.index')
         ->with('success', "Case berhasil ditambahkan! COF-ID: $cofId");

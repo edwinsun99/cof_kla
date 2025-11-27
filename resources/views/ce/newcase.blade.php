@@ -15,16 +15,13 @@ $(document).ready(function () {
 
         if (pn.length > 1) {
             $.ajax({
-                url: "{{ route('getProductType') }}",
+                url: "{{ route('ce.getProductType') }}",
                 type: "GET",
                 data: { pn: pn },
                 success: function (response) {
-                    // Pastikan ada data yang dikembalikan
-                    if (response.length > 0) {
-                        // Isi otomatis field Nama Type
-                        $('#nama_type').val(response[0].nt);
+                    if (response.nt) {
+                        $('#nama_type').val(response.nt);
                     } else {
-                        // Kosongkan kalau tidak ada hasil
                         $('#nama_type').val('');
                     }
                 },
@@ -33,7 +30,6 @@ $(document).ready(function () {
                 }
             });
         } else {
-            // Kalau PN dihapus, kosongkan Nama Type juga
             $('#nama_type').val('');
         }
     });
@@ -144,7 +140,7 @@ $(document).ready(function () {
             id="nama_type" 
             name="nama_type" 
             class="form-control shadow-sm" 
-            placeholder="Nama Type" 
+            placeholder="Nama Type"
             readonly>
         <datalist id="nama_type_list"></datalist>
     </div>

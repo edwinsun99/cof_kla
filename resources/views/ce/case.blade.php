@@ -4,7 +4,7 @@
 
 @section('content')
 
-@php
+@phpc
 $services = $services ?? collect();
 @endphp
 

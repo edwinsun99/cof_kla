@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 use App\Models\Service;
+use App\Models\User;
 use App\Models\Branches;
 use App\Models\CofCounter;
 use App\Services\CofIdGenerator;
@@ -31,12 +32,23 @@ class QuotAppCancController extends Controller
      */
 public function index()
 {
-    $cases = Service::whereIn('status', ['quotation approved', 'quotation cancelled'])
+    // Ambil user login
+    $username = Session::get('username');
+    $user = \App\Models\User::where('un', $username)->first();
+
+    if (!$user) {
+        return redirect()->route('login')->with('error', 'User tidak ditemukan.');
+    }
+
+    // Ambil case milik branch yang sama + status untuk engineer
+    $cases = Service::where('branch_id', $user->branch_id)
+                    ->whereIn('status', ['quotation approved', 'quotation cancelled'])
                     ->orderBy('created_at', 'DESC')
                     ->get();
 
     return view('ce.QuotAorC', compact('cases'));
 }
+
 
    private function getEnumValues(string $table, string $column): array
 {

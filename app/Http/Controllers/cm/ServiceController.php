@@ -17,22 +17,13 @@ class ServiceController extends Controller
     // ✅ 1. Method untuk menampilkan daftar service
    public function index()
 {
-    $user = Auth::user();
+    $user = Auth::user(); // jika pakai Auth
+    $services = Service::where('branch_id', $user->branch_id)->latest()->get();
 
-    // Pastikan user login
-    if (!$user) {
-        return redirect()->route('login')->with('error', 'User belum login.');
-    }
-
-    // Filter hanya service dari cabang user yang login
-    $services = Service::where('branch_id', $user->branch_id)
-                       ->latest()
-                       ->get();
-
-
-
-    return view('cm.case', compact('services'));
+    // kirim sebagai 'cases' supaya view cm.case konsisten
+    return view('cm.case', ['cases' => $services]);
 }
+
 
 // app/Models/Service.php
 public function scopeForCurrentBranch($query)
