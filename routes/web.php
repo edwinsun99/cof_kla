@@ -73,7 +73,7 @@ Route::group([], function () {
     Route::post('/services', [MasterServiceController::class, 'store'])->name('services.store');
 
     Route::get('/case', [MasterCaseController::class, 'index'])->name('case.index');
-    Route::get('/newcase', [MasterCaseController::class, 'create'])->name('master.newcase');
+    Route::get('/newcase', [MasterNewCaseController::class, 'create'])->name('master.newcase');
     Route::get('/master/case/{id}', [MasterDetailController::class, 'show'])->name('case.show');
 
     Route::get('/case/{id}/pdf', [MasterDetailController::class, 'downloadPdf'])->name('case.downloadPdf');

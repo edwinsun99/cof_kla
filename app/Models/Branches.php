@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Branches extends Model
 {
+    protected $table ='branches';
     protected $fillable = ['name', 'prefix'];
 
     // 🔹 1 cabang punya 1 counter

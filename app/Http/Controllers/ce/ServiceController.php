@@ -43,6 +43,7 @@ public function scopeForCurrentBranch($query)
     }
     return $query;
 }
+
 public function getProductType(Request $request)
 {
     $product = Product::where('pn', $request->pn)->first();
@@ -145,6 +146,7 @@ $service = Service::create([
         'kondisi_unit' => $request->kondisi_unit,
         'repair_summary' => $request->repair_summary,
     ]);
+    
     // INSERT lognote pertama jika diisi saat New Case
 if ($request->filled('repair_summary')) {
     Lognote::create([

@@ -91,14 +91,14 @@ $(document).ready(function () {
         <select name="branch_id" class="form-select shadow-sm" required>
             <option value="">-- Select Branch --</option>
             @foreach ($branches as $branch)
-                <option value="{{ $branches->id }}">
+        <option value="{{ $branch->id }}">{{ $branch->name }}</option>
                     {{ $branch->prefix }} - {{ $branch->name }}
                 </option>
             @endforeach
         </select>
     </div>
 </div>
-                
+                ca
                     <div class="col-md-4 mb-3">
                         <label class="form-label fw-semibold">Received Date</label>
                         <input type="date" class="form-control shadow-sm" name="received_date">

@@ -15,23 +15,34 @@ class ServiceController extends Controller
 
  public function store(Request $request)
 {
-    // Ambil tanggal diterima dari form
-    $receivedDate = $request->received_date ?? now();
 
-    // Ambil tahun dan bulan dari received date
-    $year = date('Y', strtotime($receivedDate));
-    $month = date('m', strtotime($receivedDate));
+  // Ambil branch ID dari form (karena Master memilih cabang secara manual)
+$branchId = $request->branch_id;
+if (!$branchId) {
+    return back()->with('error', 'Pilih cabang terlebih dahulu.');
+}
 
-    // Hitung jumlah case bulan ini untuk buat counter
-    $count = \App\Models\Service::whereYear('received_date', $year)
-        ->whereMonth('received_date', $month)
-        ->count() + 1;
+// Ambil prefix branch
+$branch = \App\Models\Branches::find($branchId);
+$prefix = $branch->prefix ?? 'X';
 
-    // Format counter (misal 1 jadi 00001)
-    $counter = str_pad($count, 5, '0', STR_PAD_LEFT);
+// Counter COF khusus per cabang
+$counter = \App\Models\CofCounter::firstOrCreate(
+    ['branch_id' => $branchId],
+    ['current_number' => 0]
+);
 
-    // Buat COF ID
-    $cofId = "A{$year}{$month}{$counter}";
+// Naikkan counter
+$nextNumber = $counter->current_number + 1;
+$counter->update(['current_number' => $nextNumber]);
+
+// Ambil tanggal diterima
+$receivedDate = $request->received_date ?? now();
+$year = date('Y', strtotime($receivedDate));
+$month = date('m', strtotime($receivedDate));
+
+// Generate COF-ID akhir
+$cofId = $prefix . $year . $month . str_pad($nextNumber, 5, '0', STR_PAD_LEFT);
 
     // Simpan data ke database
     Service::create([
@@ -39,6 +50,7 @@ class ServiceController extends Controller
         'customer_name' => $request->customer_name,
         'email' => $request->email,
         'contact' => $request->contact,
+        'branch_id' => $request->branch_id,
         'phone_number' => $request->phone_number,
         'address' => $request->address,
         'received_date' => $receivedDate,
