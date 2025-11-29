@@ -19,6 +19,45 @@
                 </button>
             </a>
         </div>
+        <form action="{{ route('master.case.logdate') }}" method="GET" class="mb-3 d-flex align-items-end gap-3">
+
+    {{-- DROPDOWN CABANG --}}
+    <div>
+        <label for="branch_id" class="form-label">Cabang:</label>
+        <select name="branch_id" id="branch_id" class="form-control">
+            <option value="all">Semua Cabang</option>
+
+            @foreach ($branches as $branch)
+                <option value="{{ $branch->id }}"
+                    {{ (isset($selected_branch) && $selected_branch == $branch->id) ? 'selected' : '' }}>
+                    {{ $branch->name }}
+                </option>
+            @endforeach
+        </select>
+    </div>
+
+    {{-- START DATE --}}
+    <div>
+        <label for="start_date" class="form-label">Start Date:</label>
+        <input type="date" name="start_date" id="start_date"
+            class="form-control" value="{{ $start_date }}">
+    </div>
+
+    {{-- END DATE --}}
+    <div>
+        <label for="end_date" class="form-label">End Date:</label>
+        <input type="date" name="end_date" id="end_date"
+            class="form-control" value="{{ $end_date }}">
+    </div>
+
+    <div>
+        <button type="submit" class="btn btn-success">Filter</button>
+        @if($start_date || $end_date || $selected_branch)
+            <a href="{{ route('master.case.index') }}" class="btn btn-secondary">Reset</a>
+        @endif
+    </div>
+</form>
+
 
         <script>
 document.addEventListener("DOMContentLoaded", function() {
@@ -54,7 +93,7 @@ document.addEventListener("DOMContentLoaded", function() {
         </tr>
     @endif
 
-@forelse(($services ?? [])->sortByDesc('received_date') as $service)
+@forelse(collect($cases ?? [])->sortByDesc('received_date') as $service)
         <tr class="clickable-row" data-href="{{ route('case.show', $service->id) }}">
             <td>{{ $service->id }}</td> <!-- NO -->
             <td>{{ $service->cof_id }}</td> <!-- COF-ID -->

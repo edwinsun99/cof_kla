@@ -123,7 +123,7 @@
     <a href="javascript:void(0)" class="btn btn-light w-100 mb-2">🚥 Quotation Request</a>
     <a href="javascript:void(0)" class="btn btn-light w-100 mb-2">💎 Quotation Approved/Cancelled</a>
     <a href="{{ route('master.newcase') }}" class="btn btn-light w-100 mb-2">🪄 New Case</a>
-    <a href="{{ route('services.index') }}" class="btn btn-light w-100 mb-2">📂 View Case</a>
+    <a href="{{ route('master.services.index') }}" class="btn btn-light w-100 mb-2">📂 View Case</a>
     <a href="{{ route('roles.index') }}" class="btn btn-light w-100 mb-2">⚙️ Manage Role</a>
     <a href="#" onclick="confirmLogout(event)" class="btn btn-danger w-100">🔑 Logout</a>
 </div>

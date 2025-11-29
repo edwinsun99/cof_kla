@@ -7,11 +7,24 @@ use App\Models\Service;
 
 class ServiceController extends Controller
 {
-    public function index()
-    {
-        $services = Service::all(); // ambil semua data dari DB
-        return view('master.case', compact('services')); // kirim ke view case.blade.php
-    }
+   public function index()
+{
+    // Ambil semua service
+    $services = Service::orderByDesc('received_date')->get();
+
+    // Ambil semua cabang (WAJIB, karena blade butuh $branches)
+    $branches = \App\Models\Branches::all();
+
+    return view('master.case', [
+        'cases' => $services,   // ← INI LETAK BARIS 'cases' => $services
+        'branches' => $branches,
+        'selected_branch' => 'all',
+        'start_date' => null,
+        'end_date' => null
+    ]);
+}
+
+
 
  public function store(Request $request)
 {
@@ -66,6 +79,6 @@ $cofId = $prefix . $year . $month . str_pad($nextNumber, 5, '0', STR_PAD_LEFT);
         'repair_summary' => $request->repair_summary,
     ]);
 
-    return redirect()->route('services.index')->with('success', 'Case berhasil ditambahkan!');
+    return redirect()->route('master.services.index')->with('success', 'Case berhasil ditambahkan!');
 }
 }

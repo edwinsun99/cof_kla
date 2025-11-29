@@ -69,10 +69,18 @@ Route::group([], function () {
         return view('master.home');
     })->name('home');
 
+    Route::prefix('master')->name('master.')->group(function () {
+
     Route::get('/services', [MasterServiceController::class, 'index'])->name('services.index');
     Route::post('/services', [MasterServiceController::class, 'store'])->name('services.store');
 
     Route::get('/case', [MasterCaseController::class, 'index'])->name('case.index');
+
+    });
+
+      // 🔥 ROUTE LOGDATE MASTER (FILTER TANGGAL + FILTER CABANG)
+    Route::get('/master/case/logdate', [MasterCaseController::class, 'logdate'])
+         ->name('master.case.logdate');
     Route::get('/newcase', [MasterNewCaseController::class, 'create'])->name('master.newcase');
     Route::get('/master/case/{id}', [MasterDetailController::class, 'show'])->name('case.show');
 
@@ -87,7 +95,7 @@ Route::group([], function () {
         Route::post('/manage-roles', [RoleController::class, 'store'])->name('roles.store');
         Route::delete('/manage-roles/{id}', [RoleController::class, 'destroy'])->name('roles.destroy');
 
-        Route::get('/get-product-type', [ProductController::class, 'getProductType'])->name('getProductType');
+        Route::get('/get-product-type', [MasterProductController::class, 'getProductType'])->name('getProductType');
     });
 });
 // ===========================
@@ -215,8 +223,9 @@ Route::prefix('ce')->name('ce.')->group(function () {
              Route::get('/finish-repair', [FinishController::class, 'index'])
          ->name('finish.repair');
          
-    Route::get('/get-product-type', [App\Http\Controllers\ce\ProductController::class, 'getProductType'])
-        ->name('getProductType');
+Route::get('/get-product-type', 
+    [App\Http\Controllers\ce\ProductController::class, 'getProductType'])
+    ->name('getProductType');
 
 
 });

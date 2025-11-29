@@ -50,7 +50,7 @@ $(document).ready(function () {
         </div>
 
         <div class="card-body p-4">
-            <form action="{{ route('services.store') }}" method="POST">
+            <form action="{{ route('master.services.store') }}" method="POST">
                 @csrf
 
                 {{-- CUSTOMER INFORMATION --}}
@@ -98,7 +98,7 @@ $(document).ready(function () {
         </select>
     </div>
 </div>
-                ca
+                
                     <div class="col-md-4 mb-3">
                         <label class="form-label fw-semibold">Received Date</label>
                         <input type="date" class="form-control shadow-sm" name="received_date">
@@ -199,7 +199,7 @@ $(document).ready(function () {
 
                 {{-- BUTTONS --}}
                 <div class="d-flex justify-content-end mt-4">
-                    <a href="{{ route('case.index') }}" class="btn btn-outline-secondary me-2 rounded-pill px-4">
+                    <a href="{{ route('master.case.index') }}" class="btn btn-outline-secondary me-2 rounded-pill px-4">
                         <i class="bi bi-arrow-left-circle"></i> Cancel
                     </a>
                     <button type="submit" class="btn rounded-pill px-4 text-white fw-semibold"
