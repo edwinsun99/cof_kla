@@ -12,6 +12,7 @@ use App\Models\CofCounter;
 use App\Services\CofIdGenerator;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon; // <-- ini baris penting
+use Barryvdh\DomPDF\Facade as PDF;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Excel\CofData;
 use Illuminate\Support\Facades\Log;

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 10, 2025 at 08:20 AM
+-- Generation Time: Dec 01, 2025 at 11:59 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -66,11 +66,11 @@ CREATE TABLE `cof_counters` (
 --
 
 INSERT INTO `cof_counters` (`id`, `branch_id`, `current_number`, `updated_at`) VALUES
-(1, 1, 71, '2025-11-09 21:01:18'),
-(2, 2, 3, '2025-11-07 19:32:55'),
-(3, 3, 2, '2025-11-07 21:26:41'),
-(4, 4, 11, '2025-11-07 23:51:04'),
-(5, 5, 1, '2025-11-07 00:03:50');
+(1, 1, 127, '2025-11-28 21:29:40'),
+(2, 2, 9, '2025-11-28 19:24:40'),
+(3, 3, 14, '2025-11-28 19:25:31'),
+(4, 4, 20, '2025-11-28 19:26:04'),
+(5, 5, 4, '2025-11-28 19:26:44');
 
 -- --------------------------------------------------------
 
@@ -87,6 +87,93 @@ CREATE TABLE `failed_jobs` (
   `exception` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `lognote`
+--
+
+CREATE TABLE `lognote` (
+  `id` bigint UNSIGNED NOT NULL,
+  `cof_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `un` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `logdesc` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `lognote`
+--
+
+INSERT INTO `lognote` (`id`, `cof_id`, `un`, `logdesc`, `created_at`, `updated_at`) VALUES
+(1, '73', 'ce1-klasmg', 'wafssafasfasf', '2025-11-21 02:31:53', '2025-11-21 02:31:53'),
+(2, '73', 'ce1-klasmg', 'kontol', '2025-11-21 02:32:25', '2025-11-21 02:32:25'),
+(3, '57', 'ce1-klasmg', 'edwin', '2025-11-21 02:34:16', '2025-11-21 02:34:16'),
+(4, '69', 'ce1-klaslawi', 'mati total', '2025-11-21 02:35:21', '2025-11-21 02:35:21'),
+(5, '69', 'ce1-klaslawi', 'kontol', '2025-11-21 02:36:26', '2025-11-21 02:36:26'),
+(6, 'C20251100001', 'ce1-klategal', 'sfafsafsafsa', '2025-11-21 02:49:03', '2025-11-21 02:49:03'),
+(7, 'C20251100001', 'ce1-klategal', 'sfafsafsafsa', '2025-11-21 02:49:03', '2025-11-21 02:49:03'),
+(8, 'C20251100001', 'ce1-klategal', 'safasfsafafs', '2025-11-21 02:49:11', '2025-11-21 02:49:11'),
+(9, '65', 'ce1-klategal', 'dasafasfasf', '2025-11-21 02:49:43', '2025-11-21 02:49:43'),
+(10, 'C20251100001', 'ce1-klategal', 'qdewqdeqweqwe', '2025-11-21 02:53:22', '2025-11-21 02:53:22'),
+(11, 'C20251100001', 'ce1-klategal', 'wdasdsssssssssssss', '2025-11-21 02:53:27', '2025-11-21 02:53:27'),
+(12, '65', 'ce1-klategal', 'wqdddddddddddd', '2025-11-21 02:55:18', '2025-11-21 02:55:18'),
+(13, '65', 'ce1-klategal', 'asuuuuuuuuuuuuuuu', '2025-11-21 02:55:52', '2025-11-21 02:55:52'),
+(14, '65', 'ce1-klategal', 'wihhh', '2025-11-21 03:08:01', '2025-11-21 03:08:01'),
+(15, '102', 'maulida', 'haii', '2025-11-21 03:09:59', '2025-11-21 03:09:59'),
+(16, '101', 'maulida', 'jnnnnnkk', '2025-11-21 03:14:04', '2025-11-21 03:14:04'),
+(17, '63', 'ce1-klasmg', 'adsffffffffffffffffffff', '2025-11-21 03:14:44', '2025-11-21 03:14:44'),
+(18, '63', 'maulida', 'waffffffffffffffffffffffffffffffffffffff', '2025-11-21 03:15:18', '2025-11-21 03:15:18'),
+(19, 'A000098', 'maulida', 'haiii', '2025-11-21 10:08:15', '2025-11-21 10:08:15'),
+(20, 'A000098', 'maulida', 'miracle', '2025-11-21 10:08:25', '2025-11-21 10:08:25'),
+(21, 'A000098', 'maulida', 'haiii', '2025-11-21 10:08:35', '2025-11-21 10:08:35'),
+(22, '102', 'maulida', 'csdc', '2025-11-21 10:08:58', '2025-11-21 10:08:58'),
+(23, '69', 'ce1-klaslawi', 'haiii', '2025-11-21 10:18:09', '2025-11-21 10:18:09'),
+(24, '69', 'ce1-klaslawi', 'ahioo', '2025-11-21 10:19:36', '2025-11-21 10:19:36'),
+(25, 'B20251100003', 'ce1-klaslawi', 'hosana', '2025-11-21 10:22:34', '2025-11-21 10:22:34'),
+(26, 'B20251100003', 'ce1-klaslawi', 'hosana', '2025-11-21 10:22:41', '2025-11-21 10:22:41'),
+(27, 'B20251100003', 'ce1-klaslawi', 'sadhu', '2025-11-21 10:35:42', '2025-11-21 10:35:42'),
+(28, 'B20251100003', 'ce1-klaslawi', 'dacs', '2025-11-21 10:36:21', '2025-11-21 10:36:21'),
+(29, 'B20251100003', 'ce1-klaslawi', 'wowww', '2025-11-21 10:40:57', '2025-11-21 10:40:57'),
+(30, 'B20251100003', 'maulida', 'haiii', '2025-11-21 10:44:48', '2025-11-21 10:44:48'),
+(31, 'B20251100003', 'maulida', 'perfect', '2025-11-21 10:48:15', '2025-11-21 10:48:15'),
+(32, 'B20251100003', 'maulida', 'yaaaa', '2025-11-21 10:48:57', '2025-11-21 10:48:57'),
+(33, 'B20251100003', 'maulida', 'hooo', '2025-11-21 10:49:09', '2025-11-21 10:49:09'),
+(34, 'B20251100003', 'maulida', 'ohoo', '2025-11-21 10:49:44', '2025-11-21 10:49:44'),
+(35, 'E20251100001', 'ce1-klakediri', 'haii', '2025-11-21 10:52:59', '2025-11-21 10:52:59'),
+(36, 'B20251100001', 'ce1-klaslawi', 'haiiiii', '2025-11-21 10:54:26', '2025-11-21 10:54:26'),
+(37, 'B20251100001', 'ce1-klaslawi', 'aguu', '2025-11-21 10:55:38', '2025-11-21 10:55:38'),
+(38, 'B20251100001', 'maulida', 'ooo', '2025-11-21 10:57:51', '2025-11-21 10:57:51'),
+(39, 'B20251100001', 'maulida', 'waaaaa', '2025-11-21 10:58:42', '2025-11-21 10:58:42'),
+(40, 'B20251100001', 'maulida', 'waaa', '2025-11-21 10:59:09', '2025-11-21 10:59:09'),
+(41, 'B20251100001', 'maulida', 'waaa', '2025-11-21 10:59:16', '2025-11-21 10:59:16'),
+(42, 'D20251100007', 'ce1-klapkl', 'repair', '2025-11-21 11:05:50', '2025-11-21 11:05:50'),
+(43, 'D20251100007', 'ce1-klapkl', 'waaaa', '2025-11-21 11:07:09', '2025-11-21 11:07:09'),
+(44, 'D20251100002', 'maulida', 'haiii', '2025-11-23 08:26:40', '2025-11-23 08:26:40'),
+(45, 'D20251100002', 'maulida', 'haiii', '2025-11-23 08:27:03', '2025-11-23 08:27:03'),
+(46, 'A20250900025', 'ce1-klasmg', 'ahii', '2025-11-23 10:14:58', '2025-11-23 10:14:58'),
+(47, 'A20250900025', 'maulida', 'haii', '2025-11-23 10:15:46', '2025-11-23 10:15:46'),
+(48, 'A20250900025', 'maulida', 'sippp', '2025-11-23 10:18:45', '2025-11-23 10:18:45'),
+(49, 'A20250900025', 'ce1-klasmg', 'heeee', '2025-11-23 10:19:56', '2025-11-23 10:19:56'),
+(50, 'A20251100106', 'ce1-klasmg', 'sedang cek unit', '2025-11-26 01:29:34', '2025-11-26 01:29:34'),
+(51, 'A20251100106', 'ce1-klasmg', 'mainboard rusak', '2025-11-26 01:29:51', '2025-11-26 01:29:51'),
+(52, 'A20251100106', 'maulida', 'part rready', '2025-11-26 01:31:48', '2025-11-26 01:31:48'),
+(53, 'A20251100106', 'ce1-klasmg', 'replace mainboard', '2025-11-26 01:33:16', '2025-11-26 01:33:16'),
+(54, 'A20251100109', 'ce1-klasmg', 'bkjb', '2025-11-26 19:12:56', '2025-11-26 19:12:56'),
+(55, 'A20251100110', 'ce1-klasmg', 'cek cs unit normal', '2025-11-26 19:14:38', '2025-11-26 19:14:38'),
+(56, 'A20251100110', 'ce1-klasmg', 'sedang perbaikan', '2025-11-26 19:15:11', '2025-11-26 19:15:11'),
+(57, 'A20251100110', 'ce1-klasmg', 'uuuuuuuuu', '2025-11-26 19:18:39', '2025-11-26 19:18:39'),
+(58, 'A20251100122', 'ce1-klasmg', 'BAIK', '2025-11-26 20:14:13', '2025-11-26 20:14:13'),
+(59, 'A20251100123', 'ce1-klasmg', 'unit rusak', '2025-11-26 20:50:58', '2025-11-26 20:50:58'),
+(60, 'C20251100012', 'ce1-klategal', 'bj', '2025-11-26 20:52:05', '2025-11-26 20:52:05'),
+(61, 'E20251100003', 'ce1-klakediri', 'hbk', '2025-11-28 19:15:32', '2025-11-28 19:15:32'),
+(62, 'D20251100019', 'ce1-klapkl', 'kj', '2025-11-28 19:16:35', '2025-11-28 19:16:35'),
+(63, 'B20251100008', 'ce1-klaslawi', 'b', '2025-11-28 19:17:41', '2025-11-28 19:17:41'),
+(64, 'A20251100124', 'ce1-klasmg', 'kjhkj', '2025-11-28 19:18:43', '2025-11-28 19:18:43'),
+(65, 'C20251100013', 'ce1-klategal', 'khk', '2025-11-28 19:19:28', '2025-11-28 19:19:28'),
+(66, 'A20251100127', 'ce1-klasmg', 'Unit Normal', '2025-11-28 21:29:40', '2025-11-28 21:29:40');
 
 -- --------------------------------------------------------
 
@@ -118,7 +205,10 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (12, '2025_10_31_083357_create_cof_counters_table', 6),
 (13, '2025_10_31_090838_add_cof_id_and_ce_id_to_services_table', 7),
 (14, '2025_11_01_045233_add_branch_to_services_table', 7),
-(15, '2025_11_09_111822_add_address_to_branches_table', 8);
+(15, '2025_11_09_111822_add_address_to_branches_table', 8),
+(16, '2025_11_14_033556_add_erf_file_to_services_table', 9),
+(17, '2025_11_15_071242_add_status_to_services_table', 10),
+(19, '2025_11_20_065223_create_service_notes_table', 11);
 
 -- --------------------------------------------------------
 
@@ -182,10 +272,11 @@ INSERT INTO `products` (`id`, `pn`, `nt`, `created_at`, `updated_at`) VALUES
 
 CREATE TABLE `services` (
   `id` bigint UNSIGNED NOT NULL,
-  `cof_id` varchar(255) NOT NULL,
+  `cof_id` varchar(255) DEFAULT NULL,
   `branch_id` bigint UNSIGNED DEFAULT NULL,
   `contact` varchar(100) NOT NULL,
   `received_date` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `status` enum('new','repair progress','quotation request','cancel repair','finish repair','quotation approved','quotation cancelled') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT 'new',
   `started_date` varchar(100) DEFAULT NULL,
   `finished_date` date DEFAULT NULL,
   `customer_name` varchar(100) NOT NULL,
@@ -202,89 +293,27 @@ CREATE TABLE `services` (
   `repair_summary` text,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `ce_id` bigint UNSIGNED DEFAULT NULL
+  `ce_id` bigint UNSIGNED DEFAULT NULL,
+  `erf_file` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `services`
 --
 
-INSERT INTO `services` (`id`, `cof_id`, `branch_id`, `contact`, `received_date`, `started_date`, `finished_date`, `customer_name`, `email`, `address`, `phone_number`, `brand`, `product_number`, `serial_number`, `nama_type`, `fault_description`, `accessories`, `kondisi_unit`, `repair_summary`, `created_at`, `updated_at`, `ce_id`) VALUES
-(2, 'A000022', 1, '', '2025-09-22', '2025-09-22', '2025-09-22', 'Edwin', '', 'Beruang', '90-90-', '', 'hjiujo', 'jiojioioioj', NULL, 'lkjkljkjl', 'ljljlk', NULL, 'kjkl', '2025-09-21 18:14:23', '2025-11-09 21:01:18', NULL),
-(3, 'A000023', 1, '', '2025-09-22', '2025-09-22', '2025-09-22', 'Chia', '', 'Beruang', '90-90-', '', 'hjiujo', 'jiojioioioj', NULL, 'lkjkljkjl', 'ljljlk', NULL, 'kjkl', '2025-09-21 18:22:13', '2025-11-09 21:01:18', NULL),
-(4, 'A000024', 1, '', '2025-09-22', '2025-09-22', '2025-09-22', 'Chia', '', 'Beruang', '90-90-', '', 'hjiujo', 'jiojioioioj', NULL, 'lkjkljkjl', 'ljljlk', NULL, 'kjkl', '2025-09-21 18:29:57', '2025-11-09 21:01:18', NULL),
-(5, 'A000025', 1, '', '2025-09-22', '2025-09-22', '2025-09-22', 'Chia', '', 'Beruang', '90-90-', '', 'hjiujo', 'jiojioioioj', NULL, 'lkjkljkjl', 'ljljlk', NULL, 'kjkl', '2025-09-21 19:07:28', '2025-11-09 21:01:18', NULL),
-(6, 'A000026', 1, '', '2025-09-22', '2025-09-22', '2025-09-22', 'Catur', '', 'kjnkjnkj', 'kjn', '', 'jkk', 'jkkk', NULL, 'knjnkj', 'jkkk', NULL, 'jkjk', '2025-09-21 19:17:06', '2025-11-09 21:01:18', NULL),
-(7, 'A000027', 1, '', '2025-09-22', '2025-09-22', '2025-09-22', 'qeqwr', '', 'sfzsszf', 'sfzfzsfzsf', '', 'rarfsarQ', 'SGFSDG', NULL, 'DSGSDG', 'SDGSDG', NULL, 'DSGSDG', '2025-09-21 19:27:59', '2025-11-09 21:01:18', NULL),
-(8, 'A000028', 1, '', '2025-09-22', '2025-09-22', '2025-09-22', 'qeqwr', '', 'sfzsszf', 'sfzfzsfzsf', '', 'rarfsarQ', 'SGFSDG', NULL, 'DSGSDG', 'SDGSDG', NULL, 'DSGSDG', '2025-09-21 19:30:05', '2025-11-09 21:01:18', NULL),
-(9, 'A000029', 1, '', '2025-09-25', '2025-09-25', '2025-09-25', 'Mas YOgi', '', 'nkjnkjnjk', '90808098', '', 'jjjiio', 'jjj', NULL, 'nnjknkjn', 'nkjnkjnj', NULL, 'jnjknjk', '2025-09-24 19:06:26', '2025-11-09 21:01:18', NULL),
-(10, 'A000030', 1, '', '2025-09-25', '2025-09-25', '2025-09-25', 'wqrafaf', '', 'uu', 'fuyfuy', 'owpropwqjro', 'opjpjhop', 'opjop', NULL, 'opj', 'opjopjop', NULL, 'opjpoj', '2025-09-24 19:33:10', '2025-11-09 21:01:18', NULL),
-(11, 'A000031', 1, '', '2025-09-25', '2025-09-25', '2025-09-25', 'wqrafaf', '', 'uu', 'fuyfuy', 'owpropwqjro', 'opjpjhop', 'opjop', NULL, 'opj', 'opjopjop', NULL, 'opjpoj', '2025-09-24 19:33:41', '2025-11-09 21:01:18', NULL),
-(12, 'A000032', 1, '', '2025-09-25', '2025-09-25', '2025-09-25', 'woirfopafapo', '', 'iohoihoi', 'ohuhuohoi', 'ioahsfoiash', 'iohoihoi', 'hihoih', NULL, 'ioiohoiho', 'oihoih', NULL, 'iohoihoi', '2025-09-24 19:38:01', '2025-11-09 21:01:18', NULL),
-(13, 'A000033', 1, '', '2025-09-25', '2025-09-25', '2025-09-25', 'sdfsdfs', '', 'uigiug', 'igiugiu', 'khkh', 'hiohoi', 'hiohoi', NULL, 'hoihoi', 'hoihoi', NULL, 'hoihoi', '2025-09-24 19:45:42', '2025-11-09 21:01:18', NULL),
-(14, 'A000034', 1, '', '2025-09-25', '2025-09-25', '2025-09-25', 'sdfsdfs', '', 'uigiug', 'igiugiu', 'khkh', 'hiohoi', 'hiohoi', NULL, 'hoihoi', 'hoihoi', NULL, 'hoihoi', '2025-09-24 19:47:41', '2025-11-09 21:01:18', NULL),
-(15, 'A000035', 1, '', '2025-09-25', '2025-09-25', '2025-09-25', 'sdfsdfs', '', 'uigiug', 'igiugiu', 'khkh', 'hiohoi', 'hiohoi', NULL, 'hoihoi', 'hoihoi', NULL, 'hoihoi', '2025-09-24 19:48:38', '2025-11-09 21:01:18', NULL),
-(16, 'A000036', 1, '', '2025-09-25', '2025-09-25', '2025-09-25', 'wqeqwe', '', 'yuf', 'uyfg', 'oihoih', 'ohoi', 'hoi', NULL, 'oih', 'oih', NULL, 'oiho', '2025-09-24 19:49:50', '2025-11-09 21:01:18', NULL),
-(17, 'A000037', 1, '', '2025-09-25', '2025-09-25', '2025-09-25', 'qewrqw', '', '9h89', 'h9', 'kjooi', 'ihoih', 'oihoih', NULL, 'hihoh', 'oihoiho', NULL, 'hooiho', '2025-09-24 19:54:37', '2025-11-09 21:01:18', NULL),
-(18, 'A000038', 1, '', '2025-09-25', '2025-09-25', '2025-09-25', 'edwin', '', 'iugui', 'gui', 'houihio', 'hoih', 'oih', NULL, 'oih', 'oih', NULL, 'ho', '2025-09-24 19:57:12', '2025-11-09 21:01:18', NULL),
-(19, 'A000039', 1, '', '2025-09-25', '2025-09-25', '2025-09-25', 'catur', '', 'guig', 'iug', 'iojiojio', 'jioj', 'oijoij', NULL, 'joi', 'oijoi', NULL, 'oij', '2025-09-24 19:58:49', '2025-11-09 21:01:18', NULL),
-(20, 'A000040', 1, '', '2025-09-25', '2025-09-25', '2025-09-25', 'catur', '', 'guig', 'iug', 'iojiojio', 'jioj', 'oijoij', NULL, 'joi', 'oijoi', NULL, 'oij', '2025-09-24 19:59:14', '2025-11-09 21:01:18', NULL),
-(21, 'A000041', 1, '', '2025-09-25', NULL, NULL, 'fesfes', '', 'n', 'jn', 'ohih', 'oihoi', 'ho', NULL, 'ho', 'hoi', NULL, 'ho', '2025-09-24 20:02:41', '2025-11-09 21:01:18', NULL),
-(22, 'A000042', 1, '', NULL, NULL, NULL, 'wafakwf', '', 'oih', 'iohio', 'ohioh', 'oihoi', 'hoi', NULL, 'ho', 'hoi', NULL, 'hoih', '2025-09-24 20:04:07', '2025-11-09 21:01:18', NULL),
-(23, 'A000043', 1, 'iihuhi', NULL, NULL, NULL, 'sfsdfs', '', 'uhiu', 'huih', 'ohoih', 'oih', 'oh', NULL, 'ioh', 'oih', NULL, 'hoi', '2025-09-24 20:11:26', '2025-11-09 21:01:18', NULL),
-(24, 'A000044', 1, 'jkkknkjn', NULL, NULL, NULL, 'Tur', '', 'njnj', 'j88080989', 'nkjknkn', 'jjkjlj', 'jkjkl', NULL, 'mlmlm', 'mklmlm', NULL, 'mmlmlm', '2025-09-24 20:20:18', '2025-11-09 21:01:18', NULL),
-(25, 'A000045', 1, 'joiioijjioo', NULL, NULL, NULL, 'Hayo', '', 'hhhh', '0988', 'khihui', 'hhkhn', 'hohoihj', NULL, 'jijio', 'jiooiio', NULL, 'jioio', '2025-09-25 12:25:13', '2025-11-09 21:01:18', NULL),
-(26, 'A000046', 1, 'nkjnjkn', '2025-10-09', NULL, NULL, 'jojoi', '', 'iojjio', 'j8908809', 'jn', 'jjkj', 'kjkj', NULL, 'kjk', 'jj', NULL, 'ljk', '2025-09-25 12:25:51', '2025-11-09 21:01:18', NULL),
-(27, 'A000047', 1, 'jjl', '2025-09-19', NULL, NULL, 'kjk', '', 'kjjkjkk', '8998980', 'hhhuhj', 'khkhhhj', 'hhhhjhih', NULL, 'ijiojioj', 'jiojioj', NULL, 'jjooi', '2025-09-25 12:56:48', '2025-11-09 21:01:18', NULL),
-(28, 'A000048', 1, 'jjjji', '2025-09-26', NULL, NULL, 'kjjhkjhh', '', 'hkjjjkhj', '8009908', 'klj', 'jjijiojio', 'hjkh', 'jji', 'jiojioo', 'i', NULL, 'jjio', '2025-09-25 13:00:26', '2025-11-09 21:01:18', NULL),
-(29, 'A000049', 1, 'dvfvdf', '2025-09-05', NULL, NULL, 'Pak ERwan', '', 'hijhi', '809898', 'nkjnn', 'njknknjk', 'jj', 'jj', 'jjio', 'jji', NULL, 'io', '2025-09-25 13:02:00', '2025-11-09 21:01:18', NULL),
-(30, 'A000050', 1, 'ijioio', '2025-10-03', NULL, NULL, 'hjkhi', '', 'ihihiu', '989090', 'khhuhuih', 'hhjioj', 'jijoijiojio', 'jjjiojio', 'jjjioj', 'iojjjio', NULL, 'jji', '2025-09-25 13:02:40', '2025-11-09 21:01:18', NULL),
-(31, 'A000051', 1, 'Company', '2025-10-03', NULL, NULL, 'Stella', '', 'Sungai Penuh', '043086259080', 'HP', 'HAUIFSDAE809', 'FODVOJEODI4395R90', 'HP Officejet Pro 5130', 'print failure', 'Dus bawaan', NULL, 'cek ok good best', '2025-09-25 13:21:44', '2025-11-09 21:01:18', NULL),
-(32, 'A000052', 1, 'Company', '2025-10-03', '2025-09-30', '2025-09-30', 'Stefer', '', 'Sungai Penuh', '043086259080', 'HP', 'HAUIFSDAE809', 'FODVOJEODI4395R90', 'HP Officejet Pro 5130', 'print failure', 'Dus bawaan', NULL, 'cek ok good best', '2025-09-25 13:23:18', '2025-11-09 21:01:18', NULL),
-(34, 'A000053', 1, 'jj', '2025-09-02', '2025-09-18', '2025-09-03', 'Wicaksono', '', 'iojio', 'j', 'huihiui', 'huuhihj', 'hhhh', 'jijio', NULL, 'jiijoj', 'jk', 'jkjkl', '2025-09-25 13:40:18', '2025-11-09 21:01:18', NULL),
-(35, 'A000054', 1, 'hohjoi', '2025-10-09', '2025-09-26', '2025-09-26', 'Tadisa', '', 'jhu', 'jhjhj', 'hioho', 'jj', 'hhuoho', 'h', 'nlklnj', 'lnljnnj', 'jll', 'lklj', '2025-09-25 13:41:34', '2025-11-09 21:01:18', NULL),
-(36, 'A000055', 1, 'ijilj', '2025-10-09', '2025-09-27', '2025-09-27', 'hko', '', 'kjbkbjkb', '878907908', 'kjlkljl', 'jjl', 'kjkkh', 'jnhlhh', 'kjnlkn', 'lkmlm', 'nlkjlkj', 'lnlnlknk', '2025-09-26 18:42:30', '2025-11-09 21:01:18', NULL),
-(37, 'A000056', 1, 'jnjkl', '2025-09-27', '2025-09-28', '2025-09-29', 'Acer', '', 'hkh', '8090989', 'kjn l', 'lnjkn', 'kljlkjl', 'jllk', 'hkjhjh', 'jhlhjh', 'kjhkkjh', 'hjhkh', '2025-09-26 18:43:14', '2025-11-09 21:01:18', NULL),
-(38, 'A000057', 1, 'huihuih', '2025-09-27', '2025-09-27', '2025-09-30', 'jioiojojoi', '', 'hhijuj', '800998', 'njknjknk', 'hhjh', 'joikoo', 'iojoi', 'iojjiojio', 'ijijoio', 'jioio', 'ioioi', '2025-09-27 15:07:51', '2025-11-09 21:01:18', NULL),
-(39, 'A000058', 1, 'Company', '2025-09-30', '2025-09-30', '2025-10-01', 'Fattah', '', 'Jakarta', '403958349', 'HP', 'NJVDF34U8RU43U', 'NFNADJ843UU430', 'HP Designjet 1110 Pro', 'rusak', 'dus bawaan', 'rusak', 'good', '2025-09-29 03:01:15', '2025-11-09 21:01:18', NULL),
-(40, 'A000059', 1, 'nadvjon', '2025-09-30', '2025-09-30', '2025-10-01', 'Mas Agung', '', 'jojoijoj', '90809098', 'Lenovo', 'DSCNK909090VJDFN', 'DFVKJXCNVJDU90U90', 'sdnvkjndjk', 'nnoj', 'jnkl', 'lkklj', 'jkljklj', '2025-09-29 11:57:32', '2025-11-09 21:01:18', NULL),
-(41, 'A000060', 1, 'Company', '2025-09-30', '2025-10-11', '2025-10-08', 'Pak Farhan', '', 'Gajah', '238048030', 'Acer', 'D S343345', 'JOAFVAIO3409893', 'hfhihvua', 'jo', 'iij', 'jjj', 'kjnjk', '2025-09-29 16:46:32', '2025-11-09 21:01:18', NULL),
-(42, 'A000061', 1, 'hihuui', '2025-10-01', '2025-10-01', '2025-10-02', 'Hewlett', '', 'hohh', '897879', 'nininiu', 'jknn', 'jjnjn', 'jkkj', 'njho', 'hbibib', 'kbnjknn', 'jnnk', '2025-09-30 13:53:59', '2025-11-09 21:01:18', NULL),
-(43, 'A000062', 1, 'jljlj', '2025-10-10', '2025-10-15', '2025-10-29', 'HP', 'jijijiji', 'kjnknjnjknjnjk', '9888080', 'jn', 'jo', 'jklk', 'kklkl', 'klkl', 'kllkkl', 'kmlm', 'klmk', '2025-10-01 12:46:37', '2025-11-09 21:01:18', NULL),
-(44, 'A000063', 1, 'kjnkjnj', '2025-10-24', '2025-10-11', '2025-10-05', 'Adrie', 'jojio', 'mn nm n', '9090', 'nj', 'nkln', 'klnnnl', 'nnkln', 'nkjlnlk', 'nlknn', 'klnkl', 'lkk', '2025-10-09 10:22:53', '2025-11-09 21:01:18', NULL),
-(45, 'A000064', 1, 'kjknknk', '2025-10-14', '2025-10-14', '2025-10-14', 'Jesslyn', 'jioino', 'jbjnk', '0980990', 'uhojuh', 'jnjnnk', 'njnn', 'nnjn', 'nkjn', 'nkjjknjk', 'jknkjkj', 'nnjkn', '2025-10-13 10:15:00', '2025-11-09 21:01:18', NULL),
-(46, 'A000065', 1, 'jiij', '2025-10-04', '2025-10-11', '2025-10-14', 'Rexus', 'elkrgfmed', 'kjnjknkj', '8098', 'kbj', 'kjknk', 'njknkljjkl', 'nlkjn', 'nlk', 'nnlkn', 'nlkjnl', 'nnkl', '2025-10-17 20:34:20', '2025-11-09 21:01:18', NULL),
-(47, 'A000066', 1, 'nklmk', '2025-10-09', '2025-10-15', '2025-10-28', 'Samsung', 'samsung@gmail.com', 'kjnn', '90ii9', 'hgiuhggu', 'huiku', 'hkbb', 'bkbhkj', 'bhkbkbkbh', 'hbjbb', 'hbhk', 'bhjb,jb', '2025-10-23 23:53:01', '2025-11-09 21:01:18', NULL),
-(48, 'A000067', 1, 'Company', '2025-10-27', '2025-10-27', '2025-10-30', 'Gipiti', 'gipiti@gmail.com', 'Prudential Center Kota Kasablanka Lantai 5 Unit C-E, Jl. Raya Casablanca No.Kav. 88 16, RT.16/RW.5, Menteng Dalam, Kec. Tebet, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12870', '+62 858-9012-5770', 'Asus', 'UX3405CA', 'A123456789B', 'ASUS ExpertBook B3', 'lcd pecah, adaptor rusak, check all', 'adaptor', 'rusak', 'gasssss', '2025-10-26 09:28:09', '2025-11-09 21:01:18', NULL),
-(49, 'A000068', 1, 'Company', '2025-10-27', '2025-10-27', '2025-10-30', 'Gipiti', 'gipiti@gmail.com', 'Prudential Center Kota Kasablanka Lantai 5 Unit C-E, Jl. Raya Casablanca No.Kav. 88 16, RT.16/RW.5, Menteng Dalam, Kec. Tebet, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12870', '+62 858-9012-5770', 'Asus', 'UX3405CA', 'A123456789B', 'ASUS ExpertBook B3', 'lcd pecah, adaptor rusak, check all', 'adaptor', 'rusak', 'gasssss', '2025-10-26 09:34:19', '2025-11-09 21:01:18', NULL),
-(50, 'A000069', 1, 'Personal', '2025-11-08', '2025-11-07', '2025-10-01', 'Mc Laren', 'mclaren@gmail.com', 'fdgbfdbg', '345346546', 'fgbdfg', 'UX3405CA', 'fgbdf5464', 'ASUS ExpertBook B3', 'gcb ngcb', 'dfgbdfg', 'fgbdfgb', 'fgbdfgb', '2025-10-26 21:23:57', '2025-11-09 21:01:18', NULL),
-(51, 'A000070', 1, 'Company', '2025-11-01', '2025-11-08', '2025-11-04', 'HD', 'hd@gmail.com', '534534', '4r3535', '53334', 'dfvsdfg', '3452', 'fgbbd', 'dv df', 'vdsfvsd', 'dsfv fd', 'sdfvd', '2025-10-26 21:36:34', '2025-11-09 21:01:18', NULL),
-(52, 'A000071', 1, 'sddsfv', '2025-10-11', '2025-09-30', '2025-10-01', 'Intel', 'intel@gmail.com', 'bkjbjkj', '78978', 'jbkn', 'CE711A', 'giboolj', 'HP Color Laserjet Professional CP577n', 'jlnk', 'hnlnkjn', 'kljlk', 'ljljl', '2025-10-29 01:57:00', '2025-11-09 21:01:18', NULL),
-(53, 'A000006', 1, 'asdasf', '2025-11-07', '2025-11-07', '2025-11-07', 'qwrqwrqwr', NULL, NULL, '12421412', 'asfasfas', 'A514-55G-75BB', 'wetwetwetwe', 'Acer Aspire 5 A514-55G-75BB Notebook', 'qwrqwr', NULL, NULL, 'qwrqwr', '2025-11-06 20:37:59', '2025-11-06 20:37:59', NULL),
-(54, 'A000009', 1, 'asdasf', '2025-11-07', '2025-11-07', '2025-11-07', 'qwrqwrqwr', NULL, 'sfasfasf', '12421412', 'asfasfas', 'A514-55G-75BB', 'wetwetwetwe', 'Acer Aspire 5 A514-55G-75BB Notebook', 'sfasfasf', NULL, NULL, 'safasf', '2025-11-06 21:08:27', '2025-11-06 21:08:27', NULL),
-(55, 'A000010', 1, 'asdasf', '2025-11-07', '2025-11-07', '2025-11-07', 'qwrqwrqwr', NULL, 'aDAd', '12421412', 'asfasfas', 'A514-55G-75BB', 'wetwetwetwe', 'Acer Aspire 5 A514-55G-75BB Notebook', 'aDAd', NULL, NULL, 'ADAd', '2025-11-06 21:08:44', '2025-11-06 21:08:44', NULL),
-(56, 'A000011', 1, 'Syifa Catur Wicaksono', '2025-11-07', '2025-11-07', '2025-11-07', 'Syifa Catur Wicaksono', NULL, NULL, '12421412', 'asfasfas', 'A514-55G-75BB', 'wetwetwetwe', 'Acer Aspire 5 A514-55G-75BB Notebook', 'asdadasd', NULL, NULL, 'asdasdasd', '2025-11-06 21:14:38', '2025-11-06 21:14:38', NULL),
-(57, 'A000012', 1, 'Syifa Catur Wicaksono', '2025-11-07', '2025-11-07', '2025-11-07', 'Syifa Catur Wicaksono', NULL, 'safasfasf', '12421412', 'asfasfas', 'A514-55G-75BB', 'wetwetwetwe', 'Acer Aspire 5 A514-55G-75BB Notebook', 'sfasfasf', NULL, NULL, 'asfasf', '2025-11-06 21:18:36', '2025-11-06 21:18:36', NULL),
-(58, 'A000013', 1, 'Syifa Catur Wicaksono', '2025-11-07', '2025-11-07', '2025-11-07', 'edwin', NULL, NULL, '12421412', 'asfasfas', 'A514-55G-75BB', 'wetwetwetwe', 'Acer Aspire 5 A514-55G-75BB Notebook', NULL, NULL, NULL, NULL, '2025-11-06 21:19:05', '2025-11-06 21:19:05', NULL),
-(59, 'A000014', 1, 'Syifa Catur Wicaksono', '2025-11-07', '2025-11-07', '2025-11-07', 'edwin', NULL, NULL, '12421412', 'asfasfas', 'A514-55G-75BB', 'wetwetwetwe', 'Acer Aspire 5 A514-55G-75BB Notebook', NULL, NULL, NULL, NULL, '2025-11-06 21:22:42', '2025-11-06 21:22:42', NULL),
-(60, 'D000001', 4, 'gjh', '2025-11-01', '2025-11-14', '2025-11-13', 'Leo', NULL, 'jhgj', '778979', 'cvvgv', 'UX3405CA', 'ghj', 'ASUS ExpertBook B3', 'jhh', NULL, NULL, ',jnk,', '2025-11-06 21:47:38', '2025-11-06 21:47:38', NULL),
-(61, 'D000002', 4, 'gjh', '2025-11-01', '2025-11-14', '2025-11-13', 'lie, edwin', NULL, 'ra ndue alamat', '778979', 'cvvgv', 'UX3405CA', 'ghj', 'ASUS ExpertBook B3', 'gila', NULL, NULL, 'a', '2025-11-06 23:14:25', '2025-11-06 23:14:25', NULL),
-(62, 'A000016', 1, 'adasdsad', '2025-11-07', '2025-11-07', '2025-11-07', 'Edwin', NULL, 'sdsadsad', '32525', 'sadasdsad', 'A514-55G-75BB', 'wqrqwrqwr', 'Acer Aspire 5 A514-55G-75BB Notebook', 'wqrqwr', NULL, NULL, 'qwrqw', '2025-11-06 23:41:23', '2025-11-06 23:41:23', NULL),
-(63, 'A000017', 1, 'hbubu', '2025-11-06', '2025-11-04', '2025-11-10', 'Case', NULL, 'inij', '089', 'nnjk', 'A514-55G-75BB', 'iuninnjnn', 'Acer Aspire 5 A514-55G-75BB Notebook', 'hnui8', NULL, NULL, 'klmk', '2025-11-06 23:49:38', '2025-11-06 23:49:38', NULL),
-(64, 'D000003', 4, 'hiuu', '2025-11-07', '2025-11-07', '2025-11-07', 'Work', NULL, 'nkjnko', '90889', 'nij', 'CE711A', 'hhb', 'HP Color Laserjet Professional CP577n', 'hbuh', NULL, NULL, 'njni', '2025-11-06 23:53:02', '2025-11-06 23:53:02', NULL),
-(65, 'C000001', 3, 'iiohijo', '2025-11-07', '2025-11-07', '2025-11-07', 'Boni', NULL, 'hhihu', '9890890989', 'hijii', 'CE711A', 'hjn', 'HP Color Laserjet Professional CP577n', 'joi', NULL, NULL, 'io', '2025-11-06 23:59:30', '2025-11-06 23:59:30', NULL),
-(66, 'B000001', 2, 'iuj', '2025-11-28', '2025-11-07', '2025-11-07', 'Oliver', NULL, 'njnn', '009', 'jioo', 'UX3405CA', 'kio', 'ASUS ExpertBook B3', 'kkok', NULL, NULL, 'o', '2025-11-07 00:01:13', '2025-11-07 00:01:13', NULL),
-(67, 'E000001', 5, 'hi', '2025-11-07', '2025-11-07', '2025-11-07', 'Milo', NULL, 'hiuiuu', '9787', 'gbhhi', 'CE711A', 'hbk', 'HP Color Laserjet Professional CP577n', 'jjjkj', NULL, NULL, 'jlkk', '2025-11-07 00:03:50', '2025-11-07 00:03:50', NULL),
-(68, 'B000002', 2, 'hkhkh', '2025-11-13', '2025-11-19', '2025-11-14', 'Full', NULL, 'jhkjh', '890', 'jhihno', 'A514-55G-75BB', 'kbhkibi', 'Acer Aspire 5 A514-55G-75BB Notebook', 'iuhuuhih', NULL, NULL, 'jlj', '2025-11-07 19:17:49', '2025-11-07 19:17:49', NULL),
-(69, 'B000003', 2, 'jnno', '2025-11-08', '2025-11-08', '2025-11-08', 'Away', 'away@gmail.com', 'bhj', '98989', 'kjnkjj', 'CE711A', 'nl', 'HP Color Laserjet Professional CP577n', 'jlklklkj', NULL, NULL, 'kl', '2025-11-07 19:32:55', '2025-11-07 19:32:55', NULL),
-(70, 'D000004', 4, 'asfsaf', '2025-11-08', '2025-11-08', '2025-11-08', 'afasfsa', 'steven@gmail.com', 'dgsdgsdg', '32412', 'dsgdsgd', 'A514-55G-75BB', 'dsgsdg', 'Acer Aspire 5 A514-55G-75BB Notebook', 'dsgsdg', NULL, NULL, 'sdgsdg', '2025-11-07 21:22:18', '2025-11-07 21:22:18', NULL),
-(71, 'D000007', 4, 'wfaf', NULL, NULL, NULL, 'wetwetwet', 'ce@mail.com', 'qwqrqwr', '124124', 'wqrqwr', 'A514-55G-75BB', 'wqrqwr', 'Acer Aspire 5 A514-55G-75BB Notebook', 'qwrwqr', NULL, NULL, 'qwrqwr', '2025-11-07 21:25:27', '2025-11-07 21:25:27', NULL),
-(72, 'C000002', 3, 'werwer', NULL, NULL, NULL, 'Edwin', 'ce@mail.com', 'wrewrewr', '1232131', 'wrwer', 'A514-55G-75BB', 'werwer', 'Acer Aspire 5 A514-55G-75BB Notebook', 'werewr', NULL, NULL, 'wrewre', '2025-11-07 21:26:41', '2025-11-07 21:26:41', NULL),
-(73, 'A000021', 1, 'hfjjh', NULL, NULL, NULL, 'Edwin', 'ce@mail.com', 'jkgjkgkj', '7587575', 'owpropwqjro', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2025-11-07 21:43:43', '2025-11-07 21:43:43', NULL),
-(74, 'D000008', 4, 'afdafss', '2025-11-08', '2025-11-20', '2025-11-13', 'Edwin', 'ce@mail.com', 'fsfasdfsd', '678679', 'asfsaf', 'A514-55G-75BB', 'safsaf', 'Acer Aspire 5 A514-55G-75BB Notebook', NULL, NULL, NULL, NULL, '2025-11-07 23:46:14', '2025-11-07 23:46:14', NULL),
-(75, 'D000009', 4, 'j', '2025-11-08', '2025-11-08', '2025-11-08', 'Edwin', 'edwin.designz99@gmail.com', 'asdasfasf', '241412', 'asdsafsaf', 'A514-55G-75BB', 'asfasfasf', 'Acer Aspire 5 A514-55G-75BB Notebook', 'asfasf', NULL, NULL, 'asfasfsaf', '2025-11-07 23:48:25', '2025-11-07 23:48:25', NULL),
-(76, 'D000010', 4, 'sasadasf', '2025-11-08', '2025-11-08', '2025-11-08', 'Edwin', 'edwin.designz99@gmail.com', 'sadasassa', '213123', 'asfasfsaf', 'A514-55G-75BB', 'asfasf', 'Acer Aspire 5 A514-55G-75BB Notebook', 'asfasf', NULL, 'asfasf', 'asfsa', '2025-11-07 23:49:51', '2025-11-07 23:49:51', NULL),
-(77, 'D000011', 4, 'awsewadasfsaf', '2025-11-08', '2025-11-08', '2025-11-08', 'Edwin', 'adrie01@gmail.com', 'safasfasf', '12312124', 'asfasfsaf', 'A514-55G-75BB', 'asfasfasf', 'Acer Aspire 5 A514-55G-75BB Notebook', 'safasfsa', 'asfasf', 'asfasf', 'asfasf', '2025-11-07 23:51:04', '2025-11-07 23:51:04', NULL);
+INSERT INTO `services` (`id`, `cof_id`, `branch_id`, `contact`, `received_date`, `status`, `started_date`, `finished_date`, `customer_name`, `email`, `address`, `phone_number`, `brand`, `product_number`, `serial_number`, `nama_type`, `fault_description`, `accessories`, `kondisi_unit`, `repair_summary`, `created_at`, `updated_at`, `ce_id`, `erf_file`) VALUES
+(139, 'E20251100003', 5, 'hhjkb', NULL, 'new', NULL, NULL, 'Anjir', 'anjir@gmail.com', 'hbhjb', 'u98uu', 'jbjhkj', 'UX3405CA', 'hbjjh', 'ASUS ExpertBook B3', 'hjb', NULL, 'jhhkb', 'hbk', '2025-11-28 19:15:31', '2025-11-28 19:15:31', NULL, NULL),
+(140, 'D20251100019', 4, 'hui', NULL, 'new', NULL, NULL, 'Ada', 'ada@gmail.com', 'bjknb', '8998898', 'nknk', 'A514-55G-75BB', 'hj', 'Acer Aspire 5 A514-55G-75BB Notebook', 'dsfv', 'kj', 'kj', 'kj', '2025-11-28 19:16:35', '2025-11-28 19:16:35', NULL, NULL),
+(141, 'B20251100008', 2, 'bjhh', NULL, 'new', NULL, NULL, 'Heeeee', 'heeeee@gmail.com', 'jhj', '797978', 'jhjb', 'UX3405CA', 'bjhbh', 'ASUS ExpertBook B3', 'xc xz', 'jbhjb', 'jb', 'b', '2025-11-28 19:17:41', '2025-11-28 19:17:41', NULL, NULL),
+(142, 'A20251100124', 1, 'hbjb', NULL, 'finish repair', '2025-11-29 04:41:04', '2025-11-29', 'Aku', 'aku@gmail.com', 'dv zdx', '89797', 'hjbj', 'CE711A', 'hjbjb', 'HP Color Laserjet Professional CP577n', 'kjhkh', 'kk', 'hk', 'kjhkj', '2025-11-28 19:18:43', '2025-11-28 21:45:03', NULL, NULL),
+(143, 'C20251100013', 3, 'hjbjbhj', NULL, 'new', NULL, NULL, 'Lu', 'lu@gmail.com', 'jhj', '897897', 'hjbjbjbh', 'UX3405CA', 'vdf', 'ASUS ExpertBook B3', 'hjk', 'hkjhkj', 'h', 'khk', '2025-11-28 19:19:28', '2025-11-28 19:19:28', NULL, NULL),
+(144, 'A20251100125', 1, 'kbbhj', '2025-11-29 02:23:10', 'cancel repair', '2025-11-29 04:48:57', NULL, 'Me', 'me@gmail.com', 'hjbbhjbjhb', '897878', 'hjbhj', 'UX3405CA', 'hjbjjb', NULL, 'jhb', 'jkhbkb', 'hb', 'hbb', '2025-11-28 19:23:10', '2025-11-28 21:49:03', NULL, NULL),
+(145, 'A20251100126', 1, 'kbbhj', '2025-11-29 02:23:28', 'finish repair', '2025-11-29 04:39:55', NULL, 'Me', 'me@gmail.com', 'hjbbhjbjhb', '897878', 'hjbhj', 'UX3405CA', 'hjbjjb', NULL, 'jhb', 'jkhbkb', 'hb', 'hbb', '2025-11-28 19:23:28', '2025-11-28 21:40:29', NULL, NULL),
+(146, 'B20251100009', 2, 'hjbh', '2025-11-29 02:24:40', 'new', NULL, NULL, 'Be', 'be@gmail.com', 'jnjm', '7889', 'mnbnkjb', 'A514-55G-75BB', 'jhkjjj', NULL, 'kjh', 'kj', 'vdxzvds', 'kj', '2025-11-28 19:24:40', '2025-11-28 19:24:40', NULL, NULL),
+(147, 'C20251100014', 3, 'bjkh', '2025-11-29 02:25:31', 'new', NULL, NULL, 'It', 'it@gmail.com', 'hhkjhkh', '878979', 'hbjh', 'hjgjgg', 'h', NULL, 'sadc asd', 'bh', 'bghkbh', 'hb', '2025-11-28 19:25:31', '2025-11-28 19:25:31', NULL, NULL),
+(148, 'D20251100020', 4, 'hkk', '2025-11-29 02:26:04', 'new', NULL, NULL, 'Yeah', 'yeah@gmail.com', 'hjhjh', '8898989', 'hhjk', 'hkjhhk', 'jk', NULL, 'jk', 'jkj', 'kj', 'kkj', '2025-11-28 19:26:04', '2025-11-28 19:26:04', NULL, NULL),
+(149, 'E20251100004', 5, 'khbkjkj', '2025-11-29 02:26:44', 'quotation request', NULL, NULL, 'Again', 'again@gmail.com', 'bhjbhkjhb', '8979789', 'jbhjjkhb', 'uhuiuk', 'kk', NULL, 'cxzc', 'bhjbhj', 'dvdsfdsfcv fsad', 'fadsv', '2025-11-28 19:26:44', '2025-11-28 20:40:28', NULL, NULL),
+(150, 'A20251100127', 1, 'Company', '2025-11-28', 'quotation request', '2025-11-29 04:49:28', NULL, 'catur', 'catur@gmail.com', 'Semarang', '08908709709709', 'HP', 'A514-55G-75BB', '5CGFGHSAFDHJ', 'Acer Aspire 5 A514-55G-75BB Notebook', 'Rusak', 'Adaptor', 'Normal', 'Unit Normal', '2025-11-28 21:29:40', '2025-11-28 21:49:28', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -340,6 +369,12 @@ ALTER TABLE `cof_counters`
 ALTER TABLE `failed_jobs`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
+
+--
+-- Indexes for table `lognote`
+--
+ALTER TABLE `lognote`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `migrations`
@@ -407,10 +442,16 @@ ALTER TABLE `failed_jobs`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `lognote`
+--
+ALTER TABLE `lognote`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+
+--
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -428,7 +469,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `services`
 --
 ALTER TABLE `services`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=151;
 
 --
 -- AUTO_INCREMENT for table `users`

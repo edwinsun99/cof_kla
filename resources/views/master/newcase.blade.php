@@ -103,14 +103,15 @@ $(document).ready(function () {
                         <label class="form-label fw-semibold">Received Date</label>
                         <input type="date" class="form-control shadow-sm" name="received_date">
                     </div>
-                    <div class="col-md-4 mb-3">
+
+                    <!-- <div class="col-md-4 mb-3">
                         <label class="form-label fw-semibold">Started Date</label>
                         <input type="date" class="form-control shadow-sm" name="started_date">
                     </div>
                     <div class="col-md-4 mb-3">
                         <label class="form-label fw-semibold">Finished Date</label>
                         <input type="date" class="form-control shadow-sm" name="finished_date">
-                    </div>
+                    </div> -->
                 </div>
 
                {{-- SERVICE UNIT --}}

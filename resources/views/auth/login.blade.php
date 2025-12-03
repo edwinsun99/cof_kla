@@ -242,11 +242,14 @@
 
             <div class="main-content">
                 <div class="features">
-                    <div class="feature-card">
-                        <div class="feature-title">Track My Case</div>
-                        <div class="feature-icon">🔍</div>
-                        <div class="feature-desc">Untuk cek status perbaikan anda, silahkan klik DISINI</div>
-                    </div>
+                    
+                 <a href="{{ route('track.form') }}" class="text-decoration-none">
+    <div class="feature-card">
+        <div class="feature-title">Track My Case</div>
+        <div class="feature-icon">🔍</div>
+        <div class="feature-desc">Untuk cek status perbaikan anda, silahkan klik DISINI</div>
+    </div>
+</a>
 
                     <div class="feature-card">
                         <div class="feature-title">Service Location</div>

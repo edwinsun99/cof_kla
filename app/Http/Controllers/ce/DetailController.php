@@ -19,20 +19,33 @@ class DetailController extends Controller
 
 
     public function updateStatus(Request $request, $id)
-    {
-        $request->validate([
-            'status' => 'required|string'
-        ]);
+{
+    $request->validate([
+        'status' => 'required|string'
+    ]);
 
-        $service = Service::findOrFail($id);
+    $service = Service::findOrFail($id);
 
-        $service->status = $request->status;
-        $service->save();
+    // Update status
+    $service->status = $request->status;
 
-        return redirect()
-            ->route('ce.case.show', $id)
-            ->with('success', 'Status berhasil diperbarui!');
+    // 🔥 Jika status berubah menjadi "Repair Progress"
+    if ($request->status === 'repair progress') {
+        $service->started_date = now();     // Set otomatis
     }
+
+     // 🔥 Jika status berubah menjadi "Repair Progress"
+    if ($request->status === 'finish repair') {
+        $service->finished_date = now();     // Set otomatis
+    }
+
+    $service->save();
+
+    return redirect()
+        ->route('ce.case.show', $id)
+        ->with('success', 'Status berhasil diperbarui!');
+}
+
 
 public function status($id)
 {

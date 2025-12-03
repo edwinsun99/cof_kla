@@ -12,5 +12,5 @@
              alt="Technicians" 
              style="width: 100%; height: auto; max-height: 80vh; object-fit: cover; border-radius: 12px;">
     </div>
-    
+
 @endsection

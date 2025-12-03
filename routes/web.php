@@ -36,6 +36,8 @@ use App\Http\Controllers\ce\ProductController as CeProductController;
 use App\Http\Controllers\ce\ErfController;
 use App\Http\Controllers\ce\FinishController;
 
+// Customer Controllers
+use App\Http\Controllers\customer\TrackCaseController;
 
 // OTHER CONTROLLERS
 use App\Http\Controllers\MasterController;
@@ -50,6 +52,13 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // Default redirect ke login
 Route::get('/', fn() => redirect()->route('login'));
+
+// ===========================
+// 🔹 Customer ROUTES
+// ===========================
+Route::get('/track', [TrackCaseController::class, 'index'])->name('track.form');
+Route::post('/track/check', [TrackCaseController::class, 'check'])->name('track.check');
+Route::get('/track/{id}', [TrackCaseController::class, 'show'])->name('track.journey');
 
 // ===========================
 // 🔹 MASTER ROUTES
