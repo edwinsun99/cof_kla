@@ -1,10 +1,12 @@
 @extends('ce.layout.app')
 
+
+
 @section('title', 'engineer')
 
 @section('content')
 <div class="container mt-4">
-    <h3 class="mb-4">Engineer</h3>
+    <h3 class="mb-4">Engineer – Assigned & New Cases</h3>
 
     @if (session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
@@ -47,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     <td>{{ $case->cof_id }}</td>
 <td>
     <a href="{{ route('ce.case.show', $case->id) }}" style="text-decoration:none;">
-        {{ $case->customer_name }} 
+        {{ $case->customer_name }}
     </a>
 </td>
                     <td>{{ $case->phone_number }}</td>
@@ -56,6 +58,12 @@ document.addEventListener("DOMContentLoaded", function() {
                     <td>{{ $case->brand }}</td>
                     <td>{{ $case->nama_type }}</td>
                     <td>{{ $case->received_date }}</td>
+
+
+
+
+
+
 
                     <td>
                         <span class="badge bg-warning">{{ $case->status }}</span>
@@ -90,4 +98,3 @@ document.addEventListener("DOMContentLoaded", function() {
     </table>
 </div>
 @endsection
-

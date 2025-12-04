@@ -235,8 +235,10 @@ public function logdate(Request $request)
     /**
      * Export seluruh data ke Excel.
      */
-     public function excel()
-    {
-        return Excel::download(new CofData, 'CofData.xlsx');
-    }
+  public function excel()
+{
+    $branchId = auth()->user()->branch_id;
+
+    return Excel::download(new CofData($branchId), 'CofData.xlsx');
+}
 }
