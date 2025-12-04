@@ -12,15 +12,34 @@ use App\Models\User;
 
 class LoginController extends Controller
 {
-    public function showLogin()
-    {
-        return view('auth.login');
+    
+public function showLogin(Request $request)
+{
+    // Generate captcha hanya jika belum ada
+    if (!$request->session()->has('captcha_code')) {
+        $captcha = substr(str_shuffle('ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789'), 0, 5);
+        $request->session()->put('captcha_code', $captcha);
     }
+
+    $captcha = $request->session()->get('captcha_code');
+    return view('auth.login', compact('captcha'));
+}
+
 
     public function loginProcess(Request $request)
     {
+
+      $captchaSession = strtolower(session('captcha_code'));
+    $captchaInput   = strtolower(trim($request->captcha_input));
+
+    if ($captchaInput !== $captchaSession) {
+        return back()->with('error', 'Captcha salah!')->withInput();
+    }
+
         $username = $request->username;
         $password = $request->password;
+
+
 
         $user = User::where('un', $username)->first();
 
@@ -34,6 +53,11 @@ class LoginController extends Controller
 
             // ✅ 2. Sinkronisasi ke sistem Auth Laravel
             Auth::login($user);
+
+
+    // HAPUS CAPTCHA
+    $request->session()->forget('captcha_code');
+
 
             // ✅ 3. Redirect sesuai role
             switch (strtoupper($user->role)) {

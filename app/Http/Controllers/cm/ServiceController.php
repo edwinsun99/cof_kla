@@ -65,61 +65,61 @@ public function previewPdf($id)
 
 
 
-    // ✅ 2. Method untuk menyimpan data baru
-    public function store(Request $request)
-    {
-        // Pastikan user login
-        $user = Auth::user();
-        if (!$user) {
-            return redirect()->route('login')->with('error', 'User tidak ditemukan atau belum login.');
-        }
+    // // ✅ 2. Method untuk menyimpan data baru
+    // public function store(Request $request)
+    // {
+    //     // Pastikan user login
+    //     $user = Auth::user();
+    //     if (!$user) {
+    //         return redirect()->route('login')->with('error', 'User tidak ditemukan atau belum login.');
+    //     }
 
-        // Ambil branch & prefix
-        $branch = Branches::find($user->branch_id);
-        $prefix = $branch->prefix ?? 'X'; // fallback biar tidak null
+    //     // Ambil branch & prefix
+    //     $branch = Branches::find($user->branch_id);
+    //     $prefix = $branch->prefix ?? 'X'; // fallback biar tidak null
 
-        // Ambil counter terakhir
-        $counter = CofCounter::where('branch_id', $user->branch_id)->first();
-        if (!$counter) {
-            $counter = CofCounter::create([
-                'branch_id' => $user->branch_id,
-                'current_number' => 0
-            ]);
-        }
+    //     // Ambil counter terakhir
+    //     $counter = CofCounter::where('branch_id', $user->branch_id)->first();
+    //     if (!$counter) {
+    //         $counter = CofCounter::create([
+    //             'branch_id' => $user->branch_id,
+    //             'current_number' => 0
+    //         ]);
+    //     }
 
-        $nextNumber = $counter->current_number + 1;
+    //     $nextNumber = $counter->current_number + 1;
 
-        // Bentuk COF-ID
-        $cofId = $prefix . str_pad($nextNumber, 6, '0', STR_PAD_LEFT);
+    //     // Bentuk COF-ID
+    //     $cofId = $prefix . str_pad($nextNumber, 6, '0', STR_PAD_LEFT);
 
-        // Update counter
-        $counter->update(['current_number' => $nextNumber]);
+    //     // Update counter
+    //     $counter->update(['current_number' => $nextNumber]);
 
-        // Simpan service
-        Service::create([
-            'cof_id' => $cofId,
-            'status' => 'new', // default awal
-            'erf_file' => $request->erf_file, // jika dari input text
-            'branch_id' => $user->branch_id,
-            'ce_id' => $user->id,
-            'customer_name' => $request->customer_name,
-            'email' => $request->email,
-            'contact' => $request->contact,
-            'phone_number' => $request->phone_number,
-            'address' => $request->address,
-            'received_date' => $request->received_date,
-            'started_date' => $request->started_date,
-            'finished_date' => $request->finished_date,
-            'brand' => $request->brand,
-            'product_number' => $request->product_number,
-            'serial_number' => $request->serial_number,
-            'nama_type' => $request->nama_type,
-            'fault_description' => $request->fault_description,
-            'accessories' => $request->accessories,
-            'kondisi_unit' => $request->kondisi_unit,
-            'repair_summary' => $request->repair_summary,
-        ]);
+    //     // Simpan service
+    //     Service::create([
+    //         'cof_id' => $cofId,
+    //         'status' => 'new', // default awal
+    //         'erf_file' => $request->erf_file, // jika dari input text
+    //         'branch_id' => $user->branch_id,
+    //         'ce_id' => $user->id,
+    //         'customer_name' => $request->customer_name,
+    //         'email' => $request->email,
+    //         'contact' => $request->contact,
+    //         'phone_number' => $request->phone_number,
+    //         'address' => $request->address,
+    //         'received_date' => $request->received_date,
+    //         'started_date' => $request->started_date,
+    //         'finished_date' => $request->finished_date,
+    //         'brand' => $request->brand,
+    //         'product_number' => $request->product_number,
+    //         'serial_number' => $request->serial_number,
+    //         'nama_type' => $request->nama_type,
+    //         'fault_description' => $request->fault_description,
+    //         'accessories' => $request->accessories,
+    //         'kondisi_unit' => $request->kondisi_unit,
+    //         'repair_summary' => $request->repair_summary,
+    //     ]);
 
-        return redirect()->route('cm.services.index')->with('success', 'Case berhasil ditambahkan!');
-    }
+    //     return redirect()->route('cm.services.index')->with('success', 'Case berhasil ditambahkan!');
+    // }
 }

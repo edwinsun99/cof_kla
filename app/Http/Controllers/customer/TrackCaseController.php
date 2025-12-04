@@ -9,15 +9,29 @@ use Illuminate\Support\Facades\Validator;
 
 class TrackCaseController extends Controller
 {
-    // tampilkan form tracking
-    public function index()
-    {
-        return view('customer.trackcase'); // resources/views/customer/track.blade.php
+  public function index(Request $request)
+{
+    // Generate captcha hanya jika belum ada
+    if (!$request->session()->has('captcha_code')) {
+        $captcha = substr(str_shuffle('ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789'), 0, 5);
+        $request->session()->put('captcha_code', $captcha);
     }
+
+    $captcha = $request->session()->get('captcha_code');
+    return view('customer.trackcase', compact('captcha'));
+}
 
     // proses form, redirect ke journey jika ketemu
     public function check(Request $request)
     {
+
+              $captchaSession = strtolower(session('captcha_code'));
+    $captchaInput   = strtolower(trim($request->captcha_input));
+
+    if ($captchaInput !== $captchaSession) {
+        return back()->with('error', 'Captcha salah!')->withInput();
+    }
+
         $v = Validator::make($request->all(), [
             'case_input' => 'required|string',
             'contact'    => 'required|string',

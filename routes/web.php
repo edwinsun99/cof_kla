@@ -139,7 +139,7 @@ Route::prefix('cm')->name('cm.')->group(function () {
     Route::post('/case/{id}/status', 'App\Http\Controllers\cm\DetailController@updateStatus')
     ->name('case.updateStatus');
 
-    Route::post('/cm/case/{id}/note', 
+    Route::post('/case/{id}/note', 
     [CmDetailController::class, 'addNote'])
     ->name('case.note');
 });
