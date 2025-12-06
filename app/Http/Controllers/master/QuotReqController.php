@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\ce;
+namespace App\Http\Controllers\master;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -17,7 +17,7 @@ use App\Excel\CofData;
 use Illuminate\Support\Facades\Log;
 use Throwable;
 
-class FinishController extends Controller
+class QuotReqController extends Controller
 {
     protected $cofIdGenerator;
 
@@ -31,23 +31,12 @@ class FinishController extends Controller
      */
 public function index()
 {
-    // Ambil user login dari session
-    $username = Session::get('username');
-    $user = \App\Models\User::where('un', $username)->first();
-
-    if (!$user) {
-        return redirect()->route('login')->with('error', 'User tidak ditemukan.');
-    }
-
-    // CE hanya boleh melihat case sesuai branch miliknya
-    $cases = Service::where('branch_id', $user->branch_id)
-                    ->where('status', 'finish repair')
-                    ->orderBy('received_date', 'DESC')
+    $cases = Service::where('status', 'quotation request')
+                    ->orderBy('created_at', 'DESC')
                     ->get();
 
-    return view('ce.finish', compact('cases'));
+    return view('master.QuotReq', compact('cases'));
 }
-
 
    private function getEnumValues(string $table, string $column): array
 {
@@ -104,7 +93,7 @@ public function logdate(Request $request)
     $services = $query->orderByDesc('received_date')->paginate(10);
 
     // Kirim ke view
-    return view('ce.finish', [
+    return view('cm.QuotReq', [
         'services' => $services,
         'start_date' => $startDate,
         'end_date' => $endDate,
@@ -128,7 +117,7 @@ public function logdate(Request $request)
     public function show($id)
 {
     $service = Service::findOrFail($id);
-    return view('ce.case_show', compact('service'));
+    return view('cm.case_show', compact('service'));
 }
 
     /**
@@ -213,7 +202,7 @@ public function store(Request $request)
     \App\Models\Service::create($validated);
 
     // ✅ Redirect dengan notifikasi sukses
-    return redirect()->route('ce.case.index')
+    return redirect()->route('cm.case.index')
         ->with('success', 'Case berhasil disimpan dengan COF ID: ' . $cofId);
 }
 
@@ -232,7 +221,7 @@ public function store(Request $request)
             })
             ->get();
 
-        return view('ce.finish', compact('cases', 'search'));
+        return view('cm.QuotReq', compact('cases', 'search'));
     }
 
     /**

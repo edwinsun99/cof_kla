@@ -80,7 +80,9 @@ document.addEventListener("DOMContentLoaded", function() {
         <th>Brand</th>
         <th>Product Number</th>
         <th>Serial Number</th>
+        <th>Status</th>
         <th>Nama Type</th>
+        <th>ERF</th>
         <th>Received Date</th>
     </tr>
 </thead>
@@ -102,7 +104,9 @@ document.addEventListener("DOMContentLoaded", function() {
             <td>{{ $service->brand }}</td>
             <td>{{ $service->product_number }}</td>
             <td>{{ $service->serial_number }}</td> <!-- SN -->
+            <td>{{ $service->status }}</td> <!-- SN -->
             <td>{{ $service->nama_type }}</td>
+            <td>{{ $service->erf_file }}</td> <!-- SN -->
             <td>{{ $service->received_date }}</td>
         </tr>
     @empty

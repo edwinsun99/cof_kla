@@ -115,13 +115,11 @@
 
       <div class="sidebar p-3" style="background-color: purple;">
     <a href="{{ route('home') }}" class="btn btn-light w-100 mb-2"> Home</a>
-    <a href="javascript:void(0)" class="btn btn-light w-100 mb-2">Finish Repair</a>
-    <a href="javascript:void(0)" class="btn btn-light w-100 mb-2">📚 Upload ERF</a>
-    <a href="javascript:void(0)" class="btn btn-light w-100 mb-2">🧑‍🔧 Engineer</a>
-    <a href="javascript:void(0)" class="btn btn-light w-100 mb-2">🧰 KLA Part Stock</a>
-    <a href="javascript:void(0)" class="btn btn-light w-100 mb-2">🧩 Quotation Part Request (D)</a>
-    <a href="javascript:void(0)" class="btn btn-light w-100 mb-2">🚥 Quotation Request</a>
-    <a href="javascript:void(0)" class="btn btn-light w-100 mb-2">💎 Quotation Approved/Cancelled</a>
+    <a href="{{ route('master.finish.repair') }}" class="btn btn-light w-100 mb-2">Finish Repair</a>
+    <a href="{{ route('master.erf.select') }}" class="btn btn-light w-100 mb-2">📚 Upload ERF</a>
+    <a href="{{ route('master.engineer.index') }}" class="btn btn-light w-100 mb-2">🧑‍🔧 Engineer</a>
+    <a href="{{ route('master.quotreq.index') }}" class="btn btn-light w-100 mb-2">🚥 Quotation Request</a>
+    <a href="{{ route('master.quotreqaoc.index') }}" class="btn btn-light w-100 mb-2">💎 Quotation Approved/Cancelled</a>
     <a href="{{ route('master.newcase') }}" class="btn btn-light w-100 mb-2">🪄 New Case</a>
     <a href="{{ route('master.services.index') }}" class="btn btn-light w-100 mb-2">📂 View Case</a>
     <a href="{{ route('roles.index') }}" class="btn btn-light w-100 mb-2">⚙️ Manage Role</a>

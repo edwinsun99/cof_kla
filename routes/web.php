@@ -14,7 +14,12 @@ use App\Http\Controllers\master\CaseController as MasterCaseController;
 use App\Http\Controllers\master\NewCaseController as MasterNewCaseController;
 use App\Http\Controllers\master\DetailController as MasterDetailController;
 use App\Http\Controllers\master\UserController;
+use App\Http\Controllers\master\QuotAppCancController as MasterQuotAppCancController;
+use App\Http\Controllers\master\EngineerController as MasterEngineerController;
 use App\Http\Controllers\master\RoleController;
+use App\Http\Controllers\master\ErfController as MasterErfController;
+use App\Http\Controllers\master\QuotReqController as MasterQuotReqController;
+use App\Http\Controllers\master\FinishController as MasterFinishController;
 use App\Http\Controllers\master\ProductController as MasterProductController;
 
 // CM CONTROLLERS
@@ -23,18 +28,18 @@ use App\Http\Controllers\cm\HomeController as CmHomeController;
 use App\Http\Controllers\cm\CaseController as CmCaseController;
 use App\Http\Controllers\cm\DetailController as CmDetailController;
 use App\Http\Controllers\cm\QuotPartReqController;
-use App\Http\Controllers\cm\QuotReqController; 
+use App\Http\Controllers\cm\QuotReqController as CmQuotReqController;
 
 // CE CONTROLLERS
 use App\Http\Controllers\ce\ServiceController as CeServiceController;
 use App\Http\Controllers\ce\HomeController as CeHomeController;
 use App\Http\Controllers\ce\CaseController as CeCaseController;
 use App\Http\Controllers\ce\DetailController as CeDetailController;
-use App\Http\Controllers\ce\EngineerController;
-use App\Http\Controllers\ce\QuotAppCancController;
+use App\Http\Controllers\ce\EngineerController as CeEngineerController;
+use App\Http\Controllers\ce\QuotAppCancController as CeQuotAppCancController;
 use App\Http\Controllers\ce\ProductController as CeProductController;
-use App\Http\Controllers\ce\ErfController;
-use App\Http\Controllers\ce\FinishController;
+use App\Http\Controllers\ce\ErfController as CeErfController;
+use App\Http\Controllers\ce\FinishController as CeFinishController;
 
 // Customer Controllers
 use App\Http\Controllers\customer\TrackCaseController;
@@ -85,11 +90,47 @@ Route::group([], function () {
 
     Route::get('/case', [MasterCaseController::class, 'index'])->name('case.index');
 
+    Route::post('/case/{id}/status', 'App\Http\Controllers\master\DetailController@updateStatus')
+    ->name('case.updateStatus');
+
+    Route::post('/master/case/{id}/note', [MasterDetailController::class, 'addNote'])->name('case.note');
+
+    Route::get('/finish-repair', [MasterFinishController::class, 'index']) ->name('finish.repair');
+
+    Route::get('/master/finish/logdate', [MasterFinishController::class, 'logdate']) ->name('finish.logdate');
+
+    Route::get('/engineer', [MasterEngineerController::class, 'index']) ->name('engineer.index');
+
+    Route::get('/quotation-request', [MasterQuotReqController::class, 'index']) ->name('quotreq.index');
+
+    Route::get('/quotreq/logdate', [MasterQuotReqController::class, 'logdate'])->name('quotreq.logdate');
+
+                // CM: menu Quotation Request (tampilkan list yang status == 'Quotation Request')
+    Route::get('/quotation-appcancl', [MasterQuotAppCancController::class, 'index'])->name('quotreqaoc.index');
+
+                     // CM: menu Quotation Request (tampilkan list yang status == 'Quotation Request')
+    Route::get('/quotation-appcancl/logdate', [CeQuotAppCancController::class, 'logdate'])
+         ->name('quotaorc.logdate');    
+
+    Route::get('/select-case-for-erf', [MasterErfController::class, 'selectCase'])
+        ->name('erf.select');
+
+    Route::get('/case/{id}/upload-erf', [MasterErfController::class, 'form'])
+        ->name('erf.form');
+
+    Route::post('/case/{id}/upload-erf', [MasterErfController::class, 'upload'])
+        ->name('erf.upload');
+
+    Route::get('/case/{id}/erf-preview', [MasterErfController::class, 'preview'])
+        ->name('erf.preview');
+
+    Route::get('/case/{id}/erf-download', [MasterErfController::class, 'download'])
+        ->name('erf.download');
+
     });
 
       // 🔥 ROUTE LOGDATE MASTER (FILTER TANGGAL + FILTER CABANG)
-    Route::get('/master/case/logdate', [MasterCaseController::class, 'logdate'])
-         ->name('master.case.logdate');
+    Route::get('/master/case/logdate', [MasterCaseController::class, 'logdate']) ->name('master.case.logdate');
     Route::get('/newcase', [MasterNewCaseController::class, 'create'])->name('master.newcase');
     Route::get('/master/case/{id}', [MasterDetailController::class, 'show'])->name('case.show');
 
@@ -107,6 +148,7 @@ Route::group([], function () {
         Route::get('/get-product-type', [MasterProductController::class, 'getProductType'])->name('getProductType');
     });
 });
+
 // ===========================
 // 🔹 CM ROUTES (FINAL & FIXED)
 // ===========================
@@ -128,13 +170,13 @@ Route::prefix('cm')->name('cm.')->group(function () {
 
     // LOGDATE
     Route::get('/case/logdate', [CmCaseController::class, 'logdate'])->name('case.logdate');
+    Route::get('/quotreq/logdate', [CmQuotReqController::class, 'logdate'])->name('quotreq.logdate');
 
     // EXCEL
     Route::get('/excel/cofdata', [CmCaseController::class, 'excel'])->name('excel.cofdata');
 
     // CM: menu Quotation Request (tampilkan list yang status == 'Quotation Request')
-    Route::get('/quotation-request', [QuotReqController::class, 'index'])
-         ->name('quotation.index');
+    Route::get('/quotation-request', [CmQuotReqController::class, 'index']) ->name('quotreq.index');
 
     Route::post('/case/{id}/status', 'App\Http\Controllers\cm\DetailController@updateStatus')
     ->name('case.updateStatus');
@@ -167,6 +209,7 @@ Route::group([], function () {
 
     Route::get('/ce/case', [CeCaseController::class, 'index'])->name('ce.case.index');
     Route::get('/ce/case/logdate', [CeCaseController::class, 'logdate'])->name('ce.case.logdate');
+    Route::get('/ce/finish/logdate', [CeFinishController::class, 'logdate'])->name('ce.finish.logdate');
     Route::get('/ce/cases/new', fn() => view('ce.newcase'))->name('cases.new');
     Route::get('/ce/newcase', [CeCaseController::class, 'create'])->name('newcase');
 
@@ -179,26 +222,26 @@ Route::group([], function () {
 // CE - ERF ROUTES
 Route::prefix('ce')->group(function () {
 
-    Route::get('/select-case-for-erf', [ErfController::class, 'selectCase'])
+    Route::get('/select-case-for-erf', [CeErfController::class, 'selectCase'])
         ->name('erf.select');
 
-    Route::get('/case/{id}/upload-erf', [ErfController::class, 'form'])
+    Route::get('/case/{id}/upload-erf', [CeErfController::class, 'form'])
         ->name('erf.form');
 
-    Route::post('/case/{id}/upload-erf', [ErfController::class, 'upload'])
+    Route::post('/case/{id}/upload-erf', [CeErfController::class, 'upload'])
         ->name('erf.upload');
 
-    Route::get('/case/{id}/erf-preview', [ErfController::class, 'preview'])
+    Route::get('/case/{id}/erf-preview', [CeErfController::class, 'preview'])
         ->name('erf.preview');
 
-    Route::get('/case/{id}/erf-download', [ErfController::class, 'download'])
+    Route::get('/case/{id}/erf-download', [CeErfController::class, 'download'])
         ->name('erf.download');
 });
 
    Route::prefix('ce')->name('ce.')->group(function () {
 
     // Halaman Engineer
-    Route::get('/engineer', [EngineerController::class, 'index'])
+    Route::get('/engineer', [CeEngineerController::class, 'index'])
         ->name('engineer.index');
 
     // Update status ke Finished
@@ -226,10 +269,10 @@ Route::prefix('ce')->name('ce.')->group(function () {
         ->name('finished.close');
 
             // CM: menu Quotation Request (tampilkan list yang status == 'Quotation Request')
-    Route::get('/quotation-appcancl', [QuotAppCancController::class, 'index'])
+    Route::get('/quotation-appcancl', [CeQuotAppCancController::class, 'index'])
          ->name('quotation.appcancl');
 
-             Route::get('/finish-repair', [FinishController::class, 'index'])
+             Route::get('/finish-repair', [CeFinishController::class, 'index'])
          ->name('finish.repair');
          
 Route::get('/get-product-type', 

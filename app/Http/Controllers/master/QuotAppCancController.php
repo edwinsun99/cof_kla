@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\ce;
+namespace App\Http\Controllers\master;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 use App\Models\Service;
+use App\Models\User;
 use App\Models\Branches;
 use App\Models\CofCounter;
 use App\Services\CofIdGenerator;
@@ -17,7 +18,7 @@ use App\Excel\CofData;
 use Illuminate\Support\Facades\Log;
 use Throwable;
 
-class FinishController extends Controller
+class QuotAppCancController extends Controller
 {
     protected $cofIdGenerator;
 
@@ -29,25 +30,23 @@ class FinishController extends Controller
     /**
      * Tampilkan semua case untuk CE sesuai cabangnya.
      */
-public function index()
+ public function index()
 {
-    // Ambil user login dari session
-    $username = Session::get('username');
-    $user = \App\Models\User::where('un', $username)->first();
+    // Ambil semua branch untuk dropdown
+    $branches = \App\Models\Branches::all();
 
-    if (!$user) {
-        return redirect()->route('login')->with('error', 'User tidak ditemukan.');
-    }
-
-    // CE hanya boleh melihat case sesuai branch miliknya
-    $cases = Service::where('branch_id', $user->branch_id)
-                    ->where('status', 'finish repair')
-                    ->orderBy('received_date', 'DESC')
+    $cases = Service::whereIn('status', ['quotation approved', 'quotation cancelled'])
+                    ->orderBy('created_at', 'DESC')
                     ->get();
 
-    return view('ce.finish', compact('cases'));
+    return view('master.QuotAorC', [
+        'cases' => $cases,
+        'branches' => $branches,
+        'selected_branch' => 'all',
+        'start_date' => null,   
+        'end_date' => null
+    ]);
 }
-
 
    private function getEnumValues(string $table, string $column): array
 {
@@ -104,7 +103,7 @@ public function logdate(Request $request)
     $services = $query->orderByDesc('received_date')->paginate(10);
 
     // Kirim ke view
-    return view('ce.finish', [
+    return view('ce.QuotAorC', [
         'services' => $services,
         'start_date' => $startDate,
         'end_date' => $endDate,
@@ -128,7 +127,7 @@ public function logdate(Request $request)
     public function show($id)
 {
     $service = Service::findOrFail($id);
-    return view('ce.case_show', compact('service'));
+    return view('ce.QuotAorC', compact('service'));
 }
 
     /**
@@ -232,7 +231,7 @@ public function store(Request $request)
             })
             ->get();
 
-        return view('ce.finish', compact('cases', 'search'));
+        return view('ce.QuotAorC', compact('cases', 'search'));
     }
 
     /**

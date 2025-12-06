@@ -1,4 +1,4 @@
-d<div class="row">
+<div class="row">
     {{-- Kolom kiri: info case --}}
     <div class="col-md-6">
         <h5>Case</h5>

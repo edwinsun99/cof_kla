@@ -1,4 +1,4 @@
-@extends('cm.layout.app')
+@extends('master.layout.app')
 
 @section('title', 'Case')
 
@@ -9,7 +9,7 @@
 @endphp
 
     <div style="padding: 20px;">
-        <h2 style="color: purple; margin-bottom: 20px;">✌️ Quotation Request</h2>
+        <h2 style="color: purple; margin-bottom: 20px;">✌️ Quotation Approved/Cancelled</h2>
 
         <div style="margin-bottom: 20px;">
             <a href="{{ route('excel.cofdata') }}" class="btn btn-success">
@@ -19,7 +19,7 @@
 </a>
         </div>
 
-        <form action="{{ route('cm.quotreq.logdate') }}" method="GET" class="mb-3 d-flex align-items-end gap-3">
+        <form action="{{ route('master.quotaorc.logdate') }}" method="GET" class="mb-3 d-flex align-items-end gap-3">
     <div>
         <label for="start_date" class="form-label">Start Date:</label>
         <input type="date" name="start_date" id="start_date"
@@ -35,7 +35,7 @@
     <div>
         <button type="submit" class="btn btn-success">Filter</button>
         @if(request('start_date') || request('end_date'))
-            <a href="{{ route('cm.quotreq.index') }}" class="btn btn-secondary">Reset</a>
+            <a href="{{ route('master.quotation.appcancl') }}" class="btn btn-secondary">Reset</a>
         @endif
     </div>
 </form>
@@ -83,7 +83,7 @@ Jumlah data: {{ count($cases) }}
     @endif
 
 @forelse($cases ?? [] as $service)
-        <tr class="clickable-row" data-href="{{ route('cm.case.show', $service->id) }}">
+        <tr class="clickable-row" data-href="{{ route('ce.case.show', $service->id) }}">
             <td>{{ $service->cof_id }}</td> <!-- COF-ID -->
             <td>{{ $service->customer_name }}</td>
             <td>{{ $service->phone_number }}</td>

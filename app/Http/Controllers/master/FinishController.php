@@ -10,25 +10,25 @@ use Carbon\Carbon; // <-- ini baris penting
 use App\Models\Branches;
 use Maatwebsite\Excel\Facades\Excel;
 
-class CaseController extends Controller
+class FinishController extends Controller
 {
    public function index()
 {
     // Ambil semua branch untuk dropdown
     $branches = \App\Models\Branches::all();
 
-    // Ambil semua cases
-    $cases = Service::orderByDesc('received_date')->get();
+    $cases = Service::where('status', 'finish repair')
+                    ->orderBy('created_at', 'DESC')
+                    ->get();
 
-    return view('master.case', [
+    return view('master.finish', [
         'cases' => $cases,
         'branches' => $branches,
         'selected_branch' => 'all',
-        'start_date' => null,
+        'start_date' => null,   
         'end_date' => null
     ]);
 }
-
 
     public function show($id)
 {
@@ -42,6 +42,7 @@ class CaseController extends Controller
     {
         return view('master.newcase'); // newcase.blade.php
     }
+
     public function logdate(Request $request)
 {
     $query = Service::query();
@@ -73,9 +74,12 @@ class CaseController extends Controller
         $query->whereBetween('received_date', [$startDate, $endDate]);
     }
 
-    $cases = $query->orderByDesc('received_date')->get();
+$cases = $query
+    ->where('status', 'finish repair')   // ⬅️ filter khusus finish repair
+    ->orderByDesc('received_date')
+    ->get();
 
-    return view('master.case', [
+    return view('master.finish', [
         'cases' => $cases,
         'branches' => $branches,
         'selected_branch' => $branchId,
@@ -83,34 +87,6 @@ class CaseController extends Controller
         'end_date' => $endDate
     ]);
 }
-
-
-    // simpan form ke db
-    public function store(Request $request)
-    {
-        $data = $request->validate([
-        'cof_id' => 'required|string|max:100',
-        'customer_name' => 'required|string|max:100',
-        'contact' => 'required|string|max:100',
-        'address' => 'nullable|string|max:500',
-        'email' => 'required|email|max:255',
-        'phone_number' => 'nullable|string|max:20',
-        'received_date' => 'nullable|date',
-        'started_date' => 'nullable|date',
-        'finished_date' => 'nullable|date',
-        'brand' => 'nullable|string|max:255',
-        'product_number' => 'nullable|string|max:100',
-        'serial_number' => 'nullable|string|max:100',
-        'nama_type' => 'nullable|string|max:100',
-        'fault_description' => 'nullable|string',
-        'kondisi_unit' => 'nullable|string',
-        'repair_summary' => 'nullable|string',
-        ]);
-
-        Service::create($data);
-
-        return redirect()->route('services.index')->with('success', 'Case berhasil disimpan.');
-    }
 
 public function search(Request $request)
 {
@@ -128,7 +104,7 @@ public function search(Request $request)
         })
         ->get();
 
-    return view('master.case', [
+    return view('master.finish', [
         'cases' => $case,
         'search' => $search,
         'branches' => $branches,

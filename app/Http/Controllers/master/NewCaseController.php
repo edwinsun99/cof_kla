@@ -4,6 +4,8 @@ namespace App\Http\Controllers\master;
 use Illuminate\Http\Request;
 use App\Models\Branches;
 use App\Http\Controllers\Controller; // WAJIB ada ini
+use App\Models\Product;
+use App\Models\Service;
 
 class NewCaseController extends Controller
 {

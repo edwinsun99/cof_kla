@@ -17,12 +17,9 @@ $(document).ready(function () {
                 type: "GET",
                 data: { pn: pn },
                 success: function (response) {
-                    // Pastikan ada data yang dikembalikan
-                    if (response.length > 0) {
-                        // Isi otomatis field Nama Type
-                        $('#nama_type').val(response[0].nt);
+                    if (response.nt) {
+                        $('#nama_type').val(response.nt);
                     } else {
-                        // Kosongkan kalau tidak ada hasil
                         $('#nama_type').val('');
                     }
                 },
@@ -31,14 +28,11 @@ $(document).ready(function () {
                 }
             });
         } else {
-            // Kalau PN dihapus, kosongkan Nama Type juga
             $('#nama_type').val('');
         }
     });
 });
 </script>
-
-
 
 <div class="container mt-4">
     <div class="card shadow-lg border-0 rounded-3">
@@ -131,7 +125,7 @@ $(document).ready(function () {
             placeholder="Masukkan Brand">
     </div>
 
-    <!-- Product Number -->
+  <!-- Product Number -->
     <div class="col-md-3 mb-3">
         <label for="product_number" class="form-label fw-semibold">Product Number</label>
         <input 
@@ -150,10 +144,11 @@ $(document).ready(function () {
             id="nama_type" 
             name="nama_type" 
             class="form-control shadow-sm" 
-            placeholder="Nama Type" 
+            placeholder="Nama Type"
             readonly>
         <datalist id="nama_type_list"></datalist>
     </div>
+
 
     <!-- Serial Number -->
     <div class="col-md-3 mb-3">

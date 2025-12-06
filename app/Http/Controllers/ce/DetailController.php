@@ -107,8 +107,4 @@ public function status($id)
 
     return back()->with('success', 'Note berhasil ditambahkan!');
 }
-
-
-
-
 }

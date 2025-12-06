@@ -14,16 +14,15 @@ use Barryvdh\DomPDF\Facade\Pdf; // pastikan ada ini di atas
 
 class ServiceController extends Controller
 {
-    // ✅ 1. Method untuk menampilkan daftar service
-   public function index()
+       // CM MELIHAT SEMUA CABANG
+public function index()
 {
-    $user = Auth::user(); // jika pakai Auth
-    $services = Service::where('branch_id', $user->branch_id)->latest()->get();
+    // Ambil semua case tanpa filter branch_id
+    $services = Service::latest()->get();
 
-    // kirim sebagai 'cases' supaya view cm.case konsisten
+    // kirim sebagai 'cases' agar konsisten dengan blade
     return view('cm.case', ['cases' => $services]);
 }
-
 
 // app/Models/Service.php
 public function scopeForCurrentBranch($query)

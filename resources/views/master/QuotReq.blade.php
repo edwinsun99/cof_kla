@@ -1,4 +1,4 @@
-@extends('cm.layout.app')
+@extends('master.layout.app')
 
 @section('title', 'Case')
 
@@ -19,7 +19,7 @@
 </a>
         </div>
 
-        <form action="{{ route('cm.quotreq.logdate') }}" method="GET" class="mb-3 d-flex align-items-end gap-3">
+        <form action="{{ route('master.quotreq.logdate') }}" method="GET" class="mb-3 d-flex align-items-end gap-3">
     <div>
         <label for="start_date" class="form-label">Start Date:</label>
         <input type="date" name="start_date" id="start_date"
@@ -35,7 +35,7 @@
     <div>
         <button type="submit" class="btn btn-success">Filter</button>
         @if(request('start_date') || request('end_date'))
-            <a href="{{ route('cm.quotreq.index') }}" class="btn btn-secondary">Reset</a>
+            <a href="{{ route('master.quotreq.index') }}" class="btn btn-secondary">Reset</a>
         @endif
     </div>
 </form>

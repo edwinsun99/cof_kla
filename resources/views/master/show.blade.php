@@ -18,20 +18,13 @@
                             </div>
                         </div>
                         
-                       <!-- Action buttons with improved styling -->
-                        <div class="d-flex gap-3">
-                            <a href="#" class="btn btn-success btn-lg shadow-sm position-relative overflow-hidden" style="min-width: 180px;">
-                                <span class="btn-shine"></span>
-                                <i class="bi bi-file-earmark-excel-fill me-2"></i>
-                                <span class="fw-semibold">Ekspor ke Excel</span>
-                                <i class="bi bi-download ms-2"></i>
-                            </a>
+                
 </a>
 <a href="{{ route('case.previewPdf', $case->id) }}" target="_blank"
    class="btn btn-warning btn-lg shadow-sm position-relative overflow-hidden" style="min-width: 170px;">
     <span class="btn-shine"></span>
     <i class="bi bi-eye me-2"></i>
-    <span class="fw-semibold">Preview PDF</span>
+    <span class="fw-semibold">Download COF</span>
 </a>
 
 
