@@ -114,7 +114,7 @@
     @endif
 
       <div class="sidebar p-3" style="background-color: purple;">
-    <a href="{{ route('home') }}" class="btn btn-light w-100 mb-2"> Home</a>
+    <a href="{{ route('master.home') }}" class="btn btn-light w-100 mb-2"> Home</a>
     <a href="{{ route('master.finish.repair') }}" class="btn btn-light w-100 mb-2">Finish Repair</a>
     <a href="{{ route('master.erf.select') }}" class="btn btn-light w-100 mb-2">📚 Upload ERF</a>
     <a href="{{ route('master.engineer.index') }}" class="btn btn-light w-100 mb-2">🧑‍🔧 Engineer</a>

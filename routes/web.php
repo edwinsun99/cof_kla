@@ -76,12 +76,12 @@ Route::group([], function () {
         return app(MasterHomeController::class)->index();
     })->name('master.home');
 
-    Route::get('/home', function () {
-        if (!Session::get('login') || Session::get('role') !== 'MASTER') {
-            return redirect()->route('login')->with('error', 'Akses ditolak.');
-        }
-        return view('master.home');
-    })->name('home');
+    // Route::get('/home', function () {
+    //     if (!Session::get('login') || Session::get('role') !== 'MASTER') {
+    //         return redirect()->route('login')->with('error', 'Akses ditolak.');
+    //     }
+    //     return view('master.home');
+    // })->name('home');
 
     Route::prefix('master')->name('master.')->group(function () {
 
