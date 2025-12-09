@@ -75,6 +75,7 @@ Route::group([], function () {
         }
         return app(MasterHomeController::class)->index();
     })->name('master.home');
+    
 
     // Route::get('/home', function () {
     //     if (!Session::get('login') || Session::get('role') !== 'MASTER') {

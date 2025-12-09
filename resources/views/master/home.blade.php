@@ -4,6 +4,8 @@
 
 @section('content')
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
   <style>
     .stats-container {
         display: grid;
@@ -58,6 +60,7 @@
     }
 </style>
 
+<!-- 4 STATISTICS CARD -->
 
 <div class="stats-container">
 
@@ -95,11 +98,11 @@
 
 </div>
 
+<!-- LINE CHART -->
+
 <div style="width: 420px; height:230px; margin-top:20px;">
     <canvas id="caseLineChart"></canvas>
 </div>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
     const ctx = document.getElementById('caseLineChart').getContext('2d');
@@ -127,6 +130,111 @@
             }
         }
     });
+</script>
+
+<!-- BAR CHART -->
+
+<div class="card" style="padding:16px; border-radius:8px;">
+    <h3 style="margin-bottom:12px;">Total Case per Cabang (All Time)</h3>
+
+    <div style="width:100%; max-width:900px; height:420px;">
+        <canvas id="branchBarChart"></canvas>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const ctx = document.getElementById('branchBarChart').getContext('2d');
+
+    const labels = {!! json_encode($labels) !!};
+    const data   = {!! json_encode($data) !!};
+
+    const bgColors = labels.map((_, i) => `rgba(${(i*47)%255}, ${(120 + i*31)%255}, ${(200 + i*17)%255}, 0.7)`);
+    const borderColors = bgColors.map(c => c.replace('0.7','1'));
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Total Cases',
+                data: data,
+                backgroundColor: bgColors,
+                borderColor: borderColors,
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: { beginAtZero: true },
+                x: { ticks: { precision: 0 } }
+            },
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        label: function(ctx) {
+                            return 'Total: ' + (ctx.parsed.y ?? ctx.parsed.x);
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+});
+</script>
+
+<!-- PIE CHART : DISTRIBUSI STATUS -->
+
+<div class="card" style="padding:16px; border-radius:8px; margin-top:20px;">
+    <h3>Distribusi Status Case</h3>
+<div style="width:100%; max-width:400px; height:320px; margin:auto;">
+<canvas id="statusPieChart" style="height:300px;"></canvas>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const statusLabels = {!! json_encode($statusLabels) !!};
+    const statusData   = {!! json_encode($statusData) !!};
+
+    const colors = [
+        '#4CAF50', // new
+        '#2196F3', // repair progress
+        '#FF9800', // quotation request
+        '#00BCD4', // quotation approved
+        '#F44336', // quotation cancelled
+        '#a4a3a3ff',  // cancel repair
+        '#9C27B0'  // finish repair
+    ];
+
+    const ctx = document.getElementById('statusPieChart').getContext('2d');
+
+    new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: statusLabels,
+            datasets: [{
+                data: statusData,
+                backgroundColor: colors
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }
+    });
+
+});
 </script>
 
 @endsection
