@@ -97,7 +97,7 @@
     @endif 
 
         <div class="menu">
-           <a href="{{ route('home') }}">🏠 Home</a>
+           <a href="{{ route('ce.home') }}">🏠 Home</a>
         <a href="{{ route('ce.quotation.appcancl') }}" class="btn btn-light w-100 mb-2">💎 Quotation Approved/Cancelled</a>            
             <li class="nav-item">
     <a href="{{ route('ce.engineer.index') }}"

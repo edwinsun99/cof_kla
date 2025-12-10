@@ -6,59 +6,86 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-  <style>
-    .stats-container {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr); /* 2 kolom */
-        gap: 15px;
-        margin-top: 10px;
-        width: 500px; /* supaya rapat pojok kiri, tidak melebar */
-    }
+ <style>
+.dashboard-wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
 
-    .stats-card {
-        background: #ffffff;
-        width: 230px;
-        padding: 15px;
-        border-radius: 12px;
-        box-shadow: 0 3px 10px rgba(0,0,0,0.08);
-        text-align: center;
-        border-top: 5px solid #7d3cff;
-    }
+/* Stats */
+.stats-container{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    width: 100%;
+}
 
-    .stats-title {
-        font-size: 14px;
-        font-weight: bold;
-        color: #7d3cff;
-        margin-bottom: 8px;
-    }
+.stats-card{
+    background: #fff;
+    padding: 16px;
+    border-radius: 14px;
+    text-align: center;
+    box-shadow: 0 3px 10px rgba(0,0,0,.08);
+    border-top: 5px solid #7d3cff;
+}
 
-    .circle-progress {
-        width: 85px;
-        height: 85px;
-        border-radius: 50%;
-        border: 6px solid #d5c2ff;
-        margin: auto;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+.stats-title{
+    font-size: 14px;
+    font-weight: bold;
+    color: #7d3cff;
+}
 
-    .circle-progress span {
-        font-size: 22px;
-        font-weight: bold;
-        color: #6a11cb;
-    }
+.circle-progress{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 6px solid #d5c2ff;
+    margin: 10px auto 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-    .chart-wrapper {
-        width: 480px;
-        height: 280px;
-        margin-top: 10px;
-        background: #fff;
-        padding: 15px;
-        border-radius: 15px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
+.circle-progress span{
+    font-size: 20px;
+    font-weight: bold;
+    color: #6a11cb;
+}
+
+/* Charts */
+.chart-line{
+    width: 100%;
+    max-width: 900px;
+    height: 280px;
+    background: #fff;
+    padding: 16px;
+    border-radius: 14px;
+    box-shadow: 0 3px 12px rgba(0,0,0,.1);
+}
+
+/* Pastikan class ini ada dan mendefinisikan 2 kolom */
+.charts-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    gap: 20px;
+    width: 100%; 
+}
+
+/* Tambahkan styling untuk card chart jika diperlukan, atau pakai styling default untuk Line Chart */
+.chart-card{
+    background: #fff;
+    padding: 16px;
+    border-radius: 14px;
+    box-shadow: 0 3px 12px rgba(0,0,0,.1);
+}
 </style>
+
+<h2 style="margin-bottom: 15px;">
+    Welcome Back, {{ auth()->user()->un }} 👋
+</h2>
+
+<div class="dashboard-wrapper">
 
 <!-- 4 STATISTICS CARD -->
 
@@ -132,6 +159,57 @@
     });
 </script>
 
+<!-- PIE CHART : DISTRIBUSI STATUS -->
+
+<div style="margin-top:20px;"> 
+    <h4>Distribusi Status Case</h4>
+    {{-- Menghilangkan padding, border-radius, dan box shadow --}}
+    
+    <div style="width:100%; max-width:400px; height:320px; margin:auto;">
+        <canvas id="statusPieChart" style="height:300px;"></canvas>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const statusLabels = {!! json_encode($statusLabels) !!};
+    const statusData   = {!! json_encode($statusData) !!};
+
+    const colors = [
+        '#4CAF50', // new
+        '#2196F3', // repair progress
+        '#FF9800', // quotation request
+        '#00BCD4', // quotation approved
+        '#F44336', // quotation cancelled
+        '#a4a3a3ff',  // cancel repair
+        '#9C27B0'  // finish repair
+    ];
+
+    const ctx = document.getElementById('statusPieChart').getContext('2d');
+
+    new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: statusLabels,
+            datasets: [{
+                data: statusData,
+                backgroundColor: colors
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }
+    });
+
+});
+</script>
+
 <!-- BAR CHART -->
 
 <div class="card" style="padding:16px; border-radius:8px;">
@@ -188,53 +266,5 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 
-<!-- PIE CHART : DISTRIBUSI STATUS -->
-
-<div class="card" style="padding:16px; border-radius:8px; margin-top:20px;">
-    <h3>Distribusi Status Case</h3>
-<div style="width:100%; max-width:400px; height:320px; margin:auto;">
-<canvas id="statusPieChart" style="height:300px;"></canvas>
-    </div>
 </div>
-
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-
-    const statusLabels = {!! json_encode($statusLabels) !!};
-    const statusData   = {!! json_encode($statusData) !!};
-
-    const colors = [
-        '#4CAF50', // new
-        '#2196F3', // repair progress
-        '#FF9800', // quotation request
-        '#00BCD4', // quotation approved
-        '#F44336', // quotation cancelled
-        '#a4a3a3ff',  // cancel repair
-        '#9C27B0'  // finish repair
-    ];
-
-    const ctx = document.getElementById('statusPieChart').getContext('2d');
-
-    new Chart(ctx, {
-        type: 'pie',
-        data: {
-            labels: statusLabels,
-            datasets: [{
-                data: statusData,
-                backgroundColor: colors
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'bottom'
-                }
-            }
-        }
-    });
-
-});
-</script>
-
 @endsection

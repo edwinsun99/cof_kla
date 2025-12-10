@@ -198,12 +198,12 @@ Route::group([], function () {
         return app(CeHomeController::class)->index();
     })->name('ce.home');
 
-    Route::get('/home', function () {
-        if (!Session::get('login') || Session::get('role') !== 'CE') {
-            return redirect()->route('login')->with('error', 'Akses ditolak.');
-        }
-        return view('ce.home');
-    })->name('home');
+    // Route::get('/home', function () {
+    //     if (!Session::get('login') || Session::get('role') !== 'CE') {
+    //         return redirect()->route('login')->with('error', 'Akses ditolak.');
+    //     }
+    //     return view('ce.home');
+    // })->name('home');
 
     Route::get('/ce/services', [CeServiceController::class, 'index'])->name('ce.services.index');
     Route::post('/ce/services', [CeServiceControlller::class, 'store'])->name('ce.services.store');
