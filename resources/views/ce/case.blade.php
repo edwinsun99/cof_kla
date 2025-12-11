@@ -102,8 +102,7 @@ Jumlah data: {{ count($cases) }}
 <td>
     
 @if ($service->erf_file)
-    <a href="{{ route('erf.preview', $service->cof_id) }}"
-       target="_blank"
+    <a href="{{ route('erf.download', $service->id) }}"
        class="btn btn-primary mt-2">
        Lihat / Download ERF
     </a>

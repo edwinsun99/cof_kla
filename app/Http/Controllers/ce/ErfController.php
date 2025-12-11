@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Session;
 use App\Models\Service;
 
@@ -24,6 +25,7 @@ class ErfController extends Controller
     // Ambil case milik branch yang sama + status untuk engineer
     $cases = Service::where('branch_id', $user->branch_id)
                     ->where('status', 'finish repair')
+                    ->whereNull('erf_file') // <--- WAJIB supaya case hilang setelah di-upload
                     ->orderBy('created_at', 'DESC')
                     ->get();
 
@@ -36,7 +38,7 @@ class ErfController extends Controller
         return view('ce.erf', compact('case'));
     }
 
-      public function upload(Request $request, $id)
+    public function upload(Request $request, $id)
 {
     $request->validate([
         'erf_file' => 'required|mimes:pdf,doc,docx|max:2048',
@@ -46,16 +48,23 @@ class ErfController extends Controller
 
     if ($request->hasFile('erf_file')) {
 
-        $filename = 'ERF_' . $case->cof_id . '_' . time() . '.' . $request->file('erf_file')->getClientOriginalExtension();
+        // Nama file baru
+        $filename = 'ERF_' . $case->cof_id . '_' . time() . '.' .
+                    $request->file('erf_file')->getClientOriginalExtension();
 
-        // simpan ke storage/app/public/erf_files/
-        $path = $request->file('erf_file')->storeAs('erf_files', $filename, 'public');
+        // Simpan ke storage/app/public/erf_files/
+        $path = $request->file('erf_file')->storeAs(
+            'erf_files',
+            $filename,
+            'public'
+        );
 
+        // Simpan path ke database (contoh: "erf_files/ERF_XXXX_1736112345.pdf")
         $case->erf_file = $path;
         $case->save();
     }
 
-    return back()->with('success', 'Upload berhasil!');
+    return back()->with('success', 'ERF berhasil diupload.');
 }
 
 public function preview($id)
@@ -79,12 +88,17 @@ public function download($id)
     $case = Service::findOrFail($id);
 
     if (!$case->erf_file) {
-        return back()->with('error', 'ERF file not found.');
+        abort(404, 'File tidak ditemukan.');
     }
 
-    $filePath = storage_path('app/public/' . $case->erf_file);
+    // path yang benar
+    $path = storage_path('app/public/' . $case->erf_file);
 
-    return response()->download($filePath);
+    if (!file_exists($path)) {
+        abort(404, 'File tidak ada di storage.');
+    }
+
+    return response()->download($path);
 }
 
 }

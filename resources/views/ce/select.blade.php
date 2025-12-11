@@ -3,7 +3,7 @@
 @section('title', 'Select Case for ERF')
 
 @section('content')
-<h3>Pilih Case untuk Upload ERF</h3>
+<h3>Pilih Case untuk Upload Equipment Receipt Form</h3>
 
 <table class="table table-bordered">
     <tr>

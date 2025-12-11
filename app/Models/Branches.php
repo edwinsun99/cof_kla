@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Branches extends Model
 {
     protected $table ='branches';
-    protected $fillable = ['name', 'prefix'];
+    protected $fillable = ['name','prefix','address','phone','lat','lng','open_at','close_at'];
 
     // 🔹 1 cabang punya 1 counter
     public function counter()

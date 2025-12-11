@@ -43,6 +43,7 @@ use App\Http\Controllers\ce\FinishController as CeFinishController;
 
 // Customer Controllers
 use App\Http\Controllers\customer\TrackCaseController;
+use App\Http\Controllers\customer\ServiceLocationController;
 
 // OTHER CONTROLLERS
 use App\Http\Controllers\MasterController;
@@ -64,6 +65,11 @@ Route::get('/', fn() => redirect()->route('login'));
 Route::get('/track', [TrackCaseController::class, 'index'])->name('track.form');
 Route::post('/track/check', [TrackCaseController::class, 'check'])->name('track.check');
 Route::get('/track/{id}', [TrackCaseController::class, 'show'])->name('track.journey');
+// public page
+Route::get('/service-location', [ServiceLocationController::class, 'index'])->name('service.location');
+
+// API untuk kirim data branches JSON
+Route::get('/api/branches', [ServiceLocationController::class, 'branchesJson'])->name('api.branches');
 
 // ===========================
 // 🔹 MASTER ROUTES

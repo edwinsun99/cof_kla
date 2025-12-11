@@ -384,11 +384,13 @@
     </div>
 </a>
 
+                 <a href="{{ route('service.location') }}" class="text-decoration-none">
                     <div class="feature-card">
                         <div class="feature-title">Service Location</div>
                         <div class="feature-icon">📍</div>
                         <div class="feature-desc">Untuk mengetahui lokasi tempat service terdekat</div>
                     </div>
+    </a>
 
                     <div class="feature-card">
                         <div class="feature-title">Feedback</div>
