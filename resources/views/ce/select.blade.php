@@ -17,7 +17,7 @@
             <td>{{ $c->cof_id }}</td>
             <td>{{ $c->customer_name }}</td>
             <td>
-                <a href="{{ route('erf.form', $c->id) }}" class="btn btn-primary btn-sm">
+                <a href="{{ route('ce.erf.form', $c->id) }}" class="btn btn-primary btn-sm">
                     Upload ERF
                 </a>
             </td>

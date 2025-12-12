@@ -41,13 +41,13 @@ public function showLogin(Request $request)
 
 
 
-        $user = User::where('un', $username)->first();
+        $user = User::where('username', $username)->first();
 
-        if ($user && Hash::check($password, $user->pw)) {
+        if ($user && Hash::check($password, $user->password)) {
             // ✅ 1. Simpan data user ke session (versi lama, tetap dipertahankan)
             Session::put('login', true);
             Session::put('email', $user->email);
-            Session::put('username', $user->un);
+            Session::put('username', $user->username);
             Session::put('role', strtoupper($user->role));
             Session::put('branch_id', $user->branch_id);
 

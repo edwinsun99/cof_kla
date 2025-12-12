@@ -82,7 +82,7 @@
 </style>
 
  <h2 style="margin-bottom: 15px;">
-    Welcome Back, {{ auth()->user()->un }} 👋
+    Welcome Back, {{ auth()->user()->username }} 👋
 </h2>
 
 <!-- 4 STATISTICS CARD -->

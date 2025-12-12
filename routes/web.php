@@ -151,6 +151,7 @@ Route::group([], function () {
         Route::get('/manage-roles', [RoleController::class, 'index'])->name('roles.index');
         Route::post('/manage-roles', [RoleController::class, 'store'])->name('roles.store');
         Route::delete('/manage-roles/{id}', [RoleController::class, 'destroy'])->name('roles.destroy');
+        Route::put('/manage-roles/{id}', [RoleController::class, 'update'])->name('roles.update');
 
         Route::get('/get-product-type', [MasterProductController::class, 'getProductType'])->name('getProductType');
     });
@@ -233,7 +234,7 @@ Route::prefix('ce')->group(function () {
         ->name('erf.select');
 
     Route::get('/case/{id}/upload-erf', [CeErfController::class, 'form'])
-        ->name('erf.form');
+        ->name('ce.erf.form');
 
     Route::post('/case/{id}/upload-erf', [CeErfController::class, 'upload'])
         ->name('erf.upload');

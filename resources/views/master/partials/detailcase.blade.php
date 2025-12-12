@@ -90,6 +90,8 @@ d<div class="row">
             $opsi = [
                 'repair progress',
                 'quotation request',
+                'quotation approved',
+                'quotation cancelled',
                 'cancel repair',
                 'finish repair'
             ];

@@ -83,7 +83,7 @@ Jumlah data: {{ count($cases) }}
     @endif
 
 @forelse($cases ?? [] as $service)
-        <tr class="clickable-row" data-href="{{ route('cm.case.show', $service->id) }}">
+        <tr class="clickable-row" data-href="{{ route('case.show', $service->id) }}">
             <td>{{ $service->cof_id }}</td> <!-- COF-ID -->
             <td>{{ $service->customer_name }}</td>
             <td>{{ $service->phone_number }}</td>

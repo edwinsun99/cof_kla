@@ -19,7 +19,7 @@ class HomeController extends Controller
     
     // Ambil user login berdasarkan session
     $username = Session::get('username');
-    $user = \App\Models\User::where('un', $username)->first();
+    $user = \App\Models\User::where('username', $username)->first();
     $branch = Session::get('branch_id'); // ⬅ penting
 
 
