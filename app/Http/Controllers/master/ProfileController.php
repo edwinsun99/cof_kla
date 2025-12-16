@@ -2,59 +2,69 @@
 
 namespace App\Http\Controllers\master;
 
-use App\Http\Requests\ProfileUpdateRequest;
-use Illuminate\Http\RedirectResponse;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\View\View;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
-    /**
-     * Display the user's profile form.
-     */
-    public function edit(Request $request): View
+    public function edit()
     {
-        return view('profile.edit', [
-            'user' => $request->user(),
-        ]);
+        $user = Auth::user();
+        return view('master.editprof', compact('user'));
     }
 
-    /**
-     * Update the user's profile information.
-     */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    public function update(Request $request)
     {
-        $request->user()->fill($request->validated());
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        $user = Auth::user();
+
+        $request->validate([
+            'username' => 'nullable|string|max:255|unique:users,username,' . $user->id,
+            'email'    => 'nullable|email|unique:users,email,' . $user->id,
+            'profile_photo'    => 'nullable|image|mimes:jpg,jpeg,png|max:12288',
+        ]);
+
+        if ($request->username) {
+            $user->username = $request->username;
         }
 
-        $request->user()->save();
+        if ($request->email) {
+            $user->email = $request->email;
+        }
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        if ($request->hasFile('profile_photo')) {
+            if ($user->profile_photo) {
+                Storage::delete($user->profile_photo);
+            }
+
+            $path = $request->file('profile_photo')->store('profile_photos', 'public');;
+            $user->profile_photo = $path;
+        }
+
+        $user->save();
+
+        return back()->with('success', 'Profile berhasil diperbarui');
     }
 
-    /**
-     * Delete the user's account.
-     */
-    public function destroy(Request $request): RedirectResponse
+    public function updatePassword(Request $request)
     {
-        $request->validateWithBag('userDeletion', [
-            'password' => ['required', 'current_password'],
+        $request->validate([
+            'old_password' => 'required',
+            'new_password' => 'required|min:6|confirmed',
         ]);
 
-        $user = $request->user();
+        $user = Auth::user();
 
-        Auth::logout();
+        if (!Hash::check($request->old_password, $user->password)) {
+            return back()->with('error', 'Password lama salah');
+        }
 
-        $user->delete();
+        $user->password = Hash::make($request->new_password);
+        $user->save();
 
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return Redirect::to('/');
+        return back()->with('success', 'Password berhasil diubah');
     }
 }

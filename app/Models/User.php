@@ -14,17 +14,18 @@ class User extends Authenticatable
     
     // 🧩 Kolom yang bisa diisi
     protected $fillable = [
-        'un',
+        'username',
         'email',
-        'pw',
+        'password',
         'role',
-        'branch_id'
+        'branch_id',
+        'profile_photo'
     ];
 
     // 🧩 Agar password otomatis di-hash saat diset
     public function setPwAttribute($value)
     {
-        $this->attributes['pw'] = bcrypt($value);
+        $this->attributes['password'] = bcrypt($value);
     }
 
     // 🧩 Override default Laravel auth fields (opsional)

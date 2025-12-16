@@ -17,7 +17,7 @@
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-        }r
+        }
         .header {
             background: #6a0dad; /* ungu */
             color: white;
@@ -87,6 +87,29 @@
     </div>
 </div>
                 <div class="sidebar">
+
+                @php
+    $user = Auth::user();
+@endphp
+
+<div class="text-center mb-4">
+    <img
+        src="{{ $user->profile_photo
+            ? asset('storage/'.$user->profile_photo)
+            : asset('images/default-avatar.png') }}"
+        width="80"
+        height="80"
+        class="rounded-circle mb-2"
+        style="object-fit: cover;"
+    >
+
+    <div class="fw-bold text-white">
+        {{ $user->username }}
+    </div>
+</div>
+
+<hr class="text-light">
+
     <form action="{{ route('case.search') }}" method="GET" class="d-flex">
         <div class="input-group shadow-sm rounded-pill">
             <input type="text" 
@@ -122,8 +145,10 @@
     <a href="{{ route('master.quotreqaoc.index') }}" class="btn btn-light w-100 mb-2">💎 Quotation Approved/Cancelled</a>
     <a href="{{ route('master.newcase') }}" class="btn btn-light w-100 mb-2">🪄 New Case</a>
     <a href="{{ route('master.services.index') }}" class="btn btn-light w-100 mb-2">📂 View Case</a>
+    <a href="{{ route('master.profile.edit') }}" class="btn btn-light w-100 mb-2">👤 Edit Profile</a>
     <a href="{{ route('roles.index') }}" class="btn btn-light w-100 mb-2">⚙️ Manage Roles</a>
     <a href="#" onclick="confirmLogout(event)" class="btn btn-danger w-100">🔑 Logout</a>
+
 </div>
 
 

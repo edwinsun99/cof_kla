@@ -21,6 +21,7 @@ use App\Http\Controllers\master\ErfController as MasterErfController;
 use App\Http\Controllers\master\QuotReqController as MasterQuotReqController;
 use App\Http\Controllers\master\FinishController as MasterFinishController;
 use App\Http\Controllers\master\ProductController as MasterProductController;
+use App\Http\Controllers\master\ProfileController as MasterProfileController;
 
 // CM CONTROLLERS
 use App\Http\Controllers\cm\ServiceController as CmServiceController;
@@ -134,6 +135,14 @@ Route::group([], function () {
     Route::get('/case/{id}/erf-download', [MasterErfController::class, 'download'])
         ->name('erf.download');
 
+   Route::get('/profile', [MasterProfileController::class, 'edit'])
+        ->name('profile.edit');
+
+    Route::post('/profile/update', [MasterProfileController::class, 'update'])
+        ->name('profile.update');
+
+    Route::post('/profile/password', [MasterProfileController::class, 'updatePassword'])
+        ->name('profile.password');
     });
 
       // 🔥 ROUTE LOGDATE MASTER (FILTER TANGGAL + FILTER CABANG)
