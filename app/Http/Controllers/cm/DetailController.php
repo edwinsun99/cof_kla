@@ -76,7 +76,7 @@ public function status($id)
 
     Lognote::create([
         'cof_id' => $service->cof_id,
-        'un' => $user->un, // gunakan kolom 'un'
+        'un' => $user->username, // gunakan kolom 'un'
         'logdesc' => $request->note,
         'created_at' => now(),
         'updated_at' => now()

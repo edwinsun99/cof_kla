@@ -16,7 +16,7 @@ class ErfController extends Controller
     {
    // Ambil user login
     $username = Session::get('username');
-    $user = \App\Models\User::where('un', $username)->first();
+    $user = \App\Models\User::where('username', $username)->first();
 
     if (!$user) {
         return redirect()->route('login')->with('error', 'User tidak ditemukan.');

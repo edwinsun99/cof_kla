@@ -103,7 +103,7 @@
         style="object-fit: cover;"
     >
 
-    <div class="fw-bold text-white">
+    <div class="fw-bold text-black">
         {{ $user->username }}
     </div>
 </div>
