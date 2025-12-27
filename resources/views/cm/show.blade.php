@@ -8,14 +8,14 @@
             <div class="card border-0 shadow-sm bg-gradient" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
                 <div class="card-body py-4">
                     <div class="d-flex justify-content-between align-items-center">
-                        <div class="d-flex align-items-center text-white">
+                        <div class="d-flex align-items-center">
                             <div class="bg-white bg-opacity-20 rounded-circle p-3 me-3">
                                 <i class="bi bi-file-earmark-text fs-2"></i>
                             </div>
-                            <div>
-                                <h1 class="mb-1 fw-bold">Detail Case</h1>
-                                <p class="mb-0 opacity-75">View and manage case information</p>
-                            </div>
+                          <div>
+    <h1 class="mb-1 fw-bold text-purple">Detail Case</h1>
+    <p class="mb-0 text-purple-soft">View and manage case information</p>
+</div>
                         </div>
                         
                        <!-- Action buttons with improved styling -->

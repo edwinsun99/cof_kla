@@ -70,6 +70,27 @@
     </div>
 </div>
                 <div class="sidebar">
+
+                           @php
+    $user = Auth::user();
+@endphp
+
+<div class="text-center mb-4">
+    <img
+        src="{{ $user->profile_photo
+            ? asset('storage/'.$user->profile_photo)
+            : asset('images/default-avatar.png') }}"
+        width="80"
+        height="80"
+        class="rounded-circle mb-2"
+        style="object-fit: cover;"
+    >
+
+    <div class="fw-bold text-black">
+        {{ $user->username }}
+    </div>
+</div>
+
     <form action="{{ route('case.search') }}" method="GET" class="d-flex">
         <div class="input-group shadow-sm rounded-pill">
             <input type="text" 
@@ -100,6 +121,7 @@
             <a href="{{ route('cm.home') }}">🏠 Home</a>
            <a href="{{ route('cm.quotreq.index') }}" class="btn btn-light w-100 mb-2">🚥 Quotation Request</a>
             <a href="{{ route('cm.services.index') }}">📂 View Case</a> 
+                <a href="{{ route('cm.profile.edit') }}" class="btn btn-light w-100 mb-2">👤 Edit Profile</a>
             <a href="#" onclick="confirmLogout(event)">🔑 Logout</a>
 
 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

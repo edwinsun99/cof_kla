@@ -30,6 +30,7 @@ use App\Http\Controllers\cm\CaseController as CmCaseController;
 use App\Http\Controllers\cm\DetailController as CmDetailController;
 use App\Http\Controllers\cm\QuotPartReqController;
 use App\Http\Controllers\cm\QuotReqController as CmQuotReqController;
+use App\Http\Controllers\cm\ProfileController as CmProfileController;
 
 // CE CONTROLLERS
 use App\Http\Controllers\ce\ServiceController as CeServiceController;
@@ -41,6 +42,7 @@ use App\Http\Controllers\ce\QuotAppCancController as CeQuotAppCancController;
 use App\Http\Controllers\ce\ProductController as CeProductController;
 use App\Http\Controllers\ce\ErfController as CeErfController;
 use App\Http\Controllers\ce\FinishController as CeFinishController;
+use App\Http\Controllers\ce\ProfileController as CeProfileController;
 
 // Customer Controllers
 use App\Http\Controllers\customer\TrackCaseController;
@@ -201,6 +203,15 @@ Route::prefix('cm')->name('cm.')->group(function () {
     Route::post('/case/{id}/note', 
     [CmDetailController::class, 'addNote'])
     ->name('case.note');
+
+      Route::get('/profile', [CmProfileController::class, 'edit'])
+        ->name('profile.edit');
+
+    Route::post('/profile/update', [CmProfileController::class, 'update'])
+        ->name('profile.update');
+
+    Route::post('/profile/password', [CmProfileController::class, 'updatePassword'])
+        ->name('profile.password');
 });
 
 // ===========================
@@ -270,9 +281,16 @@ Route::get('/case/{id}', 'App\Http\Controllers\ce\DetailController@status')
 
 Route::post('/case/{id}/status', 'App\Http\Controllers\ce\DetailController@updateStatus')
     ->name('case.updateStatus');
+
+      Route::get('/profile', [CeProfileController::class, 'edit'])
+        ->name('profile.edit');
+
+    Route::post('/profile/update', [CeProfileController::class, 'update'])
+        ->name('profile.update');
+
+    Route::post('/profile/password', [CeProfileController::class, 'updatePassword'])
+        ->name('profile.password');
   
-
-
 });
 
 Route::prefix('ce')->name('ce.')->group(function () {
