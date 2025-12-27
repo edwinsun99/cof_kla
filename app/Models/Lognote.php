@@ -9,7 +9,7 @@ class Lognote extends Model
     protected $table = 'lognote'; // pakai tabel manual
     protected $fillable = [
         'cof_id',
-        'un',
+        'username',
         'logdesc'
     ];
 

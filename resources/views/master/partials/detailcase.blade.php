@@ -132,7 +132,7 @@ d<div class="row">
         @forelse($notes as $note)
         <tr>
             <td>{{ $note->created_at ? \Carbon\Carbon::parse($note->created_at)->timezone('Asia/Jakarta')->format('Y-m-d H:i') : '-' }}</td>
-            <td>{{ $note->un }}</td>
+            <td>{{ $note->username }}</td>
             <td>{{ $note->logdesc }}</td>
         </tr>
         @empty

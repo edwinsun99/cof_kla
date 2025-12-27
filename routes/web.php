@@ -272,10 +272,6 @@ Route::prefix('ce')->group(function () {
     Route::get('/engineer', [CeEngineerController::class, 'index'])
         ->name('engineer.index');
 
-    // Update status ke Finished
-    Route::post('/engineer/{id}/finish', [EngineerController::class, 'setFinished'])
-        ->name('engineer.finish');
-
 Route::get('/case/{id}', 'App\Http\Controllers\ce\DetailController@status')
     ->name('ce.case.show');
 
@@ -294,14 +290,6 @@ Route::post('/case/{id}/status', 'App\Http\Controllers\ce\DetailController@updat
 });
 
 Route::prefix('ce')->name('ce.')->group(function () {
-
-    // Menampilkan daftar case finished
-    Route::get('/finished', [EngineerController::class, 'finishedIndex'])
-        ->name('finished.index');
-
-    // Close case (mengubah status : FINISHED → CLOSED)
-    Route::post('/finished/{id}/close', [EngineerController::class, 'setClosed'])
-        ->name('finished.close');
 
             // CM: menu Quotation Request (tampilkan list yang status == 'Quotation Request')
     Route::get('/quotation-appcancl', [CeQuotAppCancController::class, 'index'])
