@@ -173,7 +173,7 @@
                     <th>Serial Number</th>
                     <th class="text-center">Status</th>
                     <th>ERF</th>
-                    <th>Date</th>
+                    <th>Received Date</th>
                 </tr>
             </thead>
             <tbody>
