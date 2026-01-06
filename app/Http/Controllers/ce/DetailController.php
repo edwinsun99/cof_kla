@@ -18,34 +18,50 @@ class DetailController extends Controller
     }
 
 
-    public function updateStatus(Request $request, $id)
+   public function updateAll(Request $request, $id)
 {
+    // 1. Validasi gabungan (note dibuat nullable karena CE mungkin hanya ingin ubah status saja)
     $request->validate([
-        'status' => 'required|string'
+        'status' => 'required|string',
+        'note'   => 'nullable|max:500' 
     ]);
+
+    // 2. Ambil data User & Service
+    $user = \Auth::user();
+    if (!$user) {
+        return redirect()->route('login')->with('error', 'Login dulu!');
+    }
 
     $service = Service::findOrFail($id);
 
-    // Update status
+    // 3. Logika Update Status & Otomatisasi Tanggal
     $service->status = $request->status;
 
-    // 🔥 Jika status berubah menjadi "Repair Progress"
     if ($request->status === 'repair progress') {
-        $service->started_date = now();     // Set otomatis
+        $service->started_date = now();
     }
 
-     // 🔥 Jika status berubah menjadi "Repair Progress"
     if ($request->status === 'finish repair') {
-        $service->finished_date = now();     // Set otomatis
+        $service->finished_date = now();
     }
 
     $service->save();
 
+    // 4. Logika Simpan Note (Hanya jika input 'note' diisi)
+    if ($request->filled('note')) {
+        Lognote::create([
+            'cof_id'     => $service->cof_id,
+            'username'   => $user->username,
+            'logdesc'    => $request->note,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+    }
+
     return redirect()
         ->route('ce.case.show', $id)
-        ->with('success', 'Status berhasil diperbarui!');
+        ->with('success', 'Case berhasil diperbarui (Status & Note)!');
 }
-
 
 public function status($id)
 {
@@ -81,30 +97,5 @@ public function status($id)
     $notes = $service->notes()->latest()->get(); // ambil lognote urut terbaru
 
     return view('ce.partials.detailcase', compact('service', 'notes'));
-}
-
- public function addNote(Request $request, $id)
-{
-    $request->validate([
-        'note' => 'required|max:500'
-    ]);
-
-    $user = \Auth::user(); // pakai Auth, jangan Session
-    
-    if (!$user) {
-        return redirect()->route('login')->with('error', 'Login dulu!');
-    }
-
-    $service = Service::findOrFail($id);
-
-    Lognote::create([
-        'cof_id' => $service->cof_id, // ini yang benar
-        'username' => $user->username, // gunakan kolom 'un'
-        'logdesc' => $request->note,
-        'created_at' => now(),
-        'updated_at' => now()
-    ]);
-
-    return back()->with('success', 'Note berhasil ditambahkan!');
 }
 }

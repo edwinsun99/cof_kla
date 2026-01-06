@@ -275,8 +275,9 @@ Route::prefix('ce')->group(function () {
 Route::get('/case/{id}', 'App\Http\Controllers\ce\DetailController@status')
     ->name('ce.case.show');
 
-Route::post('/case/{id}/status', 'App\Http\Controllers\ce\DetailController@updateStatus')
-    ->name('case.updateStatus');
+// Gunakan satu route ini untuk menghandle Status Update sekaligus Lognote
+Route::post('/ce/case/{id}/update-all', [App\Http\Controllers\ce\DetailController::class, 'updateAll'])
+    ->name('case.updateAll');
 
       Route::get('/profile', [CeProfileController::class, 'edit'])
         ->name('profile.edit');
@@ -301,7 +302,6 @@ Route::prefix('ce')->name('ce.')->group(function () {
 Route::get('/get-product-type', 
     [App\Http\Controllers\ce\ProductController::class, 'getProductType'])
     ->name('getProductType');
-
 
 });
 

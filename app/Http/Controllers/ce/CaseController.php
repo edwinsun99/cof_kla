@@ -64,7 +64,7 @@ public function logdate(Request $request)
 {
     // Ambil user login berdasarkan session
     $username = Session::get('username');
-    $user = \App\Models\User::where('un', $username)->first();
+    $user = \App\Models\User::where('username', $username)->first();
 
     if (!$user) {
         return redirect()->route('login')->with('error', 'User tidak ditemukan.');
