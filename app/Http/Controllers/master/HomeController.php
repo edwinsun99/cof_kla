@@ -48,16 +48,14 @@ class HomeController extends Controller
         }
 
     // ---------- BAR CHART (TOTAL PER CABANG) ----------
-$branchTotals = Cache::remember('branch_totals_alltime', 600, function () {
-    return Service::join('branches', 'services.branch_id', '=', 'branches.id')
-        ->selectRaw('branches.name as branch_name, COUNT(*) as total')
-        ->whereNotNull('services.branch_id')
-        ->groupBy('branches.name')
-        ->orderByDesc('total')
-        ->get();
-});
+// Hapus pembungkus cache-nya
+$branchTotals = Service::join('branches', 'services.branch_id', '=', 'branches.id')
+    ->selectRaw('branches.name as branch_name, COUNT(*) as total')
+    ->whereNotNull('services.branch_id')
+    ->groupBy('branches.name')
+    ->orderByDesc('total')
+    ->get();
 
-// Map untuk Chart.js
 $labels = $branchTotals->pluck('branch_name')->toArray();
 $data   = $branchTotals->pluck('total')->toArray();
 

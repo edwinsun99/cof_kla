@@ -184,7 +184,7 @@ $(document).ready(function () {
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label fw-semibold">Lognote</label>
+                    <label class="form-label fw-semibold">Repair Summary</label>
                     <textarea class="form-control shadow-sm" name="repair_summary" rows="2"></textarea>
                 </div>
 

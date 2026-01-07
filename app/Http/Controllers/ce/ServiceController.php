@@ -29,8 +29,6 @@ class ServiceController extends Controller
                        ->latest()
                        ->get();
 
-
-
 return view('ce.case', ['cases' => $services]);
 }
 
@@ -151,11 +149,10 @@ $service = Service::create([
 if ($request->filled('repair_summary')) {
     Lognote::create([
         'cof_id' => $service->cof_id,
-        'un' => Auth::user()->un, // ← FIX DISINI
+        'username' => Auth::user()->username, // ← FIX DISINI
         'logdesc' => $request->repair_summary,
     ]);
 }
-
 
     return redirect()->route('ce.services.index')
         ->with('success', "Case berhasil ditambahkan! COF-ID: $cofId");

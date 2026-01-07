@@ -1,270 +1,247 @@
 @extends('master.layout.app')
 
-@section('title', 'Home')
+@section('title', 'Service Dashboard')
 
 @section('content')
-
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
- <style>
-.dashboard-wrapper{
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
+<style>
+    :root {
+        --primary-purple: #7d3cff;
+        --soft-purple: #f3ebff;
+        --accent-yellow: #ffc107;
+        --glass-bg: rgba(255, 255, 255, 0.7);
+        --glass-border: rgba(255, 255, 255, 0.4);
+    }
 
-/* Stats */
-.stats-container{
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-    width: 100%;
-}
+    body {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        background-color: #f8f9fd;
+    }
 
-.stats-card{
-    background: #fff;
-    padding: 16px;
-    border-radius: 14px;
-    text-align: center;
-    box-shadow: 0 3px 10px rgba(0,0,0,.08);
-    border-top: 5px solid #7d3cff;
-}
+    .dashboard-container {
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+        padding-bottom: 40px;
+    }
 
-.stats-title{
-    font-size: 14px;
-    font-weight: bold;
-    color: #7d3cff;
-}
+    .welcome-text {
+        font-weight: 800;
+        color: #2d3436;
+        letter-spacing: -0.5px;
+        margin-bottom: 5px;
+    }
 
-.circle-progress{
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    border: 6px solid #d5c2ff;
-    margin: 10px auto 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+    /* Stats Section with Glassmorphism */
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+    }
 
-.circle-progress span{
-    font-size: 20px;
-    font-weight: bold;
-    color: #6a11cb;
-}
+    .glass-card {
+        background: var(--glass-bg);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-radius: 20px;
+        border: 1px solid var(--glass-border);
+        box-shadow: 0 8px 32px rgba(125, 60, 255, 0.05);
+        padding: 24px;
+        transition: transform 0.3s ease;
+    }
 
-/* Charts */
-.chart-line{
-    width: 100%;
-    max-width: 900px;
-    height: 280px;
-    background: #fff;
-    padding: 16px;
-    border-radius: 14px;
-    box-shadow: 0 3px 12px rgba(0,0,0,.1);
-}
+    .glass-card:hover {
+        transform: translateY(-5px);
+    }
 
-/* Pastikan class ini ada dan mendefinisikan 2 kolom */
-.charts-grid{
-    display: grid;
-    grid-template-columns: 1fr 1fr; 
-    gap: 20px;
-    width: 100%; 
-}
+    .stats-card {
+        text-align: center;
+        border-top: 4px solid var(--primary-purple);
+    }
 
-/* Tambahkan styling untuk card chart jika diperlukan, atau pakai styling default untuk Line Chart */
-.chart-card{
-    background: #fff;
-    padding: 16px;
-    border-radius: 14px;
-    box-shadow: 0 3px 12px rgba(0,0,0,.1);
-}
+    .stats-card h5 {
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: var(--primary-purple);
+        text-transform: uppercase;
+        margin-bottom: 15px;
+    }
+
+    .circle-stat {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto;
+        border: 6px solid var(--soft-purple);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+    }
+
+    /* Aksen kuning pada ring stat */
+    .circle-stat::after {
+        content: '';
+        position: absolute;
+        inset: -6px;
+        border-radius: 50%;
+        border: 6px solid transparent;
+        border-top-color: var(--accent-yellow);
+        transform: rotate(45deg);
+    }
+
+    .circle-stat span {
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: var(--primary-purple);
+    }
+
+    /* Charts Section Layout */
+    .charts-main-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 20px;
+    }
+
+    .chart-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .chart-header h4 {
+        font-weight: 700;
+        font-size: 1.1rem;
+        color: #2d3436;
+    }
+
+    .full-width-chart {
+        grid-column: span 2;
+    }
+
+    @media (max-width: 1024px) {
+        .charts-main-grid {
+            grid-template-columns: 1fr;
+        }
+        .full-width-chart {
+            grid-column: span 1;
+        }
+    }
 </style>
 
-<h2 style="margin-bottom: 15px;">
-    Welcome Back, {{ auth()->user()->username }} 👋
-</h2>
-
-<div class="dashboard-wrapper">
-
-<!-- 4 STATISTICS CARD -->
-
-<div class="stats-container">
-
-    {{-- 1. Total Case --}}
-    <div class="stats-card">
-        <div class="stats-title">Total Cases All Time</div>
-        <div class="circle-progress">
-            <span>{{ $totalCases }}</span>
+<div class="dashboard-container">
+    <h2 class="welcome-text">Welcome Back, {{ auth()->user()->username }} 👋</h2>
+    
+    <div class="stats-grid">
+        <div class="glass-card stats-card">
+            <h5>Total Cases</h5>
+            <div class="circle-stat"><span>{{ $totalCases }}</span></div>
+        </div>
+        <div class="glass-card stats-card">
+            <h5>Today's New</h5>
+            <div class="circle-stat"><span>{{ $newCasesToday }}</span></div>
+        </div>
+        <div class="glass-card stats-card">
+            <h5>Repair Progress</h5>
+            <div class="circle-stat"><span>{{ $casesInProgress }}</span></div>
+        </div>
+        <div class="glass-card stats-card">
+            <h5>Finished</h5>
+            <div class="circle-stat"><span>{{ $finishedCases }}</span></div>
         </div>
     </div>
 
-    {{-- 2. New Cases Today --}}
-    <div class="stats-card">
-        <div class="stats-title">Total Cases Today</div>
-        <div class="circle-progress">
-            <span>{{ $newCasesToday }}</span>
+    <div class="glass-card">
+        <div class="chart-header">
+            <h4>Monthly Case Trends</h4>
+        </div>
+        <div style="height: 300px;">
+            <canvas id="caseLineChart"></canvas>
         </div>
     </div>
 
-    {{-- 3. Repair Progress --}}
-    <div class="stats-card">
-        <div class="stats-title">Repair Progress</div>
-        <div class="circle-progress">
-            <span>{{ $casesInProgress }}</span>
+    <div class="charts-main-grid">
+        <div class="glass-card">
+            <div class="chart-header">
+                <h4>Status Distribution</h4>
+            </div>
+            <div style="height: 300px;">
+                <canvas id="statusPieChart"></canvas>
+            </div>
+        </div>
+
+        <div class="glass-card">
+            <div class="chart-header">
+                <h4>Cases per Branch</h4>
+            </div>
+            <div style="height: 300px;">
+                <canvas id="branchBarChart"></canvas>
+            </div>
         </div>
     </div>
-
-    {{-- 4. Finished Repair --}}
-    <div class="stats-card">
-        <div class="stats-title">Finish Repair</div>
-        <div class="circle-progress">
-            <span>{{ $finishedCases }}</span>
-        </div>
-    </div>
-
-</div>
-
-<!-- LINE CHART -->
-
-<div style="width: 420px; height:230px; margin-top:20px;">
-    <canvas id="caseLineChart"></canvas>
 </div>
 
 <script>
-    const ctx = document.getElementById('caseLineChart').getContext('2d');
-
-    new Chart(ctx, {
+document.addEventListener("DOMContentLoaded", function () {
+    // 1. Line Chart
+    new Chart(document.getElementById('caseLineChart').getContext('2d'), {
         type: 'line',
         data: {
             labels: {!! json_encode($chartMonths) !!},
             datasets: [{
-                label: "Cases per Month",
+                label: "Cases",
                 data: {!! json_encode($chartData) !!},
-                borderWidth: 3,
                 borderColor: "#7d3cff",
-                backgroundColor: "rgba(125, 60, 255, 0.2)",
+                backgroundColor: "rgba(125, 60, 255, 0.1)",
+                fill: true,
                 tension: 0.4,
-                pointRadius: 4,
-                pointBackgroundColor: "#7d3cff",
+                pointRadius: 5,
+                pointBackgroundColor: "#ffc107" // Aksen kuning di poin
             }]
         },
-        options: {
-            responsive: true,
+        options: { responsive: true, maintainAspectRatio: false }
+    });
+
+    // 2. Pie Chart
+    new Chart(document.getElementById('statusPieChart').getContext('2d'), {
+        type: 'doughnut', // Doughnut lebih modern daripada Pie biasa
+        data: {
+            labels: {!! json_encode($statusLabels) !!},
+            datasets: [{
+                data: {!! json_encode($statusData) !!},
+                backgroundColor: ['#4CAF50', '#2196F3', '#FF9800', '#00BCD4', '#F44336', '#95a5a6', '#9C27B0']
+            }]
+        },
+        options: { 
+            responsive: true, 
             maintainAspectRatio: false,
-            scales: {
-                y: { beginAtZero: true }
-            }
+            plugins: { legend: { position: 'bottom', labels: { usePointStyle: true, font: { family: 'Plus Jakarta Sans' } } } }
         }
     });
-</script>
 
-<!-- PIE CHART : DISTRIBUSI STATUS -->
-
-<div style="margin-top:20px;"> 
-    <h4>Distribusi Status Case</h4>
-    {{-- Menghilangkan padding, border-radius, dan box shadow --}}
-    
-    <div style="width:100%; max-width:400px; height:320px; margin:auto;">
-        <canvas id="statusPieChart" style="height:300px;"></canvas>
-    </div>
-</div>
-
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-
-    const statusLabels = {!! json_encode($statusLabels) !!};
-    const statusData   = {!! json_encode($statusData) !!};
-
-    const colors = [
-        '#4CAF50', // new
-        '#2196F3', // repair progress
-        '#FF9800', // quotation request
-        '#00BCD4', // quotation approved
-        '#F44336', // quotation cancelled
-        '#a4a3a3ff',  // cancel repair
-        '#9C27B0'  // finish repair
-    ];
-
-    const ctx = document.getElementById('statusPieChart').getContext('2d');
-
-    new Chart(ctx, {
-        type: 'pie',
-        data: {
-            labels: statusLabels,
-            datasets: [{
-                data: statusData,
-                backgroundColor: colors
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'bottom'
-                }
-            }
-        }
-    });
-
-});
-</script>
-
-<!-- BAR CHART -->
-
-<div class="card" style="padding:16px; border-radius:8px;">
-    <h3 style="margin-bottom:12px;">Total Case per Cabang (All Time)</h3>
-
-    <div style="width:100%; max-width:900px; height:420px;">
-        <canvas id="branchBarChart"></canvas>
-    </div>
-</div>
-
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-
-    const ctx = document.getElementById('branchBarChart').getContext('2d');
-
-    const labels = {!! json_encode($labels) !!};
-    const data   = {!! json_encode($data) !!};
-
-    const bgColors = labels.map((_, i) => `rgba(${(i*47)%255}, ${(120 + i*31)%255}, ${(200 + i*17)%255}, 0.7)`);
-    const borderColors = bgColors.map(c => c.replace('0.7','1'));
-
-    new Chart(ctx, {
+    // 3. Bar Chart
+    const barLabels = {!! json_encode($labels) !!};
+    new Chart(document.getElementById('branchBarChart').getContext('2d'), {
         type: 'bar',
         data: {
-            labels: labels,
+            labels: barLabels,
             datasets: [{
                 label: 'Total Cases',
-                data: data,
-                backgroundColor: bgColors,
-                borderColor: borderColors,
-                borderWidth: 1
+                data: {!! json_encode($data) !!},
+                backgroundColor: 'rgba(125, 60, 255, 0.8)',
+                borderRadius: 8
             }]
         },
-        options: {
-            responsive: true,
+        options: { 
+            responsive: true, 
             maintainAspectRatio: false,
-            scales: {
-                y: { beginAtZero: true },
-                x: { ticks: { precision: 0 } }
-            },
-            plugins: {
-                legend: { display: false },
-                tooltip: {
-                    callbacks: {
-                        label: function(ctx) {
-                            return 'Total: ' + (ctx.parsed.y ?? ctx.parsed.x);
-                        }
-                    }
-                }
-            }
+            indexAxis: 'y', // Bar horizontal biar lebih rapi untuk nama cabang
+            plugins: { legend: { display: false } }
         }
     });
-
 });
 </script>
-
-</div>
 @endsection

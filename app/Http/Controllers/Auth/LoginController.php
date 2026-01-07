@@ -63,8 +63,6 @@ public function showLogin(Request $request)
             switch (strtoupper($user->role)) {
                 case 'MASTER':
                     return redirect('/master/home')->with('success', 'Login berhasil sebagai MASTER!');
-                case 'CS':
-                    return redirect('/cs/home')->with('success', 'Login berhasil sebagai CS!');
                 case 'CM':
                     return redirect('/cm/home')->with('success', 'Login berhasil sebagai CM!');
                 case 'CE':

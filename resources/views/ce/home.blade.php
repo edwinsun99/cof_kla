@@ -116,6 +116,7 @@
 </h2>
 
 <div class="dashboard-wrapper">
+    <!-- CARD SUMMARY -->
     <div class="stats-container">
         <div class="stats-card">
             <div class="stats-title">Total Cases</div>
@@ -146,6 +147,7 @@
         </div>
     </div>
 
+    <!-- LINE CHART -->
     <div class="charts-row">
         <div class="chart-box" style="flex: 2;">
             <div class="chart-header">
@@ -157,6 +159,7 @@
             </div>
         </div>
 
+        <!-- PIE CHART -->
         <div class="chart-box" style="flex: 1;">
             <div class="chart-header">
                 <h5>Status Distribution</h5>

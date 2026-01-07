@@ -1,174 +1,286 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Bootstrap CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-
-<!-- Bootstrap Bundle JS (wajib untuk tab, modal, dropdown, dll) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Integrated Service Delivery 2025')</title>
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
+        :root {
+            --primary-ungu: #6a0dad;
+            --secondary-orange: #ff8c00;
+            --hover-bg: #f3e5f5;
+            --header-height: 70px;
+            --sidebar-mini-width: 72px;
+            --sidebar-expand-width: 260px;
+            --transition-speed: 0.3s;
+        }
+
         body {
             margin: 0;
-            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
         }
+
+        /* --- HEADER --- */
         .header {
-            background: #6a0dad; /* ungu */
-            color: white;
-            padding: 10px 20px;
-            font-size: 20px;
-            font-weight: bold;
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: var(--header-height);
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 2000; 
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
+
+        .header-left { display: flex; align-items: center; gap: 10px; }
+        .header-left img { height: 45px; object-fit: contain; }
+
+        .header-center { flex: 0 1 600px; margin: 0 20px; }
+        .search-input { border-radius: 20px 0 0 20px !important; border-color: #ddd; }
+        .search-btn { 
+            border-radius: 0 20px 20px 0 !important; 
+            background: #f8f8f8; 
+            border: 1px solid #ddd;
+            border-left: none;
+            padding: 0 15px;
+        }
+
+        .header-right { display: flex; align-items: center; gap: 15px; }
+
+        /* --- SIDEBAR --- */
         .sidebar {
-            width: 220px;
-            background: #f4f4f4;
-            height: 100vh;
-            padding: 20px 10px;
-            float: left;
-            max-height: 100vh; /* Biar tingginya penuh sesuai layar */
-            overflow-y: auto;  /* Aktifkan scroll vertikal */
-            overflow-x: hidden; /* Hilangkan scroll horizontal */
+            position: fixed;
+            top: var(--header-height);
+            left: 0; bottom: 0;
+            width: var(--sidebar-mini-width);
+            background: #ffffff;
+            overflow-y: auto;
+            overflow-x: hidden;
+            transition: width var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1500;
+            border-right: 1px solid #e5e5e5;
         }
 
-        /* Biar scroll-nya halus dan rapi */
-.sidebar::-webkit-scrollbar {
-  width: 8px;
-}
+        .sidebar.expanded { width: var(--sidebar-expand-width); }
 
-.sidebar::-webkit-scrollbar-thumb {
-  background-color: rgba(100, 100, 100, 0.3);
-  border-radius: 4px;
-}
-
-.sidebar::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(100, 100, 100, 0.6);
-}
-        .sidebar .menu {
-            margin-top: 20px;
-        }
-        .sidebar .menu a {
-            display: block;
-            padding: 10px;
-            margin-bottom: 10px;
+        .menu-item {
+            display: flex;
+            align-items: center;
+            height: 50px;
+            padding: 0 24px;
             text-decoration: none;
-            color: white;
-            background: #6a0dad;
-            border-radius: 5px;
-            text-align: left;
-        }
-        .sidebar .menu a:hover {
-            background: #4b0082;
-        }
-        .content {
-            margin-left: 240px;
-            padding: 20px;
-        }
-        .input-group .form-control:focus {
-            box-shadow: none;
-            border-color: #dc3545; /* warna merah bootstrap danger */
+            color: #444;
+            transition: 0.2s;
+            white-space: nowrap;
+            border-left: 4px solid transparent;
+            cursor: pointer;
         }
 
-        .input-group .btn {
+        .menu-item:hover { background: var(--hover-bg); color: var(--primary-ungu); }
+        .menu-item.active { 
+            border-left-color: var(--secondary-orange); 
+            background: var(--hover-bg); 
+            color: var(--primary-ungu); 
             font-weight: 600;
+        }
+        
+        .menu-item i { font-size: 1.3rem; min-width: 28px; margin-right: 20px; color: var(--primary-ungu); }
+        .menu-item span { font-size: 14px; opacity: 0; transition: opacity 0.2s; font-weight: 500; }
+        .sidebar.expanded .menu-item span { opacity: 1; }
+
+        .sidebar-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: #999;
+            padding: 20px 24px 10px;
+            text-transform: uppercase;
             letter-spacing: 1px;
+            display: none;
+        }
+        .sidebar.expanded .sidebar-label { display: block; }
+
+        .submenu-container {
+            padding-left: 52px;
+            background: #fafafa;
+            display: none;
+        }
+        .sidebar.expanded .submenu-container { display: block; }
+        
+        .submenu-item {
+            display: block;
+            padding: 10px 0;
+            color: #666;
+            text-decoration: none;
+            font-size: 13px;
+            transition: 0.2s;
+        }
+        .submenu-item:hover { color: var(--secondary-orange); }
+        .submenu-item.active-sub { color: var(--primary-ungu); font-weight: bold; }
+
+        /* --- CONTENT --- */
+        .content {
+            padding: 25px;
+            margin-top: var(--header-height);
+            margin-left: var(--sidebar-mini-width);
+            transition: margin-left var(--transition-speed) ease;
         }
 
+        .sidebar.expanded + .content {
+            margin-left: var(--sidebar-expand-width);
+        }
+
+        .sidebar-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 1400;
+            display: none;
+            backdrop-filter: blur(2px);
+        }
+        .sidebar-overlay.active { display: block; }
+        .hide-caret::after { display: none !important; }
     </style>
 </head>
+
 <body>
-    <div class="header">
-        Customer Order Form 2025
-    </div>
-</div>
-                <div class="sidebar">
+    <div id="overlay" class="sidebar-overlay" onclick="toggleSidebar()"></div>
 
-                @php
-    $user = Auth::user();
-@endphp
-
-<div class="text-center mb-4">
-    <img
-        src="{{ $user->profile_photo
-            ? asset('storage/'.$user->profile_photo)
-            : asset('images/default-avatar.png') }}"
-        width="80"
-        height="80"
-        class="rounded-circle mb-2"
-        style="object-fit: cover;"
-    >
-
-    <div class="fw-bold text-black">
-        {{ $user->username }}
-    </div>
-</div>
-
-<hr class="text-light">
-
-    <form action="{{ route('case.search') }}" method="GET" class="d-flex">
-        <div class="input-group shadow-sm rounded-pill">
-            <input type="text" 
-                   name="search" 
-                   value="{{ request('search') }}" 
-                   class="form-control border-0 rounded-start-pill ps-4" 
-                   placeholder="🔍 Search by COF-ID, SN, or Phone...">
-            <button type="submit" class="btn btn-danger rounded-end-pill px-4">
-                GO
-            </button>
+    <header class="header">
+        <div class="header-left">
+            <i class="bi bi-list fs-2 text-dark" style="cursor:pointer" onclick="toggleSidebar()"></i>
+            <a href="{{ route('master.home') }}">
+                <img src="{{ asset('images/logo.png') }}" alt="Logo">
+            </a>
         </div>
-    </form>
 
-       {{-- Menampilkan hasil pencarian --}}
-    @if(request('search'))
-        <div class="mt-3 text-center fw-bold">
-            search for
-            <span class="text-primary">{{ request('search') }}</span>
-            @if(isset($services) && $services->count() > 0)
-                : <span class="text-success">{{ $services->count() }}</span> result
-            @else
-                — <span class="text-danger">tidak ditemukan</span>
-            @endif
+        <div class="header-center">
+            <form action="{{ route('case.search') }}" method="GET" class="d-flex">
+                <input type="text" name="search" value="{{ request('search') }}" class="form-control search-input" placeholder="Search by ID, SN, or Phone...">
+                <button class="btn search-btn" type="submit"><i class="bi bi-search"></i></button>
+            </form>
         </div>
-    @endif
 
-      <div class="sidebar p-3" style="background-color: purple;">
-    <a href="{{ route('master.home') }}" class="btn btn-light w-100 mb-2"> Home</a>
-    <a href="{{ route('master.finish.repair') }}" class="btn btn-light w-100 mb-2">Finish Repair</a>
-    <a href="{{ route('master.erf.select') }}" class="btn btn-light w-100 mb-2">📚 Upload ERF</a>
-    <a href="{{ route('master.engineer.index') }}" class="btn btn-light w-100 mb-2">🧑‍🔧 Engineer</a>
-    <a href="{{ route('master.quotreq.index') }}" class="btn btn-light w-100 mb-2">🚥 Quotation Request</a>
-    <a href="{{ route('master.quotreqaoc.index') }}" class="btn btn-light w-100 mb-2">💎 Quotation Approved/Cancelled</a>
-    <a href="{{ route('master.newcase') }}" class="btn btn-light w-100 mb-2">🪄 New Case</a>
-    <a href="{{ route('master.services.index') }}" class="btn btn-light w-100 mb-2">📂 View Case</a>
-    <a href="{{ route('master.profile.edit') }}" class="btn btn-light w-100 mb-2">👤 Edit Profile</a>
-    <a href="{{ route('roles.index') }}" class="btn btn-light w-100 mb-2">⚙️ Manage Roles</a>
-    <a href="#" onclick="confirmLogout(event)" class="btn btn-danger w-100">🔑 Logout</a>
-
-</div>
-
-
-<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-    @csrf
-</form>
-
-<script>
-function confirmLogout(event) {
-    event.preventDefault();
-    if (confirm('Are you sure want to logout?')) {
-        document.getElementById('logout-form').submit();
-    }
-}
-</script>
+        <div class="header-right">
+            <a href="{{ route('master.newcase') }}" class="text-decoration-none">
+                <button style="background: var(--secondary-orange); color: white; border: none; padding: 8px 18px; border-radius: 20px; font-weight: 600; display: flex; align-items: center; gap: 8px; transition: 0.3s;">
+                    <i class="bi bi-plus-lg"></i>
+                    <span>Create</span>
+                </button>
+            </a>
+            
+            <div class="dropdown">
+                <a href="#" class="dropdown-toggle hide-caret" data-bs-toggle="dropdown">
+                    <img src="{{ Auth::user()->profile_photo ? asset('storage/'.Auth::user()->profile_photo) : asset('images/default-avatar.png') }}" 
+                         width="45" height="45" class="rounded-circle border border-2" style="object-fit: cover; border-color: var(--primary-ungu) !important;">
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end p-3 mt-3 shadow-lg border-0" style="width: 280px; border-radius: 15px;">
+                    <li class="text-center pb-3 border-bottom mb-2">
+                        <img src="{{ Auth::user()->profile_photo ? asset('storage/'.Auth::user()->profile_photo) : asset('images/default-avatar.png') }}" 
+                             width="70" height="70" class="rounded-circle mb-2 border" style="object-fit: cover;">
+                        <div class="fw-bold fs-5 text-dark">{{ Auth::user()->username }}</div>
+                        <small class="text-muted d-block">
+                            {{ Str::contains(Auth::user()->email, 'manager') ? 'Manager' : 'Customer Engineer' }}
+                            @php
+                                $suffix = Str::after(Auth::user()->username, '@');
+                                $branch = match($suffix) { 'smg'=>'Semarang','slw'=>'Slawi','tgl'=>'Tegal','kdr'=>'Kediri','pkl'=>'Pekalongan', default=>'Head Office' };
+                            @endphp
+                            @<span>{{ $branch }}</span>
+                        </small>
+                    </li>
+                    <li><a class="dropdown-item py-2" href="{{ route('master.profile.edit') }}"><i class="bi bi-person-gear me-2"></i> Edit Profil</a></li>
+                    <li><a class="dropdown-item py-2 text-danger" href="#" onclick="confirmLogout(event)"><i class="bi bi-box-arrow-right me-2"></i> Sign Out</a></li>
+                </ul>
+            </div>
         </div>
-    </div>
+    </header>
 
-    <div class="content">
+    <nav class="sidebar" id="mySidebar">
+        <a href="{{ route('master.home') }}" class="menu-item mt-2 {{ request()->routeIs('master.home') ? 'active' : '' }}">
+            <i class="bi bi-speedometer2"></i> <span>Dashboard</span>
+        </a>
+
+        <div class="accordion accordion-flush" id="sidebarAccordion">
+            
+            <div class="sidebar-label">Main Menu</div>
+
+            <a href="{{ route('master.newcase') }}" class="menu-item {{ request()->routeIs('master.newcase') ? 'active' : '' }}">
+                <i class="bi bi-plus-circle"></i> <span>New Case Registration</span>
+            </a>
+
+            <div class="accordion-item border-0 bg-transparent">
+                @php $caseActive = request()->routeIs('master.services.index') || request()->routeIs('master.engineer.index'); @endphp
+                <a href="#menuCases" class="menu-item {{ $caseActive ? 'active' : '' }}" data-bs-toggle="collapse">
+                    <i class="bi bi-folder2-open"></i> <span>Case Management</span>
+                </a>
+                <div id="menuCases" class="collapse {{ $caseActive ? 'show' : '' }}" data-bs-parent="#sidebarAccordion">
+                    <div class="submenu-container">
+                        <a href="{{ route('master.services.index') }}" class="submenu-item {{ request()->routeIs('master.services.index') ? 'active-sub' : '' }}">View All Cases</a>
+                        <a href="{{ route('master.engineer.index') }}" class="submenu-item {{ request()->routeIs('master.engineer.index') ? 'active-sub' : '' }}">Engineer Case List</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item border-0 bg-transparent">
+                @php $repairActive = request()->routeIs('master.finish.repair') || request()->routeIs('master.erf.select'); @endphp
+                <a href="#menuRepair" class="menu-item {{ $repairActive ? 'active' : '' }}" data-bs-toggle="collapse">
+                    <i class="bi bi-patch-check"></i> <span>Finish Repair</span>
+                </a>
+                <div id="menuRepair" class="collapse {{ $repairActive ? 'show' : '' }}" data-bs-parent="#sidebarAccordion">
+                    <div class="submenu-container">
+                        <a href="{{ route('master.finish.repair') }}" class="submenu-item {{ request()->routeIs('master.finish.repair') ? 'active-sub' : '' }}">Finish Repair Entry</a>
+                        <a href="{{ route('master.erf.select') }}" class="submenu-item {{ request()->routeIs('master.erf.select') ? 'active-sub' : '' }}">Upload ERF Form</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item border-0 bg-transparent">
+                @php $quotActive = request()->routeIs('master.quotreqaoc.index') || request()->routeIs('master.quotreq.index'); @endphp
+                <a href="#menuQuotation" class="menu-item {{ $quotActive ? 'active' : '' }}" data-bs-toggle="collapse">
+                    <i class="bi bi-journal-text"></i> <span>Quotation</span>
+                </a>
+                <div id="menuQuotation" class="collapse {{ $quotActive ? 'show' : '' }}" data-bs-parent="#sidebarAccordion">
+                    <div class="submenu-container">
+                        <a href="{{ route('master.quotreq.index') }}" class="submenu-item {{ request()->routeIs('master.quotreq.index') ? 'active-sub' : '' }}">Quotation Request</a>
+                        <a href="{{ route('master.quotreqaoc.index') }}" class="submenu-item {{ request()->routeIs('master.quotreqaoc.index') ? 'active-sub' : '' }}">Quot Approved / Cancel</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-label mt-3 border-top pt-3">System Control</div>
+            <a href="{{ route('roles.index') }}" class="menu-item {{ request()->routeIs('roles.*') ? 'active' : '' }}">
+                <i class="bi bi-shield-lock"></i> <span>Manage Users & Role</span>
+            </a>
+
+        </div>
+    </nav>
+
+    <main class="content" id="mainContent">
         @yield('content')
-    </div>
+    </main>
+
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf</form>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById("mySidebar");
+            const overlay = document.getElementById("overlay");
+            sidebar.classList.toggle("expanded");
+            overlay.classList.toggle("active");
+        }
+        function confirmLogout(event) {
+            event.preventDefault();
+            if (confirm('Sign out from your account?')) { document.getElementById('logout-form').submit(); }
+        }
+    </script>
 </body>
 </html>
