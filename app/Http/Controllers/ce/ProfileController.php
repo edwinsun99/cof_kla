@@ -29,7 +29,7 @@ class ProfileController extends Controller
 
         if ($request->username) {
             $user->username = $request->username;
-        }
+        } 
 
         if ($request->email) {
             $user->email = $request->email;

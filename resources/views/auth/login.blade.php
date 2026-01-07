@@ -4,7 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Integrated Service Delivery 2025</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary-ungu: #6f42c1;
+            --primary-ungu-dark: #3f065e;
+            --accent-kuning: #ffc107;
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --text-main: #2d3436;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -12,466 +22,401 @@
         }
 
         body {
-            font-family: Arial, sans-serif;
-            background-color: #ffffff;
-            color: #fff;
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
             padding: 20px;
-        }
-
-        .page-title {
-            color: #000000ff;
-            font-size: 18px;
-            margin-bottom: 20px;
-            font-weight: bold;
         }
 
         .container {
             display: flex;
-            gap: 20px;
-            max-width: 1400px;
-            margin: 0 auto;
+            gap: 25px;
+            max-width: 1300px;
+            width: 100%;
+            margin: auto;
+            flex-wrap: wrap;
         }
 
-        /* LEFT SIDE */
+        /* --- LEFT SECTION --- */
         .left-section {
             flex: 1;
-            background-color: #3f065e;
-            padding: 30px;
-            border-radius: 8px;
+            min-width: 600px;
+            background: linear-gradient(160deg, #3f065e 0%, #6f42c1 100%);
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 20px 40px rgba(63, 6, 94, 0.2);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
         }
 
         .welcome-title {
-            color: #ffffffff;
-            font-size: 28px;
-            font-weight: bold;
-            margin-bottom: 20px;
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 30px;
+            line-height: 1.2;
         }
 
         .banner {
-            display: flex;
-            align-items: flex-start;
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .banner-image {
-            width: 200px;
-            height: 140px;
-            background-color: #fff;
-            border-radius: 8px;
-            padding: 10px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 5px;
-        }
-
-        .device-icon {
-            width: 100%;
-            height: 100%;
-            background-color: #ddd;
-            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 25px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 12px;
+            gap: 25px;
+            margin-bottom: 40px;
         }
 
-        .banner-text {
-            flex: 1;
-            font-size: 14px;
-            line-height: 1.6;
+        .banner-image img {
+            width: 180px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
 
-        .main-content {
-            background-color: #fff;
-            padding: 40px;
-            border-radius: 8px;
+        .banner-text h2 {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            color: var(--accent-kuning);
+        }
+
+        .banner-text p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+            line-height: 1.5;
+        }
+
+        .main-content-card {
+            background: rgba(255, 255, 255, 1);
+            padding: 30px;
+            border-radius: 25px;
+            margin-top: auto;
         }
 
         .features {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin-bottom: 40px;
+            gap: 15px;
+            margin-bottom: 30px;
         }
 
         .feature-card {
-            background-color: #b3b3ff;
+            background: #f8f9ff;
             padding: 20px;
-            border-radius: 8px;
+            border-radius: 20px;
             text-align: center;
+            transition: 0.3s;
+            border: 1px solid #eee;
+            text-decoration: none;
+            display: block;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-ungu);
+            box-shadow: 0 10px 20px rgba(111, 66, 193, 0.1);
         }
 
         .feature-title {
-            color: #000;
-            font-weight: bold;
-            font-size: 16px;
-            margin-bottom: 15px;
+            color: var(--primary-ungu-dark);
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
         }
 
         .feature-icon {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 15px;
-            background-color: #fff;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 40px;
+            font-size: 30px;
+            margin-bottom: 10px;
         }
 
         .feature-desc {
-            color: #000;
-            font-size: 13px;
+            color: #666;
+            font-size: 0.75rem;
             line-height: 1.4;
         }
 
         .footer {
-            background-color: #000;
-            color: #fff;
-            padding: 20px;
             text-align: center;
-            border-radius: 8px;
-            font-size: 14px;
+            font-size: 0.8rem;
+            color: #888;
+            padding-top: 10px;
+            border-top: 1px solid #eee;
         }
 
-        /* RIGHT SIDE - LOGIN */
+        /* --- RIGHT SECTION - LOGIN --- */
         .right-section {
-            width: 400px;
-            background-color: #3f065e;
+            width: 420px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             padding: 40px;
-            border-radius: 8px;
-            color: #fff;
+            border-radius: 30px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.05);
             display: flex;
             flex-direction: column;
             justify-content: center;
         }
 
-        .login-title {
-            color: #ffffffff;
-            font-size: 32px;
-            font-weight: bold;
+        .login-logo-container {
             text-align: center;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .brand-logo {
+            max-height: 80px;
+            width: auto;
+            /* Filter ini membantu logo terlihat lebih 'nyatu' dengan desain modern */
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.05));
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .login-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary-ungu-dark);
         }
 
         .login-subtitle {
-            text-align: center;
-            font-size: 14px;
-            color: #ddd;
-            margin-bottom: 25px;
-        }
-
-          :root {
-        --captcha-bg: #f3f4f6;
-        --captcha-text: #374151;
-        --primary-color: #4f46e5; /* Sesuaikan dengan warna brand Anda */
-        --border-color: #e5e7eb;
-        --radius: 8px;
-    }
-
-    /* Container Utama */
-    .captcha-container {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        max-width: 320px;
-        background: #ffffff;
-        padding: 20px;
-        border-radius: 12px;
-        border: 1px solid var(--border-color);
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-    }
-
-    .captcha-label {
-        display: block;
-        font-size: 14px;
-        font-weight: 600;
-        color: #6b7280;
-        margin-bottom: 10px;
-    }
-
-    /* Wrapper Kode & Tombol */
-    .captcha-box {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        margin-bottom: 15px;
-    }
-
-    /* Tampilan Kode Captcha */
-    .captcha-display {
-        flex-grow: 1;
-        background-color: var(--captcha-bg);
-        border: 1px solid var(--border-color);
-        border-radius: var(--radius);
-        padding: 12px;
-        text-align: center;
-        position: relative;
-        overflow: hidden;
-        user-select: none; /* Mencegah user copy-paste teks captcha */
-    }
-
-    .captcha-code {
-        font-family: 'Courier New', Courier, monospace; /* Font monospace agar terlihat teknis */
-        font-size: 24px;
-        font-weight: 800;
-        letter-spacing: 6px;
-        color: var(--captcha-text);
-        position: relative;
-        z-index: 2;
-        font-style: italic;
-    }
-
-    /* Efek Noise/Garis Background (Opsional untuk estetika) */
-    .captcha-noise {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        opacity: 0.1;
-        background-image: repeating-linear-gradient(
-            45deg,
-            #000 0,
-            #000 1px,
-            transparent 0,
-            transparent 50%
-        );
-        z-index: 1;
-        pointer-events: none;
-    }
-
-    /* Tombol Refresh Modern */
-    .btn-refresh {
-        background: #fff;
-        border: 1px solid var(--border-color);
-        border-radius: var(--radius);
-        width: 48px;
-        height: 48px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        color: #6b7280;
-        transition: all 0.2s ease;
-    }
-
-    .btn-refresh:hover {
-        background-color: var(--captcha-bg);
-        color: var(--primary-color);
-        border-color: var(--primary-color);
-    }
-
-    .btn-refresh:active {
-        transform: scale(0.95);
-    }
-
-    /* Animasi putar saat hover */
-    .btn-refresh:hover svg {
-        animation: spin 1s linear infinite;
-    }
-
-    @keyframes spin {
-        100% { transform: rotate(360deg); }
-    }
-
-    /* Input Styling */
-    .captcha-input {
-        width: 100%;
-        padding: 12px 15px;
-        font-size: 15px;
-        border: 1px solid var(--border-color);
-        border-radius: var(--radius);
-        outline: none;
-        transition: border-color 0.2s, box-shadow 0.2s;
-        box-sizing: border-box; /* Penting agar padding tidak merusak lebar */
-    }
-
-    .captcha-input:focus {
-        border-color: var(--primary-color);
-        box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1); /* Efek glow halus */
-    }
-
-    .captcha-input::placeholder {
-        color: #9ca3af;
-    }
-
-        form {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            font-size: 0.9rem;
+            color: #777;
+            margin-top: 5px;
         }
 
         .form-group {
             width: 100%;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             position: relative;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #444;
         }
 
         .form-input {
             width: 100%;
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-size: 14px;
-            background-color: #f3f7ff;
-            color: #000;
+            padding: 14px 18px;
+            border: 2px solid #edf2f7;
+            border-radius: 15px;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            transition: 0.3s;
+            background: #fff;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-ungu);
+            box-shadow: 0 0 0 4px rgba(111, 66, 193, 0.1);
         }
 
         #togglePassword {
             position: absolute;
-            right: 12px;
-            top: 50%;
-            transform: translateY(-50%);
+            right: 15px;
+            top: 40px;
+            font-size: 1.2rem;
             cursor: pointer;
+            filter: grayscale(1);
         }
 
-        .login-btn {
-            background-color: #920bdbff;
-            border: 3px solid #000;
-            padding: 12px 40px;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
+        .captcha-container {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 20px;
+            border: 1px dashed #cbd5e0;
+            margin-bottom: 25px;
+        }
+
+        .captcha-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .captcha-display {
+            flex: 1;
+            background: #fff;
+            padding: 10px;
+            border-radius: 12px;
+            text-align: center;
+            font-family: 'Courier New', monospace;
+            font-weight: 800;
+            font-size: 1.4rem;
+            letter-spacing: 5px;
+            color: var(--primary-ungu-dark);
+            border: 1px solid #e2e8f0;
+            position: relative;
+            overflow: hidden;
+            user-select: none;
+        }
+
+        .btn-refresh {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            width: 45px;
+            height: 45px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            margin-top: 10px;
-            color: #000000ff;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-refresh:hover {
+            background: var(--accent-kuning);
+            border-color: var(--accent-kuning);
+        }
+
+        .login-btn {
+            background-color: var(--primary-ungu);
+            color: #fff;
+            border: none;
+            padding: 16px;
+            border-radius: 15px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
             width: 100%;
             transition: 0.3s;
+            box-shadow: 0 10px 20px rgba(111, 66, 193, 0.2);
         }
 
         .login-btn:hover {
-            background-color: #faf5fbff;
+            background-color: var(--primary-ungu-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 15px 25px rgba(111, 66, 193, 0.3);
         }
 
+        .login-btn span { color: var(--accent-kuning); }
+
+        @media (max-width: 992px) {
+            .container { flex-direction: column; }
+            .left-section, .right-section { width: 100%; min-width: 100%; }
+            .features { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
-    <div class="page-title">KLA Computer Service Center</div>
-    
+
     <div class="container">
-        <!-- LEFT SECTION -->
         <div class="left-section">
-            <h1 class="welcome-title">Welcome to KLA Computer Service Center 2025!</h1>
+            <h1 class="welcome-title">Welcome to KLA Computer <br>Service Center!</h1>
             
             <div class="banner">
                 <div class="banner-image">
-    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT02 zEvWRcluqxiLhZkRHu419G9BZ6XpzSr4Q&s" alt="Banner" style="width: 200%; height: 100%;">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT02zEvWRcluqxiLhZkRHu419G9BZ6XpzSr4Q&s" alt="Banner">
                 </div>
                 <div class="banner-text">
-                        <h2 class="banner-text">Selamat datang di KLA Computer Service Center system </h2>
-                        
-                <p class="banner-text">Melalui portal ini, anda bisa mengelolah data case serta mengetahui status case perbaikan</p>
-
-
-                    
-
+                    <h2>Portal Layanan Terintegrasi</h2>
+                    <p>Melalui portal ini, Anda dapat mengelola data case serta memantau status perbaikan unit Anda secara real-time.</p>
                 </div>
             </div>
 
-            <div class="main-content">
+            <div class="main-content-card">
                 <div class="features">
-                    
-                 <a href="{{ route('track.form') }}" class="text-decoration-none">
-    <div class="feature-card">
-        <div class="feature-title">Track My Case</div>
-        <div class="feature-icon">🔍</div>
-        <div class="feature-desc">Untuk cek status perbaikan anda, silahkan klik DISINI</div>
-    </div>
-</a>
+                    <a href="{{ route('track.form') }}" class="feature-card">
+                        <div class="feature-icon">🔍</div>
+                        <div class="feature-title">Track My Case</div>
+                        <div class="feature-desc">Cek status perbaikan Anda di sini</div>
+                    </a>
 
-                 <a href="{{ route('service.location') }}" class="text-decoration-none">
-                    <div class="feature-card">
-                        <div class="feature-title">Service Location</div>
+                    <a href="{{ route('service.location') }}" class="feature-card">
                         <div class="feature-icon">📍</div>
-                        <div class="feature-desc">Untuk mengetahui lokasi tempat service terdekat</div>
-                    </div>
-    </a>
+                        <div class="feature-title">Service Location</div>
+                        <div class="feature-desc">Lokasi tempat service terdekat</div>
+                    </a>
 
                     <div class="feature-card">
-                        <div class="feature-title">Feedback</div>
                         <div class="feature-icon">👥</div>
-                        <div class="feature-desc">Apapun itu penilaian Anda terhadap kami, sampaikan disini ya</div>
+                        <div class="feature-title">Feedback</div>
+                        <div class="feature-desc">Beri penilaian untuk layanan kami</div>
                     </div>
                 </div>
 
                 <div class="footer">
-                    Powered by PT. Infokom Putra Kencana © 2025 | EB Group
+                    Powered by <strong>PT. Harmoni Putra Solusindo</strong> © 2026 | EB Group
                 </div>
             </div>
         </div>
 
-        <!-- RIGHT SECTION (LOGIN) -->
         <div class="right-section">
-            <h2 class="login-title">Welcome Back!</h2>
-            <p class="login-subtitle">Silahkan login menggunakan akun Anda</p>
+            <div class="login-logo-container">
+                <img src="{{ asset('images/logo.png') }}" alt="KLA Logo" class="brand-logo">
+            </div>
+
+            <div class="login-header">
+                <h2 class="login-title">Welcome Back!</h2>
+                <p class="login-subtitle">Silakan login dengan akun Anda</p>
+            </div>
 
             @if(session('error'))
-                <div style="color:red; font-weight:bold; margin-bottom:10px;">
+                <div style="background: #fff5f5; color: #e53e3e; padding: 12px; border-radius: 10px; margin-bottom: 20px; font-size: 0.85rem; border: 1px solid #fed7d7; text-align: center;">
                     {{ session('error') }}
-                </div>
-            @endif
-            @if(session('success'))
-                <div style="color:lime; font-weight:bold; margin-bottom:10px;">
-                    {{ session('success') }}
                 </div>
             @endif
 
             <form method="POST" action="{{ route('login.process') }}">
                 @csrf
                 <div class="form-group">
-                    <input type="text" name="username" class="form-input" placeholder="Username" required>
+                    <label class="form-label">Username</label>
+                    <input type="text" name="username" class="form-input" placeholder="Contoh: Albert-CE@kdr" required>
                 </div>
 
-              <div class="form-group">
-  <input type="password" name="password" id="password" class="form-input" placeholder="Password" required>
-  <span id="togglePassword" style="cursor: pointer;">🐼</span>
-</div>
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input type="password" name="password" id="password" class="form-input" placeholder="••••••••" required>
+                    <span id="togglePassword">🐼</span>
+                </div>
 
-<script>
-  const passwordInput = document.getElementById("password");
-  const togglePassword = document.getElementById("togglePassword");
-
-  togglePassword.addEventListener("click", function () {
-    const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
-    passwordInput.setAttribute("type", type);
-
-    // Optional: ganti ikon biar keliatan interaktif
-    this.textContent = type === "password" ? "🐼" : "🙈";
-  });
-</script>
-
-<div class="captcha-container">
-    <label for="captcha_input" class="captcha-label">Verifikasi Keamanan</label>
-    
-    <div class="captcha-box">
-        <div class="captcha-display">
-            <span class="captcha-code">{{ $captcha }}</span>
-            <div class="captcha-noise"></div> </div>
-
-        <button type="button" class="btn-refresh" onclick="location.reload();" title="Refresh Captcha">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21.5 2v6h-6"></path>
-                <path d="M2.5 22v-6h6"></path>
-                <path d="M2 11.5a10 10 0 0 1 18.8-4.3L21.5 8"></path>
-                <path d="M22 12.5a10 10 0 0 1-18.8 4.3L2.5 16"></path>
-            </svg>
-        </button>
-    </div>
-
-    <div class="input-group">
-        <input type="text" id="captcha_input" name="captcha_input" class="captcha-input" placeholder="Ketik kode di atas" autocomplete="off" required>
-        <span class="input-focus-border"></span>
-    </div>
-</div>
+                <div class="captcha-container">
+                    <label class="form-label">Verifikasi Keamanan</label>
+                    <div class="captcha-box">
+                        <div class="captcha-display">
+                            {{ $captcha }}
+                        </div>
+                        <button type="button" class="btn-refresh" onclick="location.reload();">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21.5 2v6h-6"></path>
+                                <path d="M2.5 22v-6h6"></path>
+                                <path d="M2 11.5a10 10 0 0 1 18.8-4.3L21.5 8"></path>
+                                <path d="M22 12.5a10 10 0 0 1-18.8 4.3L2.5 16"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <input type="text" name="captcha_input" class="form-input" placeholder="Masukkan kode di atas" autocomplete="off" required>
+                </div>
 
                 <button type="submit" class="login-btn">
-                    <span>LOGIN ✌️</span>
+                    LOGIN <span>✌️</span>
                 </button>
             </form>
         </div>
     </div>
+
+    <script>
+        const passwordInput = document.getElementById("password");
+        const togglePassword = document.getElementById("togglePassword");
+
+        togglePassword.addEventListener("click", function () {
+            const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+            passwordInput.setAttribute("type", type);
+            this.textContent = type === "password" ? "🐼" : "🙈";
+        });
+    </script>
+</body>
+</html>
