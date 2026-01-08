@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Integrated Service Delivery 2025</title>
+    <title>Integrated Service Delivery 2026</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -35,7 +35,7 @@
         .container {
             display: flex;
             gap: 25px;
-            max-width: 1300px;
+            max-width: 1200px;
             width: 100%;
             margin: auto;
             flex-wrap: wrap;
@@ -43,121 +43,214 @@
 
         /* --- LEFT SECTION --- */
         .left-section {
-            flex: 1;
-            min-width: 600px;
+            flex: 1.2;
+            min-width: 500px;
             background: linear-gradient(160deg, #3f065e 0%, #6f42c1 100%);
-            padding: 40px;
-            border-radius: 30px;
+            padding: 45px;
+            border-radius: 35px;
             box-shadow: 0 20px 40px rgba(63, 6, 94, 0.2);
             color: #fff;
             display: flex;
             flex-direction: column;
+            justify-content: space-between;
         }
 
         .welcome-title {
-            font-size: 2.2rem;
+            font-size: 2.4rem;
             font-weight: 800;
-            margin-bottom: 30px;
-            line-height: 1.2;
+            margin-bottom: 25px;
+            line-height: 1.1;
         }
 
         .banner {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             border: 1px solid var(--glass-border);
-            border-radius: 20px;
+            border-radius: 25px;
             padding: 25px;
             display: flex;
             align-items: center;
             gap: 25px;
-            margin-bottom: 40px;
         }
 
         .banner-image img {
-            width: 180px;
-            border-radius: 15px;
+            width: 160px;
+            border-radius: 18px;
             box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
 
         .banner-text h2 {
-            font-size: 1.1rem;
-            margin-bottom: 8px;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
             color: var(--accent-kuning);
         }
 
         .banner-text p {
             font-size: 0.95rem;
             opacity: 0.9;
-            line-height: 1.5;
+            line-height: 1.6;
         }
 
-        .main-content-card {
-            background: rgba(255, 255, 255, 1);
-            padding: 30px;
-            border-radius: 25px;
-            margin-top: auto;
+        /* --- MIDDLE CONTENT: STATS & LOGO CAROUSEL --- */
+        .middle-content {
+            margin: 35px 0;
         }
 
-        .features {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
+        .stats-grid {
+            display: flex;
             gap: 15px;
             margin-bottom: 30px;
         }
 
-        .feature-card {
-            background: #f8f9ff;
-            padding: 20px;
-            border-radius: 20px;
+        .stat-box {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.07);
+            padding: 20px 10px;
+            border-radius: 22px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
             text-align: center;
             transition: 0.3s;
-            border: 1px solid #eee;
-            text-decoration: none;
+        }
+
+        .stat-box:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
             display: block;
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--accent-kuning);
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+            opacity: 0.8;
+        }
+
+        /* Running Logo Carousel */
+        .brand-carousel {
+            overflow: hidden;
+            padding: 15px 0;
+            position: relative;
+            background: rgba(0,0,0,0.15);
+            border-radius: 15px;
+        }
+
+        .brand-track {
+            display: flex;
+            width: calc(120px * 16); /* Adjusted for more logos */
+            animation: scroll 25s linear infinite;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .brand-track img {
+            height: 25px;
+            filter: brightness(0) invert(1); /* Membuat logo jadi putih semua agar elegan */
+            opacity: 0.6;
+            transition: 0.3s;
+        }
+
+        .brand-track img:hover {
+            opacity: 1;
+            filter: none; /* Logo asli muncul saat hover */
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-120px * 8)); }
+        }
+
+        /* --- MAIN CONTENT CARD --- */
+        .main-content-card {
+            background: #ffffff;
+            padding: 35px;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .features {
+            display: block;
+            margin-bottom: 25px;
+        }
+
+        .feature-card {
+            background: linear-gradient(to right, #f8f9ff, #ffffff);
+            padding: 25px;
+            border-radius: 22px;
+            text-align: left;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid #edf2f7;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 20px;
         }
 
         .feature-card:hover {
-            transform: translateY(-5px);
+            transform: scale(1.02);
             border-color: var(--primary-ungu);
-            box-shadow: 0 10px 20px rgba(111, 66, 193, 0.1);
+            box-shadow: 0 15px 30px rgba(111, 66, 193, 0.15);
+        }
+
+        .feature-icon {
+            font-size: 45px;
+            background: #fff;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 20px;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.05);
+        }
+
+        .feature-info {
+            flex: 1;
         }
 
         .feature-title {
             color: var(--primary-ungu-dark);
-            font-weight: 700;
-            font-size: 0.9rem;
-            margin-bottom: 10px;
-        }
-
-        .feature-icon {
-            font-size: 30px;
-            margin-bottom: 10px;
+            font-weight: 800;
+            font-size: 1.2rem;
+            margin-bottom: 5px;
         }
 
         .feature-desc {
-            color: #666;
-            font-size: 0.75rem;
+            color: #718096;
+            font-size: 0.9rem;
             line-height: 1.4;
+        }
+
+        .arrow-icon {
+            color: var(--primary-ungu);
+            font-size: 1.5rem;
+            font-weight: bold;
         }
 
         .footer {
             text-align: center;
             font-size: 0.8rem;
-            color: #888;
-            padding-top: 10px;
-            border-top: 1px solid #eee;
+            color: #a0aec0;
+            padding-top: 20px;
+            border-top: 1px solid #edf2f7;
         }
 
         /* --- RIGHT SECTION - LOGIN --- */
         .right-section {
             width: 420px;
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            padding: 40px;
-            border-radius: 30px;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.05);
+            border: 1px solid #fff;
+            padding: 45px;
+            border-radius: 35px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.08);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -165,130 +258,101 @@
 
         .login-logo-container {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         .brand-logo {
-            max-height: 80px;
-            width: auto;
-            /* Filter ini membantu logo terlihat lebih 'nyatu' dengan desain modern */
+            max-height: 70px;
             filter: drop-shadow(0 4px 6px rgba(0,0,0,0.05));
         }
 
         .login-header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 35px;
         }
 
         .login-title {
-            font-size: 1.8rem;
+            font-size: 1.9rem;
             font-weight: 800;
             color: var(--primary-ungu-dark);
         }
 
         .login-subtitle {
-            font-size: 0.9rem;
-            color: #777;
-            margin-top: 5px;
+            font-size: 0.95rem;
+            color: #718096;
+            margin-top: 8px;
         }
 
         .form-group {
-            width: 100%;
-            margin-bottom: 20px;
+            margin-bottom: 22px;
             position: relative;
         }
 
         .form-label {
             display: block;
             font-size: 0.85rem;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: #444;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #4a5568;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .form-input {
             width: 100%;
-            padding: 14px 18px;
+            padding: 16px 20px;
             border: 2px solid #edf2f7;
-            border-radius: 15px;
+            border-radius: 18px;
             font-size: 1rem;
-            font-family: 'Inter', sans-serif;
             transition: 0.3s;
-            background: #fff;
+            background: #f8fafc;
         }
 
         .form-input:focus {
             outline: none;
             border-color: var(--primary-ungu);
+            background: #fff;
             box-shadow: 0 0 0 4px rgba(111, 66, 193, 0.1);
         }
 
         #togglePassword {
             position: absolute;
-            right: 15px;
-            top: 40px;
+            right: 20px;
+            top: 45px;
             font-size: 1.2rem;
             cursor: pointer;
-            filter: grayscale(1);
         }
 
         .captcha-container {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 20px;
-            border: 1px dashed #cbd5e0;
-            margin-bottom: 25px;
-        }
-
-        .captcha-box {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 12px;
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 22px;
+            border: 1px solid #edf2f7;
+            margin-bottom: 30px;
         }
 
         .captcha-display {
-            flex: 1;
             background: #fff;
-            padding: 10px;
-            border-radius: 12px;
+            padding: 12px;
+            border-radius: 15px;
             text-align: center;
             font-family: 'Courier New', monospace;
-            font-weight: 800;
-            font-size: 1.4rem;
-            letter-spacing: 5px;
+            font-weight: 900;
+            font-size: 1.6rem;
+            letter-spacing: 6px;
             color: var(--primary-ungu-dark);
             border: 1px solid #e2e8f0;
-            position: relative;
-            overflow: hidden;
+            margin-bottom: 15px;
             user-select: none;
         }
 
-        .btn-refresh {
-            background: #fff;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            width: 45px;
-            height: 45px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .btn-refresh:hover {
-            background: var(--accent-kuning);
-            border-color: var(--accent-kuning);
-        }
-
         .login-btn {
-            background-color: var(--primary-ungu);
+            background: linear-gradient(135deg, var(--primary-ungu) 0%, var(--primary-ungu-dark) 100%);
             color: #fff;
             border: none;
-            padding: 16px;
-            border-radius: 15px;
-            font-size: 1rem;
+            padding: 18px;
+            border-radius: 18px;
+            font-size: 1.1rem;
             font-weight: 700;
             cursor: pointer;
             width: 100%;
@@ -297,17 +361,13 @@
         }
 
         .login-btn:hover {
-            background-color: var(--primary-ungu-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 15px 25px rgba(111, 66, 193, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(111, 66, 193, 0.3);
         }
-
-        .login-btn span { color: var(--accent-kuning); }
 
         @media (max-width: 992px) {
             .container { flex-direction: column; }
             .left-section, .right-section { width: 100%; min-width: 100%; }
-            .features { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -315,15 +375,51 @@
 
     <div class="container">
         <div class="left-section">
-            <h1 class="welcome-title">Welcome to KLA Computer <br>Service Center!</h1>
-            
-            <div class="banner">
-                <div class="banner-image">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT02zEvWRcluqxiLhZkRHu419G9BZ6XpzSr4Q&s" alt="Banner">
+            <div>
+                <h1 class="welcome-title">Welcome to KLA Computer <br>Service Center!</h1>
+                
+                <div class="banner">
+                    <div class="banner-image">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT02zEvWRcluqxiLhZkRHu419G9BZ6XpzSr4Q&s" alt="Banner">
+                    </div>
+                    <div class="banner-text">
+                        <h2>Portal Layanan Terintegrasi</h2>
+                        <p>Kelola data case dan pantau status perbaikan unit Anda secara real-time melalui sistem yang transparan dan akurat.</p>
+                    </div>
                 </div>
-                <div class="banner-text">
-                    <h2>Portal Layanan Terintegrasi</h2>
-                    <p>Melalui portal ini, Anda dapat mengelola data case serta memantau status perbaikan unit Anda secara real-time.</p>
+
+                <div class="middle-content">
+                    <div class="stats-grid">
+                        <div class="stat-box">
+                            <span class="stat-number">3000+</span>
+                            <span class="stat-label">Cases Handled</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-number">3 Days</span>
+                            <span class="stat-label">Average Repair Time</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-number">30+</span>
+                            <span class="stat-label">Support Brands</span>
+                        </div>
+                    </div>
+
+                    <div class="brand-carousel">
+                        <div class="brand-track">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" alt="Microsoft">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/a/ad/HP_logo_2012.svg" alt="HP">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/2/2e/ASUS_Logo.svg" alt="Asus">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/1/18/Dell_logo_2016.svg" alt="Dell">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/b/bb/Lenovo_logo_2015.svg" alt="Lenovo">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c9/MSI_Logo.svg" alt="MSI">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a1/Acer_Logo.svg" alt="Acer">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" alt="Microsoft">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/a/ad/HP_logo_2012.svg" alt="HP">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/2/2e/ASUS_Logo.svg" alt="Asus">
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -331,21 +427,12 @@
                 <div class="features">
                     <a href="{{ route('track.form') }}" class="feature-card">
                         <div class="feature-icon">🔍</div>
-                        <div class="feature-title">Track My Case</div>
-                        <div class="feature-desc">Cek status perbaikan Anda di sini</div>
+                        <div class="feature-info">
+                            <div class="feature-title">Track My Case</div>
+                            <div class="feature-desc">Masukkan nomor case Anda untuk memantau progres perbaikan unit secara langsung.</div>
+                        </div>
+                        <div class="arrow-icon">➜</div>
                     </a>
-
-                    <a href="{{ route('service.location') }}" class="feature-card">
-                        <div class="feature-icon">📍</div>
-                        <div class="feature-title">Service Location</div>
-                        <div class="feature-desc">Lokasi tempat service terdekat</div>
-                    </a>
-
-                    <div class="feature-card">
-                        <div class="feature-icon">👥</div>
-                        <div class="feature-title">Feedback</div>
-                        <div class="feature-desc">Beri penilaian untuk layanan kami</div>
-                    </div>
                 </div>
 
                 <div class="footer">
@@ -360,12 +447,12 @@
             </div>
 
             <div class="login-header">
-                <h2 class="login-title">Welcome Back!</h2>
-                <p class="login-subtitle">Silakan login dengan akun Anda</p>
+                <h2 class="login-title">Welcome Back</h2>
+                <p class="login-subtitle">Silahkan login dengan akun Anda</p>
             </div>
 
             @if(session('error'))
-                <div style="background: #fff5f5; color: #e53e3e; padding: 12px; border-radius: 10px; margin-bottom: 20px; font-size: 0.85rem; border: 1px solid #fed7d7; text-align: center;">
+                <div style="background: #fff5f5; color: #e53e3e; padding: 12px; border-radius: 12px; margin-bottom: 20px; font-size: 0.85rem; border: 1px solid #fed7d7; text-align: center; font-weight: 600;">
                     {{ session('error') }}
                 </div>
             @endif
@@ -374,7 +461,7 @@
                 @csrf
                 <div class="form-group">
                     <label class="form-label">Username</label>
-                    <input type="text" name="username" class="form-input" placeholder="Contoh: Albert-CE@kdr" required>
+                    <input type="text" name="username" class="form-input" placeholder="Nama Akun" required>
                 </div>
 
                 <div class="form-group">
@@ -384,25 +471,17 @@
                 </div>
 
                 <div class="captcha-container">
-                    <label class="form-label">Verifikasi Keamanan</label>
-                    <div class="captcha-box">
-                        <div class="captcha-display">
-                            {{ $captcha }}
-                        </div>
-                        <button type="button" class="btn-refresh" onclick="location.reload();">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M21.5 2v6h-6"></path>
-                                <path d="M2.5 22v-6h6"></path>
-                                <path d="M2 11.5a10 10 0 0 1 18.8-4.3L21.5 8"></path>
-                                <path d="M22 12.5a10 10 0 0 1-18.8 4.3L2.5 16"></path>
-                            </svg>
+                    <div class="captcha-display">{{ $captcha }}</div>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="text" name="captcha_input" class="form-input" style="flex: 1;" placeholder="Input Captcha" autocomplete="off" required>
+                        <button type="button" class="form-input" style="width: 60px; padding: 0; display: flex; align-items: center; justify-content: center; cursor: pointer;" onclick="location.reload();">
+                            🔄
                         </button>
                     </div>
-                    <input type="text" name="captcha_input" class="form-input" placeholder="Masukkan kode di atas" autocomplete="off" required>
                 </div>
 
                 <button type="submit" class="login-btn">
-                    LOGIN <span>✌️</span>
+                    LOGIN
                 </button>
             </form>
         </div>
