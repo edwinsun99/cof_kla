@@ -38,13 +38,10 @@ class HomeController extends Controller
         });
 
       // ---------- PIE CHART (DISTRIBUSI STATUS CASE) ----------
-
-$statusSummary = Cache::remember('status_distribution_alltime', 600, function () {
-    return Service::selectRaw('status, COUNT(*) as total')
+$statusSummary = Service::selectRaw('status, COUNT(*) as total')
         ->whereNotNull('status')
         ->groupBy('status')
         ->get();
-});
 
 // Urutan status yang kamu mau tampilkan di chart
 $statusLabels = [
