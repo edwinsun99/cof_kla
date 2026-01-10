@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Models\User;
+use App\Models\Branches;
 use Illuminate\Support\Facades\Session;
 use App\Models\Service;
 
@@ -17,6 +18,7 @@ class ErfController extends Controller
     $branches = \App\Models\Branches::all();
 
     $cases = Service::where('status', 'finish repair')
+                    ->whereNull('erf_file') // <--- WAJIB supaya case hilang setelah di-upload
                     ->orderBy('created_at', 'DESC')
                     ->get();
 
@@ -29,11 +31,52 @@ class ErfController extends Controller
     ]);
 }
 
+ public function logdate(Request $request)
+{
+    $query = Service::query();
+
+    // Ambil semua cabang untuk dropdown
+    $branches = \App\Models\Branches::all();
+
+    // Ambil input filter
+    $branchId = $request->input('branch_id');
+    $startDate = $request->input('start_date');
+    $endDate = $request->input('end_date');
+
+    // Filter cabang bila dipilih (tidak null)
+    if ($branchId && $branchId !== 'all') {
+        $query->where('branch_id', $branchId);
+    }
+
+    // Auto adjust tanggal
+    if ($endDate && !$startDate) {
+        $startDate = \Carbon\Carbon::parse($endDate)->subDay()->toDateString();
+    }
+
+    if ($startDate && !$endDate) {
+        $endDate = \Carbon\Carbon::now()->toDateString();
+    }
+
+    // Filter tanggal
+    if ($startDate && $endDate) {
+        $query->whereBetween('received_date', [$startDate, $endDate]);
+    }
+
+    $cases = $query->orderByDesc('received_date')->get();
+
+    return view('master.select', [
+        'cases' => $cases,
+        'branches' => $branches,
+        'selected_branch' => $branchId,
+        'start_date' => $startDate,
+        'end_date' => $endDate
+    ]);
+}
 
   public function form($id)
     {
         $case = Service::findOrFail($id);
-        return view('ce.erf', compact('case'));
+        return view('master.erf', compact('case'));
     }
 
       public function upload(Request $request, $id)

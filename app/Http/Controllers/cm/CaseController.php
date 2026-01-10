@@ -13,35 +13,17 @@ use App\Excel\CofData;
 class CaseController extends Controller
 {
     // List semua cases untuk branch user CM login
-    public function index(Request $request)
-    {
-        // ambil user dari session (sesuai sistem login kamu)
-        $username = Session::get('username');
-        $user = \App\Models\User::where('un', $username)->first();
+    public function index()
+{
+    // Ambil semua data tanpa filter branch_id dan tanpa pencarian
+    $cases = Service::orderBy('received_date', 'desc')->get();
 
-        if (!$user) {
-            // jika user tidak ada → redirect ke login
-            return redirect()->route('login')->with('error', 'Login dulu!');
-        }
-
-        // optional search
-        $search = $request->input('search');
-
-        $query = Service::where('branch_id', $user->branch_id);
-
-        if ($search) {
-            $query->where(function($q) use ($search) {
-                $q->where('cof_id', 'like', "%{$search}%")
-                  ->orWhere('customer_name', 'like', "%{$search}%")
-                  ->orWhere('serial_number', 'like', "%{$search}%")
-                  ->orWhere('phone_number', 'like', "%{$search}%");
-            });
-        }
-
-        $cases = $query->orderBy('received_date', 'desc')->get();
-
-        return view('cm.case', compact('cases', 'search'));
-    }
+    // Kirim data ke view (variabel search dikirim null agar blade tidak error)
+    return view('cm.case', [
+        'cases' => $cases,
+        'search' => null 
+    ]);
+}
 
     // filter by received_date range
     public function logdate(Request $request)

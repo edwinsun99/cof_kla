@@ -60,7 +60,6 @@ class CofData implements FromCollection, WithHeadings, WithStyles
                 'Product Number',
                 'Nama Type',
                 'Case Status',
-                'Quotation Date',
                 'Received Date',
                 'Started Date',
                 'Finished Date',

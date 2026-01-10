@@ -125,6 +125,9 @@ Route::group([], function () {
     Route::get('/select-case-for-erf', [MasterErfController::class, 'selectCase'])
         ->name('erf.select');
 
+    Route::get('/logdate-for-erf', [MasterErfController::class, 'logdate'])
+        ->name('erf.logdate');
+
     Route::get('/case/{id}/upload-erf', [MasterErfController::class, 'form'])
         ->name('erf.form');
 
@@ -148,6 +151,12 @@ Route::group([], function () {
     });
 
       // 🔥 ROUTE LOGDATE MASTER (FILTER TANGGAL + FILTER CABANG)
+      Route::prefix('master')->name('master.')->group(function () {
+
+          Route::get('/master/case/search', [MasterCaseController::class, 'search'])->name('case.search');
+
+      });
+
     Route::get('/master/case/logdate', [MasterCaseController::class, 'logdate']) ->name('master.case.logdate');
     Route::get('/newcase', [MasterNewCaseController::class, 'create'])->name('master.newcase');
     Route::get('/master/case/{id}', [MasterDetailController::class, 'show'])->name('case.show');
@@ -155,9 +164,11 @@ Route::group([], function () {
     Route::get('/case/{id}/pdf', [MasterDetailController::class, 'downloadPdf'])->name('case.downloadPdf');
     Route::get('/case/{id}/pdf/preview', [MasterDetailController::class, 'previewPdf'])->name('case.previewPdf');
 
-    Route::get('/cases/search', [MasterCaseController::class, 'search'])->name('case.search');
+// Pastikan ->name() nya sama dengan yang dipanggil di form
     Route::get('/excel/cofdata', [MasterCaseController::class, 'excel'])->name('excel.cofdata');
 
+      
+      
     Route::prefix('master')->group(function () {
         Route::get('/manage-roles', [RoleController::class, 'index'])->name('roles.index');
         Route::post('/manage-roles', [RoleController::class, 'store'])->name('roles.store');

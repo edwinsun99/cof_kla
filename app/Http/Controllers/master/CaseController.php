@@ -12,13 +12,15 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class CaseController extends Controller
 {
-   public function index()
+    
+ public function index()
 {
     // Ambil semua branch untuk dropdown
     $branches = \App\Models\Branches::all();
 
-    // Ambil semua cases
-    $cases = Service::orderByDesc('received_date')->get();
+    // Ganti ->get() menjadi ->paginate(10)
+    // Ini otomatis akan membatasi 10 data dan menangani logika halaman
+    $cases = Service::orderByDesc('received_date')->paginate(2);
 
     return view('master.case', [
         'cases' => $cases,
@@ -116,25 +118,30 @@ public function search(Request $request)
 {
     $search = $request->input('search');
 
-    // Tambahkan ini agar dropdown cabang tidak error
+    // Mengambil data cabang untuk dropdown filter agar tidak error/undefined
     $branches = \App\Models\Branches::all();
 
-    $case = Service::query()
+    // Gunakan plural $cases karena hasilnya adalah collection
+    $cases = Service::query()
         ->when($search, function ($query, $search) {
-            $query->where('id', $search)
-                  ->orWhere('customer_name', 'like', "%{$search}%")
+            // Grouping where agar logic OR tidak merusak query filter lainnya
+            return $query->where(function ($q) use ($search) {
+                $q->where('cof_id', 'like', "%{$search}%")
                   ->orWhere('serial_number', 'like', "%{$search}%")
                   ->orWhere('phone_number', 'like', "%{$search}%");
+            });
         })
-        ->get();
+        ->latest() // Saran: Tampilkan yang terbaru di atas
+        ->paginate(2) // WAJIB paginate di sini juga
+        ->withQueryString();
 
     return view('master.case', [
-        'cases' => $case,
-        'search' => $search,
-        'branches' => $branches,
+        'cases'           => $cases,
+        'search'          => $search,
+        'branches'        => $branches,
         'selected_branch' => 'all',
-        'start_date' => null,
-        'end_date' => null
+        'start_date'      => null,
+        'end_date'        => null
     ]);
 }
 

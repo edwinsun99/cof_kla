@@ -163,7 +163,7 @@
         </div>
 
         <div class="header-center">
-            <form action="{{ route('case.search') }}" method="GET" class="d-flex">
+            <form action="{{ route('master.case.search') }}" method="GET" class="d-flex">
                 <input type="text" name="search" value="{{ request('search') }}" class="form-control search-input" placeholder="Search by ID, SN, or Phone...">
                 <button class="btn search-btn" type="submit"><i class="bi bi-search"></i></button>
             </form>

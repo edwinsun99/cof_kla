@@ -141,7 +141,7 @@
             <div class="d-flex gap-3">
                 <a href="{{ route('case.previewPdf', $case->id) }}" target="_blank" class="btn-action-custom btn-preview-modern shadow-sm">
                     <i class="bi bi-eye-fill"></i>
-                    <span>Preview PDF</span>
+                    <span>Download COF</span>
                 </a>
             </div>
         </div>
