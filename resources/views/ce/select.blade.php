@@ -145,7 +145,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="3" class="empty-state">
+                            <td colspan="3" class="empty-state">sel
                                 <img src="https://cdn-icons-png.flaticon.com/512/7486/7486744.png" width="80" class="opacity-25 mb-4">
                                 <h6 class="text-muted fw-normal">Belum ada case yg finish</h6>
                             </td>

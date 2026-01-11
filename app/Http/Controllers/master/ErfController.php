@@ -17,7 +17,7 @@ class ErfController extends Controller
     // Ambil semua branch untuk dropdown
     $branches = \App\Models\Branches::all();
 
-    $cases = Service::where('status', 'finish repair')
+    $cases = Service::whereIn('status', ['finish repair', 'cancel repair'])
                     ->whereNull('erf_file') // <--- WAJIB supaya case hilang setelah di-upload
                     ->orderBy('created_at', 'DESC')
                     ->get();

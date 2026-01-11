@@ -24,7 +24,7 @@ class ErfController extends Controller
 
     // Ambil case milik branch yang sama + status untuk engineer
     $cases = Service::where('branch_id', $user->branch_id)
-                    ->where('status', 'finish repair')
+                    ->whereIn('status', ['finish repair', 'cancel repair'])
                     ->whereNull('erf_file') // <--- WAJIB supaya case hilang setelah di-upload
                     ->orderBy('created_at', 'DESC')
                     ->get();

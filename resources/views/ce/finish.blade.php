@@ -1,118 +1,222 @@
 @extends('ce.layout.app')
 
-@section('title', 'Case')
+@section('title', 'View Cases - ISD 2026')
 
 @section('content')
+<style>
+    :root {
+        --status-new: #6a0dad;           /* Ungu */
+        --status-repair: #ff8c00;        /* Orange */
+        --status-q-request: #9c27b0;     /* Magenta */
+        --status-q-approved: #ffeb3b;    /* Kuning */
+        --status-q-cancelled: #f44336;   /* Merah */
+        --status-cancel-repair: #95a5a6; /* Abu-abu */
+        --status-finish: #4caf50;        /* Hijau */
+    }
 
-@php
-    $cases = $cases ?? collect(); // kalau null, ubah jadi collection kosong
-@endphp
+    .glass-card {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(106, 13, 173, 0.05);
+        padding: 25px;
+        border: 1px solid #f0f0f0;
+        margin-bottom: 25px;
+    }
 
-    <div style="padding: 20px;">
-        <h2 style="color: purple; margin-bottom: 20px;">✌️ Finish Repair</h2>
+    .table-modern { border-collapse: separate; border-spacing: 0 8px; width: 100%; }
+    .table-modern thead th {
+        background: #fdfaff;
+        border: none;
+        color: #6a0dad;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        padding: 15px;
+    }
+    .table-modern tbody tr {
+        background: #ffffff;
+        transition: transform 0.2s, box-shadow 0.2s;
+        cursor: pointer;
+    }
+    .table-modern tbody tr:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(106, 13, 173, 0.1);
+    }
+    
+    /* Perbaikan agar semua cell sejajar secara vertikal */
+    .table-modern td { 
+        padding: 15px; 
+        vertical-align: middle !important; 
+        border: none; 
+        font-size: 14px; 
+    }
+    
+    .table-modern td:first-child { border-radius: 12px 0 0 12px; }
+    .table-modern td:last-child { border-radius: 0 12px 12px 0; }
 
-        <div style="margin-bottom: 20px;">
-            <a href="{{ route('excel.cofdata') }}" class="btn btn-success">
-<button style="background:#27ae60; color:white; border:none; padding:8px 14px; border-radius:6px; cursor:pointer;">
-                📊 Export to Excel
-            </button>
-</a>
+    /* Styling Highlight Brand */
+    .brand-badge {
+        background: #6a0dad;
+        color: white;
+        padding: 6px 12px;
+        border-radius: 8px;
+        font-weight: 800;
+        font-size: 12px;
+        text-transform: uppercase;
+        display: inline-block;
+        box-shadow: 0 2px 5px rgba(106, 13, 173, 0.2);
+    }
+
+    /* Styling Nama Type & PN */
+    .type-highlight {
+        color: #1a1a1a;
+        font-weight: 800;
+        font-size: 15px;
+        display: block;
+        line-height: 1.2;
+    }
+    .pn-sub {
+        color: #6c757d;
+        font-size: 11px;
+        font-weight: 600;
+        display: block;
+        margin-top: 2px;
+    }
+
+    .badge-soft {
+        padding: 8px 12px;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 11px;
+        display: inline-block;
+        min-width: 130px;
+        text-align: center;
+        text-transform: uppercase;
+        vertical-align: middle;
+    }
+
+    .btn-action {
+        padding: 10px 20px;
+        border-radius: 12px;
+        font-weight: 600;
+        border: none;
+        transition: 0.3s;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .btn-create { background: #ff8c00; color: white; }
+    .btn-create:hover { background: #e67e00; color: white; transform: translateY(-2px); }
+    
+    .btn-excel { background: #27ae60; color: white; }
+    .btn-excel:hover { background: #219150; color: white; }
+</style>
+
+<div class="container-fluid p-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold mb-1" style="color: #6a0dad;">✅ Finish Repair</h2>
+            <p class="text-muted mb-0">Kelola seluruh case yang sudah selesai diperbaiki</p>
         </div>
-
-        <form action="{{ route('ce.finish.logdate') }}" method="GET" class="mb-3 d-flex align-items-end gap-3">
-    <div>
-        <label for="start_date" class="form-label">Start Date:</label>
-        <input type="date" name="start_date" id="start_date"
-            class="form-control" value="{{ request('start_date') }}">
+        <div class="d-flex gap-2">
+            <a href="{{ route('excel.cofdata') }}" class="text-decoration-none">
+                <button class="btn-action btn-excel shadow-sm">
+                    <i class="bi bi-file-earmark-excel"></i> Export Excel
+                </button>
+            </a>
+         
+        </div>
     </div>
 
-    <div>
-        <label for="end_date" class="form-label">End Date:</label>
-        <input type="date" name="end_date" id="end_date"
-            class="form-control" value="{{ request('end_date') }}">
-    </div>
-
-    <div>
-        <button type="submit" class="btn btn-success">Filter</button>
-        @if(request('start_date') || request('end_date'))
-            <a href="{{ route('ce.finish.repair') }}" class="btn btn-secondary">Reset</a>
+    <div class="d-flex justify-content-between align-items-center mb-3 px-2">
+        <small class="text-muted">Total: <strong>{{ count($cases) }}</strong> data ditemukan.</small>
+        @if(request('search'))
+            <span class="badge bg-info text-dark" style="border-radius: 20px; padding: 8px 15px;">
+                🔍 Hasil pencarian: "{{ request('search') }}"
+            </span>
         @endif
     </div>
-</form>
 
-
-        <script>
-document.addEventListener("DOMContentLoaded", function() {
-    document.querySelectorAll(".clickable-row").forEach(function(row) {
-        row.addEventListener("click", function() {
-            window.location = this.dataset.href;
-        });
-    });
-});
-</script>
-
-<pre>
-Start: {{ request('start_date') }}
-End: {{ request('end_date') }}
-Jumlah data: {{ count($cases) }}
-</pre>
-
-        {{-- Table muncul disini persis dibawah tombol --}}
-        <table border="1" cellpadding="8" cellspacing="0" style="width:100%; border-collapse:collapse;">
+    <div class="table-responsive">
+        <table class="table table-modern">
             <thead>
-    <tr style="background:#f2f2f2; text-align:left;">
-        <th>COF-ID</th>
-        <th>Customer Name</th>
-        <th>Phone Number</th>
-        <th>Brand</th>
-        <th>Product Number</th>
-        <th>Serial Number</th>
-        <th>Status</th>
-        <th>Nama Type</th>
-        <th>ERF</th>
-        <th>Received Date</th>
-    </tr>
-</thead>
-<tbody>
-    @if(isset($search))
-        <tr>
-            <td colspan="12" style="text-align:center; font-weight:bold;">
-                🔍 Hasil pencarian untuk: <span style="color:blue;">{{ $search }}</span>
-            </td>
-        </tr>
-    @endif
+                <tr>
+                    <th>COF-ID</th>
+                    <th>Customer Info</th>
+                    <th>Brand</th>
+                    <th>Device Details</th>
+                    <th>Serial Number</th>
+                    <th class="text-center">Status</th>
+                    <th>ERF</th>
+                    <th>Received Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse($cases as $service)
+                <tr onclick="window.location='{{ route('ce.case.show', $service->id) }}'">
+                    <td class="fw-bold" style="color: #6a0dad;">{{ $service->cof_id }}</td>
 
-@forelse($cases ?? [] as $service)
-        <tr class="clickable-row" data-href="{{ route('ce.case.show', $service->id) }}">
-            <td>{{ $service->cof_id }}</td> <!-- COF-ID -->
-            <td>{{ $service->customer_name }}</td>
-            <td>{{ $service->phone_number }}</td>
-            <td>{{ $service->brand }}</td>
-            <td>{{ $service->product_number }}</td> 
-            <td>{{ $service->serial_number }}</td> <!-- SN -->
-            <td>{{ $service->status }}</td>
-            <td>{{ $service->nama_type }}</td>
+                    <td>
+                        <div class="fw-bold text-dark">{{ $service->customer_name }}</div>
+                        <div class="small text-muted">{{ $service->phone_number }}</div>
+                    </td>
 
-<td>
-    @if($service->erf_file)
-        <a href="{{ asset('storage/' . $service->erf_file) }}" target="_blank" rel="noopener noreferrer">
-            📄 PDF
-        </a>
-    @else
-        —
-    @endif
-</td>
+                    <td>
+                        <span class="brand-badge">{{ $service->brand }}</span>
+                    </td>
 
+                    <td>
+                        <span class="type-highlight text-uppercase">{{ $service->nama_type }}</span>
+                        <span class="pn-sub">P/N: {{ $service->product_number }}</span>
+                    </td>
 
+                    <td>
+                        <span class="fw-bold text-muted">{{ $service->serial_number }}</span>
+                    </td>
 
-            <td>{{ $service->received_date }}</td>
-        </tr>
-    @empty
-        <tr>
-            <td colspan="12" style="text-align:center; color:gray;">Data tidak ditemukan.</td>
-        </tr>
-    @endforelse
-</tbody>
+                    <td class="text-center">
+                        @php
+                            $status = strtoupper($service->status);
+                            $bg = '#eee'; $color = '#444';
+                            switch($status) {
+                                case 'NEW': $bg = '#f3e5f5'; $color = 'var(--status-new)'; break;
+                                case 'REPAIR PROGRESS': $bg = '#fff3e0'; $color = 'var(--status-repair)'; break;
+                                case 'QUOTATION REQUEST': $bg = '#fce4ec'; $color = 'var(--status-q-request)'; break;
+                                case 'QUOTATION APPROVED': $bg = '#fffde7'; $color = '#857b00'; break;
+                                case 'QUOTATION CANCELLED': $bg = '#ffebee'; $color = 'var(--status-q-cancelled)'; break;
+                                case 'CANCEL REPAIR': $bg = '#f5f5f5'; $color = 'var(--status-cancel-repair)'; break;
+                                case 'FINISH REPAIR': $bg = '#e8f5e9'; $color = 'var(--status-finish)'; break;
+                            }
+                        @endphp
+                        <span class="badge-soft shadow-sm" style="background: {{ $bg }}; color: {{ $color }};">
+                            {{ $status }}
+                        </span>
+                    </td>
+
+                    <td>
+                        @if ($service->erf_file)
+                            <a href="{{ route('erf.download', $service->id) }}" class="btn btn-sm btn-outline-primary px-3" style="border-radius: 8px;">
+                                <i class="bi bi-download"></i> ERF
+                            </a>
+                        @else
+                            <span class="text-danger small fw-bold"><i class="bi bi-exclamation-circle"></i> ERF belum diupload!</span>
+                        @endif
+                    </td>
+
+                    <td class="text-muted">
+                        {{ \Carbon\Carbon::parse($service->received_date)->format('d M Y') }}
+                    </td>
+                </tr>
+                @empty
+                <tr>
+                    <td colspan="8" class="text-center py-5 text-muted">
+                        <i class="bi bi-inbox fs-1 d-block mb-2"></i>
+                        Data tidak ditemukan.
+                    </td>
+                </tr>
+                @endforelse
+            </tbody>
         </table>
     </div>
+</div>
 @endsection

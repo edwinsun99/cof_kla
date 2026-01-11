@@ -12,8 +12,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        // STATISTICS CARD
-         // optional: caching 30s untuk mengurangi query saat demo
+        // optional: caching 30s untuk mengurangi query saat demo
         $cacheKey = 'cm_dashboard_stats';
 
         // ---------- STATISTIK UTAMA ----------
@@ -26,22 +25,50 @@ class HomeController extends Controller
             $newToday = Service::whereDate('created_at', Carbon::today())->count();
 
             // 3) Cases In Progress
-            $inRequest = Service::where('status', 'quotation request')->count();
+            $inReq = Service::where('status', 'Quotation Request')->count();
 
-                // 3) Cases In Progress
-            $inApproved = Service::where('status', 'quotation approved')->count();
+            // 4) Finished Cases
+            $inApproved = Service::where('status', 'Quotation Approved')->count();
 
-                // 3) Cases In Progress
-            $inCancelled = Service::where('status', 'quotation cancelled')->count();
+            $inCancelled = Service::where('status', 'Quotation Cancelled')->count();
 
-            return compact('totalAll', 'newToday', 'inRequest', 'inApproved', 'inCancelled');
+            return compact('totalAll', 'newToday', 'inReq', 'inApproved', 'inCancelled');
         });
 
-      // ---------- PIE CHART (DISTRIBUSI STATUS CASE) ----------
-$statusSummary = Service::selectRaw('status, COUNT(*) as total')
+        // ---------- LINE CHART (MASUK PER BULAN) ----------
+        $cases = Service::selectRaw('MONTH(received_date) AS month, COUNT(*) AS total')
+            ->whereNotNull('received_date')
+            ->groupBy('month')
+            ->orderBy('month')
+            ->get();
+
+        $months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        $monthlyCases = array_fill(0, 12, 0);
+
+        foreach ($cases as $row) {
+            $monthlyCases[$row->month - 1] = $row->total;
+        }
+
+    // ---------- BAR CHART (TOTAL PER CABANG) ----------
+// Hapus pembungkus cache-nya
+$branchTotals = Service::join('branches', 'services.branch_id', '=', 'branches.id')
+    ->selectRaw('branches.name as branch_name, COUNT(*) as total')
+    ->whereNotNull('services.branch_id')
+    ->groupBy('branches.name')
+    ->orderByDesc('total')
+    ->get();
+
+$labels = $branchTotals->pluck('branch_name')->toArray();
+$data   = $branchTotals->pluck('total')->toArray();
+
+// ---------- PIE CHART (DISTRIBUSI STATUS CASE) ----------
+
+$statusSummary = Cache::remember('status_distribution_alltime', 600, function () {
+    return Service::selectRaw('status, COUNT(*) as total')
         ->whereNotNull('status')
         ->groupBy('status')
         ->get();
+});
 
 // Urutan status yang kamu mau tampilkan di chart
 $statusLabels = [
@@ -58,18 +85,27 @@ foreach ($statusLabels as $status) {
     $statusData[] = $found ? $found->total : 0;
 }
 
-// ---------- RETURN KE VIEW ----------
+        // ---------- RETURN KE VIEW ----------
         return view('cm.home', [
-            // Statistics Cards
             'totalCases'      => $stats['totalAll'],
             'newCasesToday'   => $stats['newToday'],
-            'casesInRequest' => $stats['inRequest'],
-            'casesInApproved'   => $stats['inApproved'],
-            'casesInCancelled'   => $stats['inCancelled'],
+            'casesInReq' => $stats['inReq'],
+                        'casesInApp' => $stats['inApproved'],
+            'casesInCancl' => $stats['inCancelled'],
+
+
+            // Line Chart
+            'chartMonths'     => $months,
+            'chartData'       => $monthlyCases,
+
+            // Bar Chart
+                'labels' => $labels,
+                'data'   => $data,
 
              // Pie Chart
             'statusLabels' => $statusLabels,
             'statusData'   => $statusData,
+
         ]);
     }
 }
