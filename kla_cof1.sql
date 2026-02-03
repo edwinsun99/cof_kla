@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jan 07, 2026 at 06:09 PM
+-- Generation Time: Feb 03, 2026 at 09:12 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -70,11 +70,11 @@ CREATE TABLE `cof_counters` (
 --
 
 INSERT INTO `cof_counters` (`id`, `branch_id`, `current_number`, `updated_at`) VALUES
-(1, 1, 60, '2026-01-06 11:20:55'),
-(2, 2, 8, '2026-01-07 10:36:28'),
-(3, 3, 7, '2025-12-29 21:54:07'),
-(4, 4, 12, '2026-01-07 07:21:15'),
-(5, 5, 7, '2026-01-06 19:00:42');
+(1, 1, 61, '2026-01-12 02:02:40'),
+(2, 2, 9, '2026-01-10 18:06:37'),
+(3, 3, 9, '2026-01-10 04:44:58'),
+(4, 4, 14, '2026-01-11 04:11:00'),
+(5, 5, 9, '2026-01-11 04:01:26');
 
 -- --------------------------------------------------------
 
@@ -138,7 +138,33 @@ INSERT INTO `lognote` (`id`, `cof_id`, `username`, `logdesc`, `created_at`, `upd
 (24, 'E20260100007', NULL, 'dvsff', '2026-01-06 19:00:42', '2026-01-06 19:00:42'),
 (25, 'B20260100006', NULL, 'check all', '2026-01-07 09:23:22', '2026-01-07 09:23:22'),
 (26, 'B20260100007', 'Agus-CE@slw', 'check all', '2026-01-07 09:51:38', '2026-01-07 09:51:38'),
-(27, 'B20260100008', 'Agus-CE@slw', 'NJK', '2026-01-07 10:36:28', '2026-01-07 10:36:28');
+(27, 'B20260100008', 'Agus-CE@slw', 'NJK', '2026-01-07 10:36:28', '2026-01-07 10:36:28'),
+(28, 'D20260100012', 'Kevin-CE@pkl', 'selesai', '2026-01-08 17:51:40', '2026-01-08 17:51:40'),
+(29, 'E20260100008', 'Albert-CE@kdr', 'check all', '2026-01-10 02:55:22', '2026-01-10 02:55:22'),
+(30, 'C20260100008', 'Budi-CE@tgl', 'hh', '2026-01-10 04:42:02', '2026-01-10 04:42:02'),
+(31, 'C20260100009', 'Budi-CE@tgl', 'jbj', '2026-01-10 04:44:58', '2026-01-10 04:44:58'),
+(32, 'B20260100009', 'Agus-CE@slw', 'hkjh', '2026-01-10 18:06:37', '2026-01-10 18:06:37'),
+(33, 'B20260100009', 'Agus-CE@slw', 'req', '2026-01-10 18:08:05', '2026-01-10 18:08:05'),
+(34, 'B20260100009', 'Maulida-CM', 'app', '2026-01-10 18:09:08', '2026-01-10 18:09:08'),
+(35, 'E20260100009', 'Albert-CE@kdr', 'h', '2026-01-11 04:01:26', '2026-01-11 04:01:26'),
+(36, 'E20260100009', 'Albert-CE@kdr', 'repair', '2026-01-11 04:01:40', '2026-01-11 04:01:40'),
+(37, 'E20260100009', 'Albert-CE@kdr', 'req', '2026-01-11 04:02:03', '2026-01-11 04:02:03'),
+(38, 'E20260100009', 'Maulida-CM', 'app', '2026-01-11 04:03:17', '2026-01-11 04:03:17'),
+(39, 'E20260100009', 'Albert-CE@kdr', 'rep again', '2026-01-11 04:04:13', '2026-01-11 04:04:13'),
+(40, 'E20260100009', 'Albert-CE@kdr', 'finish', '2026-01-11 04:04:38', '2026-01-11 04:04:38'),
+(41, 'D20260100014', 'Erwan', 'rep', '2026-01-11 04:12:46', '2026-01-11 04:12:46'),
+(42, 'D20260100014', 'Erwan', 'req', '2026-01-11 04:13:40', '2026-01-11 04:13:40'),
+(43, 'D20260100014', 'Erwan', 'cancel', '2026-01-11 04:14:16', '2026-01-11 04:14:16'),
+(44, 'D20260100014', 'Erwan', 'can', '2026-01-11 04:14:53', '2026-01-11 04:14:53'),
+(45, 'A20260100061', 'Yogi-CE@smg', 'check all', '2026-01-12 02:02:40', '2026-01-12 02:02:40'),
+(46, 'A20260100061', 'Yogi-CE@smg', 'haru diganti layarnya', '2026-01-12 02:09:03', '2026-01-12 02:09:03'),
+(47, 'A20260100061', 'Yogi-CE@smg', 'sparepart tdk ada', '2026-01-12 02:12:13', '2026-01-12 02:12:13'),
+(48, 'A20260100061', 'Yogi-CE@smg', 'seelsai, silakan diambil', '2026-01-12 02:13:36', '2026-01-12 02:13:36'),
+(49, 'A20260100061', 'Maulida-CM', 'cust sudah setuju langsung repair', '2026-01-12 02:18:04', '2026-01-12 02:18:04'),
+(50, 'A20260100061', 'Yogi-CE@smg', 'saya fix lagi', '2026-01-12 02:18:47', '2026-01-12 02:18:47'),
+(51, 'A20260100061', 'Yogi-CE@smg', 'sle3esai', '2026-01-12 02:19:27', '2026-01-12 02:19:27'),
+(52, 'A20260100061', 'Maulida-CM', 'cust cancel', '2026-01-12 02:20:00', '2026-01-12 02:20:00'),
+(53, 'A20260100061', 'Yogi-CE@smg', 'tdk jadi repair', '2026-01-12 02:20:28', '2026-01-12 02:20:28');
 
 -- --------------------------------------------------------
 
@@ -291,13 +317,21 @@ INSERT INTO `services` (`id`, `cof_id`, `branch_id`, `contact`, `received_date`,
 (106, 'C20251200007', 3, 'Company', '2025-12-30', 'finish repair', NULL, NULL, 'Puji', 'puji@gmail.com', 'Jl Gajah 60', '489532948', 'MSI', '9S7-14J112-1237', 'AHDFSIU34589289', 'MSI Thin GF63', 'keyboard tdk fungsi', 'flashdisk', 'keyboard tdk fungsi', 'check all', 'erf_files/ERF_C20251200007_1767084760.pdf', '2025-12-29 21:54:07', '2025-12-30 01:52:42', NULL, NULL),
 (107, 'A20260100059', 1, 'fvdsvkasjkl', '2026-01-06', 'finish repair', '2026-01-06 09:12:12', NULL, 'Winnn', 'winnn@gmail.com', 'hjhjb', '7897', 'dfv', 'UX3405CA', 'vcx xcz', 'ASUS ExpertBook B3', 'jkn', 'fdvdzf', 'nkj', 'nkj', 'erf_files/ERF_A20260100059_1767723439.pdf', '2026-01-05 11:39:32', '2026-01-06 11:17:19', NULL, NULL),
 (108, 'A20260100060', 1, 'Personal', '2026-01-07', 'finish repair', '2026-01-07 01:31:02', '2026-01-07', 'Wahyu', 'wahyu@gmail.com', 'Jl Kelapa 50', '02340830915480', 'Dell', 'JKI56J3', 'SADHH348839Q89', 'Dell Inspiron 14 3000', 'rusak', 'bag', 'rusak', 'check all', 'erf_files/ERF_A20260100060_1767725473.pdf', '2026-01-06 11:20:55', '2026-01-06 18:51:13', NULL, NULL),
-(109, 'E20260100007', 5, 'advfza', '2026-01-07', 'finish repair', NULL, '2026-01-07', 'Skill', 'skill@gmail.com', 'hghjghjg', '98798', 'Acer', 'A514-55G-75BB', 'dsfv', 'Acer Aspire 5 A514-55G-75BB Notebook', 'dfsgvsf', 'dsfrvdf', 'dsfv', 'dvsff', 'erf_files/ERF_E20260100007_1767726109.pdf', '2026-01-06 19:00:42', '2026-01-06 19:01:49', NULL, NULL),
+(109, 'E20260100007', 5, 'advfza', '2026-01-07', 'finish repair', NULL, '2026-01-07', 'Skill', 'skill@gmail.com', 'hghjghjg', '98798', 'Acer', 'A514-55G-75BB', 'dsfv', 'Acer Aspire 5 A514-55G-75BB Notebook', 'dfsgvsf', 'dsfrvdf', 'dsfv', 'dvsff', 'erf_files/ERF_E20260100007_1767726109.pdf', '2026-01-06 19:00:42', '2026-01-08 17:46:17', NULL, NULL),
 (110, 'B20260100004', 2, 'jbkbn', '2026-01-07', 'finish repair', NULL, NULL, 'Samael', 'samael@gmail.com', 'hjbhbj', '9989890', 'HP', 'CE711A', 'CSDNJSDNCJ238430', 'HP Color Laserjet Professional CP577n', 'jbkjhb', 'hhkh', 'dxfv dxsz', 'b', 'erf_files/ERF_B20260100004_1767808309.pdf', '2026-01-07 07:08:46', '2026-01-07 17:51:51', NULL, NULL),
-(111, 'D20260100012', 4, 'jkj', '2026-01-07', 'new', NULL, NULL, 'Liang', 'liang@gmail.com', 'b  jbj', '8789789', 'Asus', 'UX3405CA', 'JAN348RU83Q48', 'ASUS ExpertBook B3', 'hjk', 'jjbjkhb', 'b', 'b', NULL, '2026-01-07 07:21:15', '2026-01-07 07:21:15', NULL, NULL),
+(111, 'D20260100012', 4, 'jkj', '2026-01-07', 'finish repair', NULL, '2026-01-09', 'Liang', 'liang@gmail.com', 'b  jbj', '8789789', 'Asus', 'UX3405CA', 'JAN348RU83Q48', 'ASUS ExpertBook B3', 'hjk', 'jjbjkhb', 'b', 'b', 'erf_files/ERF_D20260100012_1768018814.pdf', '2026-01-07 07:21:15', '2026-01-10 04:20:14', NULL, NULL),
 (112, 'B20260100005', 2, 'jhhbh', '2026-01-07', 'new', NULL, NULL, 'Sarang', 'sarang@gmail.com', 'nkjn', '897878', 'Acer', 'A514-55G-75BB', 'SADFNVZIHI498893', 'Acer Aspire 5 A514-55G-75BB Notebook', 'df vbfx', 'dfsvz', 'dfgv cx', 'check all', NULL, '2026-01-07 09:04:08', '2026-01-07 09:04:08', NULL, NULL),
-(113, 'B20260100006', 2, 'ijji', '2026-01-07', 'new', NULL, NULL, 'Seno', 'seno@gmail.com', 'hjb', '998', 'MSI', '9S7-14J112-1237', 'SDNJ9498T389', 'MSI Thin GF63', 'njnk', 'svdf', 'ihi', 'check all', NULL, '2026-01-07 09:23:22', '2026-01-07 09:23:22', NULL, NULL),
+(113, 'B20260100006', 2, 'ijji', '2026-01-07', 'quotation cancelled', NULL, NULL, 'Seno', 'seno@gmail.com', 'hjb', '998', 'MSI', '9S7-14J112-1237', 'SDNJ9498T389', 'MSI Thin GF63', 'njnk', 'svdf', 'ihi', 'check all', NULL, '2026-01-07 09:23:22', '2026-01-08 17:04:15', NULL, NULL),
 (114, 'B20260100007', 2, 'uhi', '2026-01-07', 'new', NULL, NULL, 'Surya', 'surya@gmail.com', 'hjbhjbh', '988', 'Dell', 'JKI56J3', 'SDNJCNN98R83Q488', 'Dell Inspiron 14 3000', 'jkhjkhk', 'hh', 'h', 'check all', NULL, '2026-01-07 09:51:38', '2026-01-07 09:51:38', NULL, NULL),
-(115, 'B20260100008', 2, 'jjnjkn', '2025-01-31', 'new', NULL, NULL, 'Seojono', 'seojono@gmail.com', 'jjbjbh', '989890', 'HP', 'CE711A', 'SDACH 3894Q3', 'HP Color Laserjet Professional CP577n', 'JKNKN', 'NKJK', 'NKJ', 'NJK', NULL, '2026-01-07 10:36:28', '2026-01-07 10:36:28', NULL, NULL);
+(115, 'B20260100008', 2, 'jjnjkn', '2025-01-31', 'quotation request', NULL, NULL, 'Seojono', 'seojono@gmail.com', 'jjbjbh', '989890', 'HP', 'CE711A', 'SDACH 3894Q3', 'HP Color Laserjet Professional CP577n', 'JKNKN', 'NKJK', 'NKJ', 'NJK', 'erf_files/ERF_B20260100008_1768018374.pdf', '2026-01-07 10:36:28', '2026-01-10 04:12:55', NULL, NULL),
+(116, 'E20260100008', 5, 'bhbjj', '2026-01-10', 'finish repair', NULL, '2026-01-10', 'Dian', 'dian@gmail.com', 'nkjnk', '989', 'Dell', 'JKI56J3', 'KDFJVK39480', 'Dell Inspiron 14 3000', 'hkhuki', 'jkhjkhk', 'h', 'check all', 'erf_files/ERF_E20260100008_1768018052.pdf', '2026-01-10 02:55:22', '2026-01-10 04:07:32', NULL, NULL),
+(117, 'C20260100008', 3, 'kjh', '2026-01-10', 'cancel repair', NULL, NULL, 'Maju', 'maju@gmail.com', 'j', '9888', 'HP', 'HP-PAV-X360', 'ISHADFVH9843', 'HP Pavilion x360 Convertible 14-dy000', 'dfvzs', 'hjbhjhj', 'h', 'hh', NULL, '2026-01-10 04:42:02', '2026-01-11 06:08:21', NULL, NULL),
+(118, 'C20260100009', 3, 'iuuhi', '2026-01-10', 'finish repair', '2026-01-10 23:48:46', '2026-01-10', 'Katana', 'katana@gmail.com', 'nknjn', '78787897', 'MSI', '9S7-14J112-1237', 'SADFNVZIHI498893', 'MSI Thin GF63', 'hgbugbh', 'jhjhjh', NULL, 'jbj', 'erf_files/ERF_C20260100009_1768111737.pdf', '2026-01-10 04:44:58', '2026-01-11 06:08:57', NULL, NULL),
+(119, 'D20260100013', 4, 'iuhh', '2026-01-10', 'new', NULL, NULL, 'Watasi', 'watasi@gmail.com', 'kjnnn', '90808', 'Advan', 'ADV-TAB-VX', 'HSIDHCU893894', 'Advan Sketsa 2 Tablet Android with Stylus', 'hjjhjhjkk', 'hjb', 'jbhjbhbBJHBHJBHJbhjbh', 'check all', NULL, '2026-01-10 04:54:59', '2026-01-10 04:54:59', NULL, NULL),
+(120, 'B20260100009', 2, 'nknj', '2026-01-11', 'finish repair', '2026-01-11 01:07:37', NULL, 'Sidang', 'sidang@gmail.com', 'hjbhjb', '99898', 'HP', 'HP-PAV-X360', 'DSHJB93498Q9', 'HP Pavilion x360 Convertible 14-dy000', 'kjn', 'kjh', 'khk', 'hkjh', 'erf_files/ERF_B20260100009_1768118774.pdf', '2026-01-10 18:06:37', '2026-01-11 08:06:14', NULL, NULL),
+(121, 'E20260100009', 5, 'hukj', '2026-01-11', 'finish repair', '2026-01-11 11:04:13', '2026-01-11', 'Crush', 'crush@gmail.com', 'ihikhki', '8777', 'Apple', 'MAC-AIR-M2', 'DKZJSVFJ94Q88', 'Apple MacBook Air M2 13-inch 2022', 'jknnhhn', 'hgukg', 'fdvz', 'h', 'erf_files/ERF_E20260100009_1768104315.pdf', '2026-01-11 04:01:26', '2026-01-11 04:05:15', NULL, NULL),
+(122, 'D20260100014', 4, 'bhjbhbkj', '2026-01-11', 'cancel repair', '2026-01-11 11:12:39', NULL, 'Dada', 'dada@gmai.com', 'hjbbjb', '876767', 'Aorus', 'GIG-AORUS-15', 'DZFKVJNO8439358', 'Gigabyte AORUS 15 BKF Intel i7-13700H', 'jk', 'k', 'hkjhk', 'hjk', 'erf_files/ERF_D20260100014_1768105487.pdf', '2026-01-11 04:11:00', '2026-01-11 04:24:47', NULL, NULL),
+(123, 'A20260100061', 1, 'Udinus', '2026-01-12', 'cancel repair', '2026-01-12 09:18:47', '2026-01-12', 'Pak Mulsih', 'muslih@gmail.com', 'Imam bnjol', '8495389', 'MSI', '9S7-14J112-1237', 'JFDKZN8935498', 'MSI Thin GF63', 'rusak lcd', 'Charger', 'lcd lecet', 'check all', 'erf_files/ERF_A20260100061_1768184487.pdf', '2026-01-12 02:02:40', '2026-01-12 02:21:27', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -322,10 +356,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `email`, `profile_photo`, `password`, `role`, `branch_id`, `created_at`, `updated_at`) VALUES
-(10, 'Erwan', 'manager@kla.com', 'profile_photos/DTjsPDWTcTR0IVnFkv0IeWHsjGdTzxLDyTw8PfMe.jpg', '$2y$12$eFKoIg.ZXHGimp622Q23S.qCL5fP9KbLmcSzFQlYmOVXYz26Vqemi', 'MASTER', NULL, '2025-10-20 14:50:43', '2025-12-27 08:36:55'),
+(10, 'Erwan', 'manager@kla.com', 'profile_photos/ve865QgXorGdqfNsTFpl83nisUP7EApAYS5GAkZQ.png', '$2y$12$0Ypedt0nyMy371c/MnmNgOfI1v9GzVA9cQPNmG1QO98bLhu9jZ8jK', 'MASTER', NULL, '2025-10-20 14:50:43', '2026-01-11 04:28:02'),
 (11, 'Yogi-CE@smg', 'ce@klasmg.com', 'profile_photos/9wOiNp8kFkKdDt0aBal5ElrIHkDMmWndto8O9Go6.png', '$2y$12$3Yxb9y8WLjRvf9g9uw.AR..1qp/5C32N7U2H/fTHcT9YSXOkBssbO', 'CE', 1, '2025-10-21 14:23:51', '2026-01-06 18:56:32'),
-(12, 'Maulida-CM', 'cm@klamail.com', 'profile_photos/06XjuxdbWGza8TNJ5MH2mCrTUF5OiuPxg4zCjjXU.png', '$2y$12$lQLww12gwXhXw4sxrlWAjOC7d41pNChiGs9o9eJE4gIRJbjLiwJEi', 'CM', NULL, '2025-10-21 14:27:59', '2025-12-27 08:44:27'),
-(14, 'Budi-CE@tgl', 'ce@klatgl.com', 'profile_photos/DJzAPAogMTGQU35hbyQzjjs3a8eEvZVgvWX0ATJi.jpg', '$2y$12$EM6VlO3QEOVHsliisvDZPOxqFyJtLmzF6xxg3pKmIS1XMkRJG2yW.', 'CE', 3, '2025-10-31 12:34:48', '2025-12-27 01:11:18'),
+(12, 'Maulida-CM', 'cm@klamail.com', 'profile_photos/DeejX9GmWYzutEVdDCnisswrtp3NuMfHw60zqcYj.png', '$2y$12$YTr3Tu.bcO5GPxuZWHhIJu7WWrXyvZ/5uywyRQrfde3tqBBG.XixO', 'CM', NULL, '2025-10-21 14:27:59', '2026-01-11 05:58:43'),
+(14, 'Budi-CE@tgl', 'ce@klatgl.com', 'profile_photos/8Ccm4yXCfifOeZVw4Qcn5J4TZeI69cgD4VUrunwA.jpg', '$2y$12$0bnL9z9WeSMP.N5.nLlwruu6Z6dACaEldLieq94HpBQZiYVphdLO6', 'CE', 3, '2025-10-31 12:34:48', '2026-01-11 06:03:56'),
 (15, 'Agus-CE@slw', 'ce@klaslw.com', 'profile_photos/Cug27yKF3xbbwBsnKc6LxW5QkdChFOTBOij224S2.png', '$2y$12$1bT.bwAYanbDeGgHHBS/Cuslxyz5iM5L5KNJiJSqyT0dXgShoQ1Qq', 'CE', 2, '2025-10-31 12:36:45', '2025-12-27 01:11:47'),
 (16, 'Albert-CE@kdr', 'ce@klakdr.com', 'profile_photos/pWOP1hyJy8ooIdEec4fg7SvkwotU3YPjFHF9ZdJr.png', '$2y$12$q3iu7LTngeN.7gQi5YUqZughBrs4sKTnFabaGyoH13.dA/JidVJbC', 'CE', 5, '2025-10-31 12:41:34', '2026-01-06 20:07:41'),
 (17, 'Kevin-CE@pkl', 'ce@klapkl.com', 'profile_photos/id1DrgqxPDyntS4ikmNRljR7g4HhHEXHDwJ8AuL9.png', '$2y$12$HmWSR3Prg5JqptRqnkGGyuv1eZApIpnZqE5Yvq5Iv3UVZtFxTevNG', 'CE', 4, '2025-10-31 12:42:43', '2026-01-05 03:35:28');
@@ -429,7 +463,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `lognote`
 --
 ALTER TABLE `lognote`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -453,7 +487,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `services`
 --
 ALTER TABLE `services`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=116;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=124;
 
 --
 -- AUTO_INCREMENT for table `users`
