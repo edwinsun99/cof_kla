@@ -33,10 +33,12 @@ class ErfController extends Controller
 
  public function logdate(Request $request)
 {
-    $query = Service::query();
+    // ✅ TAMBAH: Filter status 'new' dan 'repair progress' dari awal
+    $query = Service::whereIn('status', ['cancel repair', 'finish repair'])
+                    ->whereNull('erf_file'); // <--- WAJIB supaya case hilang setelah di-upload
 
     // Ambil semua cabang untuk dropdown
-    $branches = \App\Models\Branches::all();
+    $branches = \App\Models\Branches::all(); 
 
     // Ambil input filter
     $branchId = $request->input('branch_id');
@@ -71,6 +73,14 @@ class ErfController extends Controller
         'start_date' => $startDate,
         'end_date' => $endDate
     ]);
+}
+
+    public function print($id)
+{
+    $service = Service::with('branch')->findOrFail($id);
+
+    $pdf = PDF::loadView('pdf.cof', compact('service'));
+    return $pdf->stream('COF_'.$service->cof_id.'.pdf');
 }
 
   public function form($id)

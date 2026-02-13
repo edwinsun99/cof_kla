@@ -1,147 +1,183 @@
 @extends('cm.layout.app')
 
+@section('title', 'Detail Case - ISD 2026')
+
 @section('content')
-<div class="container-fluid">
-    <!-- Header Section with enhanced styling -->
-    <div class="row mb-4">
-        <div class="col-12">
-            <div class="card border-0 shadow-sm bg-gradient" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
-                <div class="card-body py-4">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="d-flex align-items-center">
-                            <div class="bg-white bg-opacity-20 rounded-circle p-3 me-3">
-                                <i class="bi bi-file-earmark-text fs-2"></i>
-                            </div>
-                          <div>
-    <h1 class="mb-1 fw-bold text-purple">Detail Case</h1>
-    <p class="mb-0 text-purple-soft">View and manage case information</p>
-</div>
-                        </div>
-                        
-                       <!-- Action buttons with improved styling -->
-                        <div class="d-flex gap-3">
-                            <a href="#" class="btn btn-success btn-lg shadow-sm position-relative overflow-hidden" style="min-width: 180px;">
-                                <span class="btn-shine"></span>
-                                <i class="bi bi-file-earmark-excel-fill me-2"></i>
-                                <span class="fw-semibold">Ekspor ke Excel</span>
-                                <i class="bi bi-download ms-2"></i>
-                            </a>
-</a>
-<a href="{{ route('case.previewPdf', $case->id) }}" target="_blank"
-   class="btn btn-warning btn-lg shadow-sm position-relative overflow-hidden" style="min-width: 170px;">
-    <span class="btn-shine"></span>
-    <i class="bi bi-eye me-2"></i>
-    <span class="fw-semibold">Preview PDF</span>
-</a>
-
-
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Content Section -->
-    <div class="row">
-        <div class="col-12">
-            <div class="card border-0 shadow-sm">
-                <!-- Custom styled tabs -->
-                <div class="card-header bg-white border-bottom-0 px-4 pt-4 pb-0">
-                    <ul class="nav nav-pills nav-fill" id="caseTab" role="tablist" style="background: #f8f9fa; border-radius: 10px; padding: 5px;">
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link active fw-semibold" id="case-tab" data-bs-toggle="tab" 
-                                data-bs-target="#case" type="button" role="tab" 
-                                style="border-radius: 8px; transition: all 0.3s ease;">
-                                <i class="bi bi-briefcase me-2"></i>
-                                Case Information
-                            </button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link fw-semibold" id="customer-tab" data-bs-toggle="tab" 
-                                data-bs-target="#customer" type="button" role="tab"
-                                style="border-radius: 8px; transition: all 0.3s ease;">
-                                <i class="bi bi-person me-2"></i>
-                                Customer Details
-                            </button>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Tab Content with enhanced layout -->
-                <div class="card-body p-4">
-                    <div class="tab-content" id="caseTabContent">
-                        <div class="tab-pane fade show active" id="case" role="tabpanel" aria-labelledby="case-tab">
-                            @include('cm.partials.detailcase', ['case' => $case])
-                        </div>
-
-                           <!-- Customer Partial -->
-    <div class="tab-pane fade" id="customer" role="tabpanel" aria-labelledby="customer-tab" aria-labelledby="case-tab">
-        @include('cm.partials.detailcust', ['customer' => $case->customer])
-    </div>              
-                   
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 <style>
-/* Custom styles for enhanced appearance */
-.nav-pills .nav-link {
-    color: #398bd3ff;
-    background: transparent;
-}
-
-.nav-pills .nav-link.active {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
-    color: white !important;
-    box-shadow: 0 4px 15px rgba(102, 234, 122, 0.3);
-}
-
-.nav-pills .nav-link:hover:not(.active) {
-    background: rgba(102, 126, 234, 0.1);
-    color: #667eea;
-}
-
-.btn-light:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
-}
-
-.card {
-    border-radius: 15px;
-    overflow: hidden;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .d-flex.justify-content-between {
-        flex-direction: column;
-        gap: 1rem;
+    :root {
+        --primary-purple: #6a0dad;
+        --secondary-purple: #764ba2;
+        --accent-yellow: #ffb800;
+        --soft-bg: #f8f9fa;
+        --glass-white: rgba(255, 255, 255, 0.95);
     }
-    
-    .d-flex.gap-2 {
-        flex-direction: column;
-        width: 100%;
+
+    .main-container {
+        background-color: var(--soft-bg);
+        min-height: 100vh;
+        padding: 30px;
     }
-    
-    .btn-lg {
-        width: 100%;
+
+    /* Header Gradient Modern */
+    .header-card {
+        background: linear-gradient(135deg, var(--primary-purple) 0%, var(--secondary-purple) 100%);
+        border-radius: 20px;
+        padding: 30px;
+        box-shadow: 0 10px 25px rgba(106, 13, 173, 0.15);
+        border: none;
+        margin-bottom: 30px;
     }
-    
-    .nav-pills {
-        flex-direction: column;
+
+    /* Glass Effect Card */
+    .glass-card {
+        background: var(--glass-white);
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+        padding: 25px;
     }
-    
+
+    /* Tab Styling - Modern & Soft */
+    .custom-tabs-wrapper {
+        background: #eeeef6;
+        padding: 6px;
+        border-radius: 15px;
+        margin-bottom: 25px;
+    }
+
     .nav-pills .nav-link {
-        margin-bottom: 5px;
+        color: #666;
+        font-weight: 600;
+        border-radius: 12px !important;
+        padding: 12px 20px;
+        transition: all 0.3s ease;
+        border: none;
     }
-}
+
+    .nav-pills .nav-link.active {
+        background: white !important;
+        color: var(--primary-purple) !important;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08) !important;
+    }
+
+    .nav-pills .nav-link:hover:not(.active) {
+        background: rgba(106, 13, 173, 0.05);
+        color: var(--primary-purple);
+    }
+
+    /* Modern Buttons */
+    .btn-action-custom {
+        border-radius: 12px;
+        padding: 12px 24px;
+        font-weight: 700;
+        border: none;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        text-transform: uppercase;
+        font-size: 13px;
+        letter-spacing: 0.5px;
+    }
+
+    .btn-excel-modern {
+        background: #27ae60;
+        color: white;
+    }
+
+    .btn-excel-modern:hover {
+        background: #219150;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(39, 174, 96, 0.3);
+        color: white;
+    }
+
+    .btn-preview-modern {
+        background: var(--accent-yellow);
+        color: #444;
+    }
+
+    .btn-preview-modern:hover {
+        background: #e6a600;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(255, 184, 0, 0.3);
+        color: #222;
+    }
+
+    /* Icon Circle */
+    .icon-circle {
+        width: 60px;
+        height: 60px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(5px);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .header-card .d-flex { flex-direction: column; text-align: center; }
+        .header-card .d-flex.gap-3 { width: 100%; margin-top: 20px; }
+        .btn-action-custom { width: 100%; justify-content: center; }
+        .nav-pills { flex-direction: column; }
+    }
 </style>
+
+<div class="main-container">
+    <div class="header-card">
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center text-white">
+                <div class="icon-circle me-4">
+                    <i class="bi bi-file-earmark-text fs-2"></i>
+                </div>
+                <div>
+                    <h1 class="mb-1 fw-bold h3">Detail Case #{{ $case->cof_id }}</h1>
+                    <p class="mb-0 opacity-75">Kelola informasi detail dan dokumen perbaikan</p>
+                </div>
+            </div>
+            
+            <div class="d-flex gap-3">
+                <a href="{{ route('case.previewPdf', $case->id) }}" target="_blank" class="btn-action-custom btn-preview-modern shadow-sm">
+                    <i class="bi bi-eye-fill"></i>
+                    <span>Download COF</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="glass-card">
+        <div class="custom-tabs-wrapper">
+            <ul class="nav nav-pills nav-fill" id="caseTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="case-tab" data-bs-toggle="tab" 
+                            data-bs-target="#case" type="button" role="tab" aria-controls="case" aria-selected="true">
+                        <i class="bi bi-info-circle-fill me-2"></i> Case Information
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="customer-tab" data-bs-toggle="tab" 
+                            data-bs-target="#customer" type="button" role="tab" aria-controls="customer" aria-selected="false">
+                        <i class="bi bi-person-badge-fill me-2"></i> Customer Details
+                    </button>
+                </li>
+            </ul>
+        </div>
+
+        <div class="tab-content mt-4" id="caseTabContent">
+            <div class="tab-pane fade show active" id="case" role="tabpanel" aria-labelledby="case-tab">
+                <div class="p-2">
+                    @include('cm.partials.detailcase', ['case' => $case])
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="customer" role="tabpanel" aria-labelledby="customer-tab">
+                <div class="p-2">
+                    @include('cm.partials.detailcust', ['customer' => $case->customer])
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

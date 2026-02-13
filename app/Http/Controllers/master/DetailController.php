@@ -18,34 +18,40 @@ class DetailController extends Controller
     }
 
 
-    public function updateStatus(Request $request, $id)
+   public function updateAll(Request $request, $id)
 {
+    // 1. Validasi gabungan (note dibuat nullable karena CE mungkin hanya ingin ubah status saja)
     $request->validate([
-        'status' => 'required|string'
+        'status' => 'required|string',
+        'note'   => 'nullable|max:500' 
     ]);
+
+    // 2. Ambil data User & Service
+    $user = \Auth::user();
+    if (!$user) {
+        return redirect()->route('login')->with('error', 'Login dulu!');
+    }
 
     $service = Service::findOrFail($id);
 
-    // Update status
     $service->status = $request->status;
-
-    // 🔥 Jika status berubah menjadi "Repair Progress"
-    if ($request->status === 'repair progress') {
-        $service->started_date = now();     // Set otomatis
-    }
-
-     // 🔥 Jika status berubah menjadi "Repair Progress"
-    if ($request->status === 'finish repair') {
-        $service->finished_date = now();     // Set otomatis
-    }
-
     $service->save();
 
-    return redirect()
-        ->route('case.show', $id)
-        ->with('success', 'Status berhasil diperbarui!');
-}
+    // 4. Logika Simpan Note (Hanya jika input 'note' diisi)
+    if ($request->filled('note')) {
+        Lognote::create([
+            'cof_id'     => $service->cof_id,
+            'username'   => $user->username,
+            'logdesc'    => $request->note,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+    }
 
+    return redirect()
+        ->route('master.case.show', $id)
+        ->with('success', 'Case berhasil diperbarui (Status & Note)!');
+}
 
 public function status($id)
 {
@@ -53,25 +59,25 @@ public function status($id)
     return view('master.partials.detailcase', compact('service'));
 }
 
-    public function downloadPdf($id)
-    {
-        $case = Service::findOrFail($id);
 
-        $pdf = Pdf::loadView('master.pdf.cofsummary', compact('case'))
-                  ->setPaper('a4', 'portrait');
-
-        return $pdf->download('COF-'.$case->id.'.pdf');
-    }
 
     public function previewPdf($id)
     {
-        $case = Service::findOrFail($id);
+        $case = Service::with('branch')->findOrFail($id);
 
-        $pdf = Pdf::loadView('master.pdf.cofsummary', compact('case'))
-                  ->setPaper('a4', 'portrait');
+        $branch = $case->branch;
+        $branchName = $branch->name ?? 'Unknown Branch';
 
-        // pakai stream biar tampil di browser
-        return $pdf->stream('COF-'.$case->id.'.pdf');
+        $alamat = [
+            'line1' => $branch->address ?? 'Alamat tidak tersedia',
+            'telp'  => $branch->phone ?? '-',
+        ];
+
+        $pdf = Pdf::loadView('master.pdf.cofsummary', compact('case', 'alamat'));
+
+        $fileName = 'COF_' . $case->cof_id . '_' . str_replace(' ', '_', $branchName) . '.pdf';
+
+        return $pdf->stream($fileName);
     }
 
     public function lognote($id)
@@ -81,30 +87,5 @@ public function status($id)
     $notes = $service->notes()->latest()->get(); // ambil lognote urut terbaru
 
     return view('master.partials.detailcase', compact('service', 'notes'));
-}
-
- public function addNote(Request $request, $id)
-{
-    $request->validate([
-        'note' => 'required|max:500'
-    ]);
-
-    $user = \Auth::user(); // pakai Auth, jangan Session
-    
-    if (!$user) {
-        return redirect()->route('login')->with('error', 'Login dulu!');
-    }
-
-    $service = Service::findOrFail($id);
-
-    Lognote::create([
-        'cof_id' => $service->cof_id, // ini yang benar
-        'username' => $user->username, // gunakan kolom 'un'
-        'logdesc' => $request->note,
-        'created_at' => now(),
-        'updated_at' => now()
-    ]);
-
-    return back()->with('success', 'Note berhasil ditambahkan!');
 }
 }

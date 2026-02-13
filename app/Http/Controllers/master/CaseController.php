@@ -44,6 +44,7 @@ class CaseController extends Controller
     {
         return view('master.newcase'); // newcase.blade.php
     }
+    
     public function logdate(Request $request)
 {
     $query = Service::query();
@@ -132,8 +133,7 @@ public function search(Request $request)
             });
         })
         ->latest() // Saran: Tampilkan yang terbaru di atas
-        ->paginate(2) // WAJIB paginate di sini juga
-        ->withQueryString();
+        ->get();
 
     return view('master.case', [
         'cases'           => $cases,

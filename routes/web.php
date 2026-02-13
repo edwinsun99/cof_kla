@@ -109,18 +109,15 @@ Route::group([], function () {
 
     Route::get('/master/finish/logdate', [MasterFinishController::class, 'logdate']) ->name('finish.logdate');
 
+    Route::get('/master/erf/logdate', [MasterErfController::class, 'logdate']) ->name('selecterf.logdate');
+
     Route::get('/engineer', [MasterEngineerController::class, 'index']) ->name('engineer.index');
 
     Route::get('/quotation-request', [MasterQuotReqController::class, 'index']) ->name('quotreq.index');
 
     Route::get('/quotreq/logdate', [MasterQuotReqController::class, 'logdate'])->name('quotreq.logdate');
 
-                // CM: menu Quotation Request (tampilkan list yang status == 'Quotation Request')
     Route::get('/quotation-appcancl', [MasterQuotAppCancController::class, 'index'])->name('quotreqaoc.index');
-
-                     // CM: menu Quotation Request (tampilkan list yang status == 'Quotation Request')
-    Route::get('/quotation-appcancl/logdate', [CeQuotAppCancController::class, 'logdate'])
-         ->name('quotaorc.logdate');    
 
     Route::get('/select-case-for-erf', [MasterErfController::class, 'selectCase'])
         ->name('erf.select');
@@ -148,19 +145,23 @@ Route::group([], function () {
 
     Route::post('/profile/password', [MasterProfileController::class, 'updatePassword'])
         ->name('profile.password');
+
+        // Gunakan satu route ini untuk menghandle Status Update sekaligus Lognote
+    Route::post('/master/case/{id}/update-all', [App\Http\Controllers\master\DetailController::class, 'updateAll'])
+        ->name('case.updateAll');
     });
 
       // 🔥 ROUTE LOGDATE MASTER (FILTER TANGGAL + FILTER CABANG)
       Route::prefix('master')->name('master.')->group(function () {
 
-          Route::get('/master/case/search', [MasterCaseController::class, 'search'])->name('case.search');
+        Route::get('/master/case/search', [MasterCaseController::class, 'search'])->name('case.search');
 
       });
 
     Route::get('/master/case/logdate', [MasterCaseController::class, 'logdate']) ->name('master.case.logdate');
     Route::get('/newcase', [MasterNewCaseController::class, 'create'])->name('master.newcase');
-    Route::get('/master/case/{id}', [MasterDetailController::class, 'show'])->name('case.show');
-
+    Route::get('/master/engineer/logdate', [MasterEngineerController::class, 'logdate']) ->name('master.engineer.logdate');
+    Route::get('/master/case/{id}', [MasterDetailController::class, 'show'])->name('master.case.show');
     Route::get('/case/{id}/pdf', [MasterDetailController::class, 'downloadPdf'])->name('case.downloadPdf');
     Route::get('/case/{id}/pdf/preview', [MasterDetailController::class, 'previewPdf'])->name('case.previewPdf');
 
@@ -223,6 +224,10 @@ Route::prefix('cm')->name('cm.')->group(function () {
 
     Route::post('/profile/password', [CmProfileController::class, 'updatePassword'])
         ->name('profile.password');
+
+        // Gunakan satu route ini untuk menghandle Status Update sekaligus Lognote
+        Route::post('/cm/case/{id}/update-all', [App\Http\Controllers\cm\DetailController::class, 'updateAll'])
+            ->name('case.updateAll');
 });
 
 // ===========================
@@ -275,6 +280,10 @@ Route::prefix('ce')->group(function () {
 
     Route::get('/case/{id}/erf-download', [CeErfController::class, 'download'])
         ->name('erf.download');
+                             // CM: menu Quotation Request (tampilkan list yang status == 'Quotation Request')
+    Route::get('/quotation-appcancl/logdate', [CeQuotAppCancController::class, 'logdate'])
+         ->name('quotaorc.logdate');    
+
 });
 
    Route::prefix('ce')->name('ce.')->group(function () {

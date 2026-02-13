@@ -36,6 +36,7 @@ class HomeController extends Controller
         // ---------- LINE CHART (MASUK PER BULAN) ----------
         $cases = Service::selectRaw('MONTH(received_date) AS month, COUNT(*) AS total')
             ->whereNotNull('received_date')
+            ->whereYear('received_date', now()->year) // ← TAMBAH INI
             ->groupBy('month')
             ->orderBy('month')
             ->get();

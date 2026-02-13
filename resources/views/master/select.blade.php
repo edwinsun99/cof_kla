@@ -135,33 +135,31 @@
 <div class="container py-4">
     <h3 class="page-title">Pilih Case untuk Upload ERF</h3>
 
-    {{-- FILTER SECTION --}}
-    <div class="glass-card">
-        <form action="{{ route('master.erf.logdate') }}" method="GET" class="row g-3 align-items-end">
-            <div class="col-md-5">
-                <label class="form-label small fw-bold text-muted mb-2 text-uppercase">Select Branch</label>
-                <select name="branch_id" class="form-select filter-input shadow-sm">
-                    <option value="all">Semua Cabang</option>
-                    @foreach ($branches as $branch)
-                        <option value="{{ $branch->id }}" {{ (isset($selected_branch) && $selected_branch == $branch->id) ? 'selected' : '' }}>
-                            {{ $branch->name }}
-                        </option>
-                    @endforeach
-                </select>
-            </div>
-            
-            <div class="col-md-4 d-flex gap-2">
-                <button type="submit" class="btn-modern-purple w-100 shadow-sm">
-                    <i class="fas fa-filter me-2"></i> Apply Filter
-                </button>
-                @if($selected_branch && $selected_branch != 'all')
-                    <a href="{{ route('master.erf.select') }}" class="btn btn-light d-flex align-items-center justify-content-center border" style="border-radius: 12px; width: 60px;">
-                        <i class="fas fa-undo"></i>
-                    </a>
-                @endif
-            </div>
-        </form>
-    </div>
+   {{-- FILTER SECTION --}}
+<div class="glass-card">
+    <form action="{{ route('master.selecterf.logdate') }}" method="GET" class="row g-3 align-items-end">
+        <div class="col-md-9">
+            <label class="form-label small fw-bold text-muted">CABANG</label>
+            <select name="branch_id" class="form-select filter-input">
+                <option value="all">Semua Cabang</option>
+                @foreach ($branches as $branch)
+                    <option value="{{ $branch->id }}" {{ (isset($selected_branch) && $selected_branch == $branch->id) ? 'selected' : '' }}>
+                        {{ $branch->name }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+        
+        <div class="col-md-3 d-flex gap-2">
+            <button type="submit" class="btn-custom w-100 justify-content-center shadow-sm" style="background: var(--primary-purple); color: white;">
+                Apply Filter
+            </button>
+            @if($start_date || $end_date || $selected_branch)
+                <a href="{{ route('master.selecterf.logdate') }}" class="btn btn-light border d-flex align-items-center justify-content-center" style="border-radius: 12px; width: 80px;">Reset</a>
+            @endif
+        </div>
+    </form>
+</div>
 
     {{-- TABLE SECTION --}}
     <div class="table-responsive">
@@ -170,6 +168,7 @@
                 <tr>
                     <th>COF-ID</th>
                     <th>Customer Details</th>
+                    <th>Status</th>
                     <th class="text-end">Aksi</th>
                 </tr>
             </thead>
@@ -182,6 +181,11 @@
                         <td>
                             <span class="customer-name">{{ $c->customer_name }}</span>
                         </td>
+
+                          <td>
+                            <span class="status">{{ $c->status }}</span>
+                        </td>
+
                         <td class="text-end">
                             <a href="{{ route('master.erf.form', $c->id) }}" class="btn btn-sm shadow-sm" style="background: var(--accent-yellow); color: #000; font-weight: 700; border-radius: 10px; padding: 8px 16px;">
                                 <i class="fas fa-upload me-1"></i> Upload ERF

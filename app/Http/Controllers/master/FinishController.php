@@ -4,20 +4,37 @@ namespace App\Http\Controllers\master;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
 use App\Models\Service;
-use App\Excel\CofDataMC;
-use Carbon\Carbon; // <-- ini baris penting
+use App\Models\User;
 use App\Models\Branches;
+use App\Models\CofCounter;
+use App\Services\CofIdGenerator;
+use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon; // <-- ini baris penting
 use Maatwebsite\Excel\Facades\Excel;
+use App\Excel\CofDataMC;
+use Illuminate\Support\Facades\Log;
+use Throwable;
 
 class FinishController extends Controller
 {
-   public function index()
+    protected $cofIdGenerator;
+
+    public function __construct(CofIdGenerator $cofIdGenerator)
+    {
+        $this->cofIdGenerator = $cofIdGenerator;
+    }
+
+    /**
+     * Tampilkan semua case untuk CE sesuai cabangnya.
+     */
+ public function index()
 {
     // Ambil semua branch untuk dropdown
     $branches = \App\Models\Branches::all();
-
-    $cases = Service::where('status', 'finish repair')
+    $cases = Service::where('status', ['finish repair'])
                     ->orderBy('created_at', 'DESC')
                     ->get();
 
@@ -30,25 +47,32 @@ class FinishController extends Controller
     ]);
 }
 
-    public function show($id)
+   private function getEnumValues(string $table, string $column): array
 {
-    $service = Service::findOrFail($id); // pakai modelmu
-    return view('case.show', compact('service'));
-}
+    $row = DB::select(DB::raw("SHOW COLUMNS FROM `{$table}` WHERE Field = '{$column}'"));
 
-
-    // Menampilkan form New Case
-    public function create()
-    {
-        return view('master.newcase'); // newcase.blade.php
+    if (!isset($row[0])) {
+        return [];
     }
 
-    public function logdate(Request $request)
+    $type = $row[0]->Type; // contoh: enum('new','repair progress',...)
+    preg_match("/^enum\((.*)\)$/", $type, $matches);
+
+    if (!isset($matches[1])) {
+        return [];
+    }
+
+    $vals = array_map(function($v){ return trim($v, "'"); }, explode(',', $matches[1]));
+    return $vals;
+}
+    
+public function logdate(Request $request)
 {
-    $query = Service::query();
+    // ✅ TAMBAH: Filter status 'new' dan 'repair progress' dari awal
+    $query = Service::where('status', ['finish repair']);
 
     // Ambil semua cabang untuk dropdown
-    $branches = \App\Models\Branches::all();
+    $branches = \App\Models\Branches::all(); 
 
     // Ambil input filter
     $branchId = $request->input('branch_id');
@@ -74,10 +98,7 @@ class FinishController extends Controller
         $query->whereBetween('received_date', [$startDate, $endDate]);
     }
 
-$cases = $query
-    ->where('status', 'finish repair')   // ⬅️ filter khusus finish repair
-    ->orderByDesc('received_date')
-    ->get();
+    $cases = $query->orderByDesc('received_date')->get();
 
     return view('master.finish', [
         'cases' => $cases,
@@ -88,36 +109,133 @@ $cases = $query
     ]);
 }
 
-public function search(Request $request)
+    public function print($id)
 {
-    $search = $request->input('search');
+    $service = Service::with('branch')->findOrFail($id);
 
-    // Tambahkan ini agar dropdown cabang tidak error
-    $branches = \App\Models\Branches::all();
-
-    $case = Service::query()
-        ->when($search, function ($query, $search) {
-            $query->where('id', $search)
-                  ->orWhere('customer_name', 'like', "%{$search}%")
-                  ->orWhere('serial_number', 'like', "%{$search}%")
-                  ->orWhere('phone_number', 'like', "%{$search}%");
-        })
-        ->get();
-
-    return view('master.finish', [
-        'cases' => $case,
-        'search' => $search,
-        'branches' => $branches,
-        'selected_branch' => 'all',
-        'start_date' => null,
-        'end_date' => null
-    ]);
+    $pdf = PDF::loadView('pdf.cof', compact('service'));
+    return $pdf->stream('COF_'.$service->cof_id.'.pdf');
 }
 
 
-
-public function excel()
+    /**
+     * Detail case berdasarkan ID.
+     */
+    public function show($id)
 {
-    return Excel::download(new CofDataMC, 'Cof Data.xlsx');
+    $service = Service::findOrFail($id);
+    return view('master.finish', compact('service'));
 }
+
+    /**
+     * Form untuk create new case.
+     */
+  
+    /**
+     * Simpan data new case ke database.
+     */
+// public function store(Request $request)
+// {
+//     // ✅ Validasi input
+//     $validated = $request->validate([
+//         'customer_name' => 'required|string|max:100',
+//         'contact' => 'required|string|max:100',
+//         'address' => 'nullable|string|max:500',
+//         'email' => 'required|email|max:255',
+//         'phone_number' => 'nullable|string|max:20',
+//         'received_date' => 'nullable|date',
+//         'started_date' => 'nullable|date',
+//         'finished_date' => 'nullable|date',
+//         'brand' => 'nullable|string|max:255',
+//         'product_number' => 'nullable|string|max:100',
+//         'serial_number' => 'nullable|string|max:100',
+//         'nama_type' => 'nullable|string|max:100',
+//         'fault_description' => 'nullable|string',
+//         'kondisi_unit' => 'nullable|string',
+//         'repair_summary' => 'nullable|string',
+//         'status' => 'required|string',
+//         'erf_file' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
+//     ]);
+
+//     // ✅ Ambil user login berdasarkan session
+//     $username = Session::get('username');
+//     $user = \App\Models\User::where('username', $username)->first();
+
+//     if (!$user) {
+//         return redirect()->route('login')->with('error', 'User tidak ditemukan atau belum login.');
+//     }
+
+//     $branchId = $user->branch_id;
+//     if (!$branchId) {
+//         return back()->with('error', 'Akun CE belum terhubung ke cabang manapun.');
+//     }
+
+//     // ✅ Ambil branch & prefix
+//     $branch = \App\Models\Branches::find($branchId);
+//     $prefix = $branch->prefix ?? 'X'; // fallback prefix kalau null
+
+//     // ✅ Ambil tanggal received (default: hari ini)
+//     $receivedDate = $request->received_date
+//         ? Carbon::parse($request->received_date)
+//         : Carbon::now();
+
+//     $yearMonth = $receivedDate->format('Ym'); // Contoh: 202511
+
+//     // ✅ Cari service terakhir pada bulan & branch yang sama
+//     $lastService = \App\Models\Service::where('branch_id', $branchId)
+//         ->whereYear('received_date', $receivedDate->year)
+//         ->whereMonth('received_date', $receivedDate->month)
+//         ->orderBy('id', 'desc')
+//         ->first();
+
+//     // ✅ Tentukan nomor urut terakhir (5 digit di akhir COF ID)
+//     if ($lastService && preg_match('/\d{5}$/', $lastService->cof_id, $matches)) {
+//         $lastNumber = (int) $matches[0];
+//     } else {
+//         $lastNumber = 0;
+//     }
+
+//     $newNumber = $lastNumber + 1;
+
+//     // ✅ Bentuk COF ID baru: PREFIX + YYYYMM + 5 digit urut
+//     $cofId = sprintf("%s%s%05d", $prefix, $yearMonth, $newNumber);
+
+//     // ✅ Simpan data case baru
+//     $validated['cof_id'] = $cofId;
+//     $validated['branch_id'] = $branchId;
+//     $validated['ce_id'] = $user->id;
+//     $validated['received_date'] = $receivedDate;
+
+//     \App\Models\Service::create($validated);
+
+//     // ✅ Redirect dengan notifikasi sukses
+//     return redirect()->route('ce.case.index')
+//         ->with('success', 'Case berhasil disimpan dengan COF ID: ' . $cofId);
+// }
+
+    public function search(Request $request)
+    {
+        $user = Auth::user();
+        $search = $request->input('search');
+
+        $cases = Service::query()
+            ->where('branch_id', $user->branch_id)
+            ->when($search, function ($query, $search) {
+                $query->where('cof_id', 'like', "%{$search}%")
+                      ->orWhere('customer_name', 'like', "%{$search}%")
+                      ->orWhere('serial_number', 'like', "%{$search}%")
+                      ->orWhere('phone_number', 'like', "%{$search}%");
+            })
+            ->get();
+
+        return view('master.finish', compact('cases', 'search'));
+    }
+
+    /**
+     * Export seluruh data ke Excel.
+     */
+     public function excel()
+    {
+        return Excel::download(new CofDataMC, 'CofData.xlsx');
+    }
 }
